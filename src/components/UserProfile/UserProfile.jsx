@@ -10,13 +10,11 @@ import { useHistory } from "react-router-dom";
 // Material UI imports
 
 
-
 // This function will fetch user profile info:
 // Username, Picture, About Section, Allergies, and Dietary Restrictions,
 // allow for editing user profile info (navigate to user form),
 // and allow for navigation to group info view
 // Both bottom and top nav bar will be available
-
 function UserProfile() {
 
     const dispatch = useDispatch();
@@ -27,6 +25,18 @@ function UserProfile() {
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
     }, [dispatch]);
+
+
+        // will this send user to original user profile form or new page EditProfile?
+    const handleEditProfile = () => {
+        // dispatch to 'SET_EDIT_PROFILE' with payload goes here
+        // This will need an edit_profile reducer
+        // history.push(`edit_profile`)
+    }
+
+    const handleGroupInfo = () => {
+        // history.push(`/group_page`)
+    }
 
     return (
         <>
@@ -49,9 +59,12 @@ function UserProfile() {
                     <h3>My Dietary Restrictions</h3>
                     <h2>{user.dietary_restrictions}</h2>
 
-                
-
                 </section >
+
+            <footer>
+                <button onClick={() => handleEditProfile()}>Edit</button>
+                <button onClick={() => handleGroupInfo()}>Group Info</button>
+            </footer>
     
         </>
     )
