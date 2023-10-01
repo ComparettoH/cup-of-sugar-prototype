@@ -8,7 +8,7 @@
 
 CREATE TABLE "user" (
 	"id" serial NOT NULL,
-	"name" varchar(80) NOT NULL,
+	"username" varchar(80) NOT NULL,
 	"password" varchar(100) NOT NULL UNIQUE,
 	"homemade_pref" BOOLEAN NOT NULL,
 	"group_id" integer NOT NULL,
