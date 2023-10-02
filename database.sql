@@ -5,19 +5,16 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
-
-CREATE TABLE "user" (
+CREATE TABLE "user_profile" (
 	"id" serial NOT NULL,
-	"username" varchar(80) NOT NULL,
-	"password" varchar(100) NOT NULL UNIQUE,
+	"user_id" integer NOT NULL,
+	"name" varchar(80) NOT NULL,
 	"homemade_pref" BOOLEAN NOT NULL,
 	"group_id" integer NOT NULL,
 	"about" TEXT NOT NULL,
 	"imgpath" varchar(200) NOT NULL,
 	"role" integer NOT NULL,
-	"allergies" varchar(400) NOT NULL,
-	"dietary_restrictions" varchar(400) NOT NULL,
-	CONSTRAINT "user_pk" PRIMARY KEY ("id")
+	CONSTRAINT "user_profile_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -60,7 +57,7 @@ CREATE TABLE "offers" (
 
 CREATE TABLE "group" (
 	"id" serial NOT NULL,
-	"name" varchar(50) NOT NULL,
+	"group_name" varchar(50) NOT NULL,
 	"share_location" varchar(100) NOT NULL,
 	CONSTRAINT "group_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -71,7 +68,7 @@ CREATE TABLE "group" (
 
 CREATE TABLE "categories" (
 	"id" serial NOT NULL,
-	"type" varchar(80) NOT NULL,
+	"category_type" varchar(80) NOT NULL,
 	CONSTRAINT "categories_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -82,7 +79,7 @@ CREATE TABLE "categories" (
 CREATE TABLE "allergies" (
 	"id" serial NOT NULL,
 	"user_id" integer NOT NULL,
-	"type" varchar(80) NOT NULL,
+	"allergy_type" varchar(80) NOT NULL,
 	CONSTRAINT "allergies_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -93,7 +90,7 @@ CREATE TABLE "allergies" (
 CREATE TABLE "dietary_restrictions" (
 	"id" serial NOT NULL,
 	"user_id" integer NOT NULL,
-	"type" varchar(80) NOT NULL,
+	"restriction_type" varchar(80) NOT NULL,
 	CONSTRAINT "dietary_restrictions_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -101,18 +98,34 @@ CREATE TABLE "dietary_restrictions" (
 
 
 
-ALTER TABLE "user" ADD CONSTRAINT "user_fk0" FOREIGN KEY ("group_id") REFERENCES "group"("id");
+CREATE TABLE "user" (
+	"id" serial NOT NULL,
+	"username" varchar(80) NOT NULL,
+	"password" varchar(20) NOT NULL UNIQUE,
+	CONSTRAINT "user_pk" PRIMARY KEY ("id")
+) WITH (
+  OIDS=FALSE
+);
 
-ALTER TABLE "requests" ADD CONSTRAINT "requests_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
+
+ALTER TABLE "user_profile" ADD CONSTRAINT "user_profile_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "user_profile" ADD CONSTRAINT "user_profile_fk1" FOREIGN KEY ("group_id") REFERENCES "group"("id");
+
+ALTER TABLE "requests" ADD CONSTRAINT "requests_fk0" FOREIGN KEY ("user_id") REFERENCES "user_profile"("user_id");
 ALTER TABLE "requests" ADD CONSTRAINT "requests_fk1" FOREIGN KEY ("category_id") REFERENCES "categories"("id");
-ALTER TABLE "requests" ADD CONSTRAINT "requests_fk2" FOREIGN KEY ("fulfilled_by_user") REFERENCES "user"("id");
+ALTER TABLE "requests" ADD CONSTRAINT "requests_fk2" FOREIGN KEY ("fulfilled_by_user") REFERENCES "user_profile"("user_id");
 
-ALTER TABLE "offers" ADD CONSTRAINT "offers_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "offers" ADD CONSTRAINT "offers_fk0" FOREIGN KEY ("user_id") REFERENCES "user_profile"("user_id");
 ALTER TABLE "offers" ADD CONSTRAINT "offers_fk1" FOREIGN KEY ("category_id") REFERENCES "categories"("id");
-ALTER TABLE "offers" ADD CONSTRAINT "offers_fk2" FOREIGN KEY ("claimed_by_user") REFERENCES "user"("id");
+ALTER TABLE "offers" ADD CONSTRAINT "offers_fk2" FOREIGN KEY ("claimed_by_user") REFERENCES "user_profile"("user_id");
 
 
 
-ALTER TABLE "allergies" ADD CONSTRAINT "allergies_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "allergies" ADD CONSTRAINT "allergies_fk0" FOREIGN KEY ("user_id") REFERENCES "user_profile"("user_id");
 
-ALTER TABLE "dietary_restrictions" ADD CONSTRAINT "dietary_restrictions_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "dietary_restrictions" ADD CONSTRAINT "dietary_restrictions_fk0" FOREIGN KEY ("user_id") REFERENCES "user_profile"("user_id");
+
+
+
+

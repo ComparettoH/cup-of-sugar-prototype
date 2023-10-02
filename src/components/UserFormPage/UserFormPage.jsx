@@ -86,7 +86,7 @@ function UserFormPage() {
                 </div>
                 <div>
                     <label>
-                        Accept Homemade Items:
+                        Accept Homemade Items: Y
                         <input
                             type="checkbox"
                             checked={acceptsHomemade}
