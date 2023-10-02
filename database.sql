@@ -14,7 +14,9 @@ CREATE TABLE "group" (
 CREATE TABLE "user" (
   	id SERIAL PRIMARY KEY,
     username varchar(80) NOT NULL,
+
     password varchar(1000) NOT NULL,
+
     group_id integer NOT NULL,
     FOREIGN KEY (group_id) REFERENCES "group" (id),
     UNIQUE (username)
