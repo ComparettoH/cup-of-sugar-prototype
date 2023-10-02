@@ -32,23 +32,31 @@ router.get('/', (req, res) => {
 });
 
 //POST to add user profile information
-router.post('/user', rejectUnauthenticated,(req, res) => {
+router.post('/user_profile', rejectUnauthenticated, async (req, res) => {
   const userId = req.user.id
   const userInfo = req.body;
-  console.log('in newUserInfo post', req.body.homemade_pref, req.body.about, req.body.imgpath, req.body.role, req.body.allergies, req.body.dietary_restrictions)
+
+  //Testing console logs
+  console.log('in newUserInfo post', req.body.name, req.body.homemade_pref, req.body.about, req.body.imgpath, req.body.role, req.body.allergy_type, req.body.restriction_type)
   console.log([req.user.id])
   //TBD on if SQL is correct for multiple allergy/dietary restrictions values....
-  const queryText = `INSERT INTO "user_profile"(
-    "user_id", "homemade_pref", "about", "imgpath", "role", "allergies", dietary_restrictions)
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+  const connection = await pool.connect()
+  try{
+    await connection.query('BEGIN');
+    
+    // posts user info
+    const queryText = `INSERT INTO "user_profile"(
+      "user_id", "user_name","homemade_pref", "about", "imgpath", "role")
+      VALUES ($1, $2, $3, $4, $5, $6);`;
+  }
+
     const queryValues = [
       userId,
+      userInfo.name,
       userInfo.homemade_pref,
       userInfo.about,
       userInfo.imgpath,
       userInfo.role,
-      userInfo.allergies,
-      userInfo.dietary_restrictions
     ];
     pool.query(queryText, queryValues)
     .then(() => { res.sendStatus(201) })
