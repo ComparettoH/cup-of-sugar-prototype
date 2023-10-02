@@ -37,6 +37,7 @@ router.post('/user', rejectUnauthenticated,(req, res) => {
   const userInfo = req.body;
   console.log('in newUserInfo post', req.body.homemade_pref, req.body.about, req.body.imgpath, req.body.role, req.body.allergies, req.body.dietary_restrictions)
   console.log([req.user.id])
+  //TBD on if SQL is correct for multiple allergy/dietary restrictions values....
   const queryText = `INSERT INTO "user_profile"(
     "user_id", "homemade_pref", "about", "imgpath", "role", "allergies", dietary_restrictions)
     VALUES ($1, $2, $3, $4, $5, $6, $7);`;
