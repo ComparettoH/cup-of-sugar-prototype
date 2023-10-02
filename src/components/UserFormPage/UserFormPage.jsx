@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
@@ -9,9 +15,11 @@ function UserFormPage() {
     const history = useHistory();
     // State variables to store selected values for allergies and dietary restrictions
     const [userBio, setUserBio] = useState('');
-    const [selectedAllergy, setSelectedAllergy] = useState('');
-    const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState('')
+    const [selectedAllergy, setSelectedAllergy] = useState([]);
+    const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(false);
+
+    
 
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
@@ -23,12 +31,14 @@ function UserFormPage() {
 
     // Function to handle changes in the allergy dropdown
     const handleAllergyChange = (event) => {
-        setSelectedAllergy(event.target.value);
+        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedAllergy(selectedOptions);
     };
 
     // Function to handle changes in the dietary restriction dropdown
     const handleDietaryRestrictionChange = (event) => {
-        setSelectedDietaryRestriction(event.target.value);
+        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedDietaryRestriction(selectedOptions);
     };
 
     // Function to handle changes in the "Y or N" checkbox
@@ -60,7 +70,7 @@ function UserFormPage() {
                 <div>
                     <label htmlFor="allergy">
                         Please select allergies:
-                        <select id="allergy" value={selectedAllergy} onChange={handleAllergyChange}>
+                        <select id="allergy" multiple={true} value={selectedAllergy} onChange={handleAllergyChange}>
                             <option value="">None</option>
                             <option value="nuts">Nuts</option>
                             <option value="dairy">Dairy</option>
@@ -76,7 +86,7 @@ function UserFormPage() {
                 <div>
                     <label htmlFor="dietaryRestriction">
                         Please select dietary restrictions:
-                        <select id="dietaryRestriction" value={selectedDietaryRestriction} onChange={handleDietaryRestrictionChange}>
+                        <select id="dietaryRestriction" multiple={true} value={selectedDietaryRestriction} onChange={handleDietaryRestrictionChange}>
                             <option value="">None</option>
                             <option value="vegetarian">Vegetarian</option>
                             <option value="vegan">Vegan</option>
