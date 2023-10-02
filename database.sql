@@ -5,13 +5,6 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
--- Create database name cup_of_sugar
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-
 CREATE TABLE "group" (
     id SERIAL PRIMARY KEY,
     group_name varchar(50) NOT NULL,
@@ -21,7 +14,7 @@ CREATE TABLE "group" (
 CREATE TABLE "user" (
   	id SERIAL PRIMARY KEY,
     username varchar(80) NOT NULL,
-    password varchar(20) NOT NULL,
+    password varchar(1000) NOT NULL,
     group_id integer NOT NULL,
     FOREIGN KEY (group_id) REFERENCES "group" (id),
     UNIQUE (username)

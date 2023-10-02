@@ -20,6 +20,11 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+import UserFormPage from '../UserFormPage/UserFormPage';
+
+import UserProfile from '../UserProfile/UserProfile';
+
+
 import './App.css';
 
 function App() {
@@ -59,6 +64,23 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+
+            // newly registered user should be directed to this page immediately after registering!
+            exact
+            path="/userform"
+            >
+              <UserFormPage />
+            </ProtectedRoute>
+
+            // logged in shows UserProfile else shows LoginPage
+            exact
+            path="/profile"
+          >
+            <UserProfile />
+          </ProtectedRoute>
+
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
