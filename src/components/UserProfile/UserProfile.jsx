@@ -48,19 +48,19 @@ function UserProfile() {
 
                 <section className="user-profile">
 
-                    <h2>{profile[0].name}</h2>
+                    <h2>{profile[0]?.name}</h2>
 
                     <h3>About Me</h3>
                     {/* This will change to profile reducer */}
-                    <h2>{profile[0].about}</h2>
+                    <h2>{profile[0]?.about}</h2>
 
                     <h3>My Allergies</h3>
                     {/* This will change based on allergy reducer*/}
-                    <h2>{profile[0].allergy_type}</h2>
+                    <h2>{profile[0]?.allergy_type}</h2>
 
                     <h3>My Dietary Restrictions</h3>
                     {/* This will change based on dietary restrictions reducer*/}
-                    <h2>{profile[0].restriction_type}</h2>
+                    <h2>{profile[0]?.restriction_type}</h2>
 
                 </section >
 
