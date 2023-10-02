@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { useState } from 'react'
-import UndoIcon from '@mui/icons-material/Undo';
-import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
-import RedoIcon from '@mui/icons-material/Redo';
+import { BottomNavBar, newFunction } from './BottomNavBar';
 
 
 function Nav() {
   const user = useSelector((store) => store.user);
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
   return (
     <div className="nav">
@@ -41,28 +38,13 @@ function Nav() {
 
             <LogOutButton className="navLink" />
 
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={5}>
-              <BottomNavigation 
-              showLabels
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}>
-                <BottomNavigationAction label='Request' icon={<UndoIcon />} component={Link} to='' />
-                <BottomNavigationAction label='Activity' icon={<ThreeSixtyIcon />} component={Link} to='' />
-                <BottomNavigationAction label='Offer' icon={<RedoIcon />} component={Link} to='' />
-
-              </BottomNavigation>
-            </Paper>
+            <BottomNavBar value={value} setValue={setValue} />
           </>
-        )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+        )};
       </div>
     </div>
   );
-}
+};
 
 export default Nav;
+
