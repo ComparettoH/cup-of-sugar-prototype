@@ -87,14 +87,14 @@ router.put("/", async (req, res) => {
         // updates info on the allergies table
         const sqlUpdateAllergies = `
         UPDATE allergies
-        SET type = $2
+        SET allergy_type = $2
         WHERE id = $1
         ;`
         await connection.query(sqlUpdateAllergies, [id, allergy_type])
         // updates info on the dietary_restrictions table
         const sqlUpdateDietary = `
         UPDATE dietary_restrictions
-        SET type = $2
+        SET restriction_type = $2
         WHERE id = $1
         ;`
         await connection.query(sqlUpdateDietary, [id, restriction_type])

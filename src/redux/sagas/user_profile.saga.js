@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: for User Profile Information/Settings
-function* fetchUserInfo (action) {
+function* setUserInfo (action) {
   try {
     const newUserInfo = yield axios.post('/api/user_profile', action.payload);
     console.log('in user_profile SAGA', newUserInfo)
@@ -14,7 +14,7 @@ function* fetchUserInfo (action) {
 }
 
 function* userInfoSaga() {
-  yield takeLatest('FETCH_USER_INFO', fetchUserInfo);
+  yield takeLatest('SET_USER_INFO', setUserInfo);
 }
 
 export default userInfoSaga;
