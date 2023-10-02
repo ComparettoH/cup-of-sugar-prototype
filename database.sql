@@ -5,7 +5,6 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
-
 CREATE TABLE "group" (
     id SERIAL PRIMARY KEY,
     group_name varchar(50) NOT NULL,
