@@ -20,7 +20,7 @@ function UserProfile() {
     const dispatch = useDispatch();
     const history = useHistory();
     const store = useReduxStore();
-    const user = useSelector((store) => store.user);
+    const profile = useSelector((store) => store.profile);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
@@ -43,24 +43,24 @@ function UserProfile() {
             <header>
                 <h1>Cup of Sugar</h1>
                 {/* TODO: add alternate image if photo is null */}
-                <img src={user.imgpath} />
+                <img src={profile.imgpath} />
             </header>
 
                 <section className="user-profile">
 
-                    <h2>{user.username}</h2>
+                    <h2>{profile[0].name}</h2>
 
                     <h3>About Me</h3>
                     {/* This will change to profile reducer */}
-                    <h2>{user.about}</h2>
+                    <h2>{profile[0].about}</h2>
 
                     <h3>My Allergies</h3>
                     {/* This will change based on allergy reducer*/}
-                    <h2>{user.allergies}</h2>
+                    <h2>{profile[0].allergy_type}</h2>
 
                     <h3>My Dietary Restrictions</h3>
                     {/* This will change based on dietary restrictions reducer*/}
-                    <h2>{user.dietary_restrictions}</h2>
+                    <h2>{profile[0].restriction_type}</h2>
 
                 </section >
 

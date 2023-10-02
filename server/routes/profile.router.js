@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     // sets userCurrent with id
     const userCurrent = req.user.id;
-
+    console.log(userCurrent);
     const connection = await pool.connect()
 
     try {
@@ -18,14 +18,14 @@ router.get("/", async (req, res) => {
         //gets all information for the profile page
         const sqlProfileInfo = `
         SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type   
-        FROM "user_profile" 
+        FROM user_profile 
         JOIN allergies 
-        ON "user_profile".id = allergies."user_id"
+        ON user_profile.user_id = allergies.user_id
         JOIN dietary_restrictions 
-        ON "user_profile".id = dietary_restrictions."user_id"
-        WHERE "user_profile".id = $1
+        ON user_profile.user_id = dietary_restrictions.user_id
+        WHERE user_profile.user_id = $1
         ;`
-        const reply = await connection.query(sqlProfileInfo, [4]);
+        const reply = await connection.query(sqlProfileInfo, [userCurrent]);
         console.log('reply', reply.rows[0])
 
         await connection.query('COMMIT');
