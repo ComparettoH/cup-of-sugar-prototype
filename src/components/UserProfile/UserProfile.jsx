@@ -51,12 +51,15 @@ function UserProfile() {
                     <h2>{user.username}</h2>
 
                     <h3>About Me</h3>
+                    {/* This will change to profile reducer */}
                     <h2>{user.about}</h2>
 
                     <h3>My Allergies</h3>
+                    {/* This will change based on allergy reducer*/}
                     <h2>{user.allergies}</h2>
 
                     <h3>My Dietary Restrictions</h3>
+                    {/* This will change based on dietary restrictions reducer*/}
                     <h2>{user.dietary_restrictions}</h2>
 
                 </section >
