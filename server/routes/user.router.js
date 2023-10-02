@@ -1,9 +1,7 @@
 const express = require('express');
-const {
-  rejectUnauthenticated,
-} = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
+const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
