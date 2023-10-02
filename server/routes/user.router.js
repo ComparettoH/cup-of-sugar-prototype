@@ -1,9 +1,7 @@
 const express = require('express');
-const {
-  rejectUnauthenticated,
-} = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
+const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
@@ -21,6 +19,7 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const group = req.body.group_id;
+
   const queryText = `INSERT INTO "user" (username, password, group_id)
     VALUES ($1, $2, $3) RETURNING id`;
   pool
