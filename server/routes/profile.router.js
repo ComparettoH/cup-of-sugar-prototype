@@ -47,31 +47,31 @@ router.put("/", async (req, res) => {
     // destructures out all the information that will be updated
     const
         [
-            id, 
-            name, 
-            homemade_pref, 
-            about, 
-            imgpath, 
-            allergy_type, 
+            id,
+            name,
+            homemade_pref,
+            about,
+            imgpath,
+            allergy_type,
             restriction_type
         ]
             =
             [
-                req.body.id, 
-                req.body.name, 
-                req.body.homemade_pref, 
-                req.body.about, 
-                req.body.imgpath, 
-                req.body.allergy_type, 
+                req.body.id,
+                req.body.name,
+                req.body.homemade_pref,
+                req.body.about,
+                req.body.imgpath,
+                req.body.allergy_type,
                 req.body.restriction_type
             ]
-            console.log('name, homemade_pref, about, imgpath, allergy_type, restriction_type',    
-            name, 
-            homemade_pref, 
-            about, 
-            imgpath, 
-            allergy_type, 
-            restriction_type)
+    console.log('name, homemade_pref, about, imgpath, allergy_type, restriction_type',
+        name,
+        homemade_pref,
+        about,
+        imgpath,
+        allergy_type,
+        restriction_type)
 
     const connection = await pool.connect()
     try {
@@ -91,7 +91,7 @@ router.put("/", async (req, res) => {
         WHERE id = $1
         ;`
         await connection.query(sqlUpdateAllergies, [id, allergy_type])
-// updates info on the dietary_restrictions table
+        // updates info on the dietary_restrictions table
         const sqlUpdateDietary = `
         UPDATE dietary_restrictions
         SET type = $2
