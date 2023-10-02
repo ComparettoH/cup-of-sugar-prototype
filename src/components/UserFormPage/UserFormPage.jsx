@@ -19,7 +19,7 @@ function UserFormPage() {
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(false);
 
-    
+
 
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
@@ -31,14 +31,14 @@ function UserFormPage() {
 
     // Function to handle changes in the allergy dropdown
     const handleAllergyChange = (event) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setSelectedAllergy(selectedOptions);
+        //const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedAllergy(event.target.value);
     };
 
     // Function to handle changes in the dietary restriction dropdown
     const handleDietaryRestrictionChange = (event) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setSelectedDietaryRestriction(selectedOptions);
+        //const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setSelectedDietaryRestriction(event.target.value);
     };
 
     // Function to handle changes in the "Y or N" checkbox
@@ -68,55 +68,68 @@ function UserFormPage() {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="allergy">
-                        Please select allergies:
-                        <select id="allergy" multiple={true} value={selectedAllergy} onChange={handleAllergyChange}>
-                            <option value="">None</option>
-                            <option value="nuts">Nuts</option>
-                            <option value="dairy">Dairy</option>
-                            <option value="gluten">Gluten</option>
-                            <option value="shellfish">Shellfish</option>
-                            <option value="soy">Soy</option>
-                            <option value="eggs">Eggs</option>
-                            <option value="other">Other (please detail in your profile!)</option>
+                    <FormControl>
+                        <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
+                        <Select
+                            id="allergy"
+                            multiple
+                            value={selectedAllergy}
+                            onChange={handleAllergyChange}
+                            input={<OutlinedInput label="Please select allergies:" />}
+
+                        >
+                            <MenuItem value="none">None</MenuItem>
+                            <MenuItem value="nuts">Nuts</MenuItem>
+                            <MenuItem value="dairy">Dairy</MenuItem>
+                            <MenuItem value="gluten">Gluten</MenuItem>
+                            <MenuItem value="shellfish">Shellfish</MenuItem>
+                            <MenuItem value="soy">Soy</MenuItem>
+                            <MenuItem value="eggs">Eggs</MenuItem>
+                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
                             {/* Add more allergy options as needed */}
-                        </select>
-                    </label>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div>
-                    <label htmlFor="dietaryRestriction">
-                        Please select dietary restrictions:
-                        <select id="dietaryRestriction" multiple={true} value={selectedDietaryRestriction} onChange={handleDietaryRestrictionChange}>
-                            <option value="">None</option>
-                            <option value="vegetarian">Vegetarian</option>
-                            <option value="vegan">Vegan</option>
-                            <option value="glutenFree">Gluten-Free</option>
-                            <option value="dairyFree">Dairy-Free</option>
-                            <option value="halal">Halal</option>
-                            <option value="kosher">Kosher</option>
-                            <option value="other">Other (please detail in your profile!)</option>
+                    <FormControl>
+                        <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
+                        <Select
+                            id="dietaryRestriction"
+                            multiple
+                            value={selectedDietaryRestriction}
+                            onChange={handleDietaryRestrictionChange}
+                            input={<OutlinedInput label="Please select dietary restrictions:" />}
+
+                        >
+                            <MenuItem value="none">None</MenuItem>
+                            <MenuItem value="vegetarian">Vegetarian</MenuItem>
+                            <MenuItem value="vegan">Vegan</MenuItem>
+                            <MenuItem value="glutenFree">Gluten-Free</MenuItem>
+                            <MenuItem value="dairyFree">Dairy-Free</MenuItem>
+                            <MenuItem value="halal">Halal</MenuItem>
+                            <MenuItem value="kosher">Kosher</MenuItem>
+                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
                             {/* Add more dietary restriction options as needed */}
-                        </select>
-                    </label>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div>
                     <label>
                         Accept Homemade Items: Y
-                        <input
-                            type="checkbox"
+                        <Checkbox
                             checked={acceptsHomemade}
                             onChange={handleAcceptsHomemadeChange}
                         />
                     </label>
                 </div>
                 <div>
-                    <button>
+                    <button type="submit">
                         Submit
                     </button>
                 </div>
             </form>
         </>
-    )
+    );
 }
 
 export default UserFormPage;

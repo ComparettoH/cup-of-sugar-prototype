@@ -66,14 +66,14 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-
             // newly registered user should be directed to this page immediately after registering!
             exact
             path="/userform"
-            >
-              <UserFormPage />
-            </ProtectedRoute>
-
+          >
+            <UserFormPage />
+          </ProtectedRoute>
+          
+          <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
             path="/profile"
