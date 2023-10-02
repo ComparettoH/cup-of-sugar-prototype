@@ -17,13 +17,13 @@ router.get("/", async (req, res) => {
         await connection.query('BEGIN');
         //gets all information for the profile page
         const sqlProfileInfo = `
-        SELECT name, homemade_pref, about, imgpath, allergies.type as allergy_type, dietary_restrictions.type as diet_type   
-        FROM "user" 
+        SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type   
+        FROM "user_profile" 
         JOIN allergies 
-        ON "user".id = allergies."user_id"
+        ON "user_profile".id = allergies."user_id"
         JOIN dietary_restrictions 
-        ON "user".id = dietary_restrictions."user_id"
-        WHERE "user".id = $1
+        ON "user_profile".id = dietary_restrictions."user_id"
+        WHERE "user_profile".id = $1
         ;`
         const reply = await connection.query(sqlProfileInfo, [4]);
         console.log('reply', reply.rows[0])
@@ -53,7 +53,7 @@ router.put("/", async (req, res) => {
             about, 
             imgpath, 
             allergy_type, 
-            diet_type
+            restriction_type
         ]
             =
             [
@@ -63,15 +63,15 @@ router.put("/", async (req, res) => {
                 req.body.about, 
                 req.body.imgpath, 
                 req.body.allergy_type, 
-                req.body.diet_type
+                req.body.restriction_type
             ]
-            console.log('name, homemade_pref, about, imgpath, allergy_type, diet_type',    
+            console.log('name, homemade_pref, about, imgpath, allergy_type, restriction_type',    
             name, 
             homemade_pref, 
             about, 
             imgpath, 
             allergy_type, 
-            diet_type)
+            restriction_type)
 
     const connection = await pool.connect()
     try {
@@ -79,25 +79,25 @@ router.put("/", async (req, res) => {
 
         // updates info on the user table
         const sqlUpdateUser = `
-        UPDATE "user"
+        UPDATE "user_profile"
         SET name = $2, homemade_pref = $3, about = $4, imgpath = $5
         WHERE id = $1
         ;`
-        await connection.query(sqlUpdateUser, [4, name, homemade_pref, about, imgpath])
+        await connection.query(sqlUpdateUser, [id, name, homemade_pref, about, imgpath])
         // updates info on the allergies table
         const sqlUpdateAllergies = `
         UPDATE allergies
         SET type = $2
         WHERE id = $1
         ;`
-        await connection.query(sqlUpdateAllergies, [4, allergy_type])
+        await connection.query(sqlUpdateAllergies, [id, allergy_type])
 // updates info on the dietary_restrictions table
         const sqlUpdateDietary = `
         UPDATE dietary_restrictions
         SET type = $2
         WHERE id = $1
         ;`
-        await connection.query(sqlUpdateDietary, [4, diet_type])
+        await connection.query(sqlUpdateDietary, [id, restriction_type])
 
         await connection.query('COMMIT');
         res.sendStatus(200);
