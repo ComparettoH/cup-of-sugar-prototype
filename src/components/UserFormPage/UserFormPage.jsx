@@ -8,6 +8,7 @@ function UserFormPage() {
 
     const history = useHistory();
     // State variables to store selected values for allergies and dietary restrictions
+    const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState('');
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState('')
     const [acceptsHomemade, setAcceptsHomemade] = useState(false);
@@ -15,7 +16,10 @@ function UserFormPage() {
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
         event.preventDefault();
+        console.log("in addUserPic")
     }
+
+
 
     // Function to handle changes in the allergy dropdown
     const handleAllergyChange = (event) => {
@@ -41,20 +45,21 @@ function UserFormPage() {
                     Upload Photo
                 </button>
             </div>
-            <form>
+            <form className='formPanel'>
                 <div>
                     <label htmlFor="about">
                         Tell us a little about yourself:
                         <input
-                            type="text"
+                            type='text'
                             placeholder='Why did you choose Cup Of Sugar?'
-
+                            value={userBio}
+                            required onChange={(event) => setUserBio(event.target.value)}
                         />
                     </label>
                 </div>
                 <div>
                     <label htmlFor="allergy">
-                        Select Allergy:
+                        Please select allergies:
                         <select id="allergy" value={selectedAllergy} onChange={handleAllergyChange}>
                             <option value="">None</option>
                             <option value="nuts">Nuts</option>
@@ -63,14 +68,14 @@ function UserFormPage() {
                             <option value="shellfish">Shellfish</option>
                             <option value="soy">Soy</option>
                             <option value="eggs">Eggs</option>
-                            <option value="other">Other</option>
+                            <option value="other">Other (please detail in your profile!)</option>
                             {/* Add more allergy options as needed */}
                         </select>
                     </label>
                 </div>
                 <div>
                     <label htmlFor="dietaryRestriction">
-                        Select Dietary Restriction:
+                        Please select dietary restrictions:
                         <select id="dietaryRestriction" value={selectedDietaryRestriction} onChange={handleDietaryRestrictionChange}>
                             <option value="">None</option>
                             <option value="vegetarian">Vegetarian</option>
@@ -79,7 +84,7 @@ function UserFormPage() {
                             <option value="dairyFree">Dairy-Free</option>
                             <option value="halal">Halal</option>
                             <option value="kosher">Kosher</option>
-                            <option value="other">Other</option>
+                            <option value="other">Other (please detail in your profile!)</option>
                             {/* Add more dietary restriction options as needed */}
                         </select>
                     </label>
