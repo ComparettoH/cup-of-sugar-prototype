@@ -27,7 +27,7 @@ CREATE TABLE "user" (
     UNIQUE (username)
 );
 
-CREATE TABLE user_profile (
+CREATE TABLE "user_profile" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     name varchar(80) NOT NULL,
@@ -39,12 +39,12 @@ CREATE TABLE user_profile (
     FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
 
-CREATE TABLE categories (
+CREATE TABLE "categories" (
     id SERIAL PRIMARY KEY,
     category_type varchar(80) NOT NULL
 );
 
-CREATE TABLE requests (
+CREATE TABLE "requests" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     category_id integer NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE requests (
     FOREIGN KEY (fulfilled_by_user) REFERENCES user_profile (user_id)
 );
 
-CREATE TABLE offers (
+CREATE TABLE "offers" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     category_id integer NOT NULL,
@@ -74,14 +74,14 @@ CREATE TABLE offers (
     FOREIGN KEY (claimed_by_user) REFERENCES user_profile (user_id)
 );
 
-CREATE TABLE allergies (
+CREATE TABLE "allergies" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     allergy_type varchar(80) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_profile (user_id)
 );
 
-CREATE TABLE dietary_restrictions (
+CREATE TABLE "dietary_restrictions" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
     restriction_type varchar(80) NOT NULL,
