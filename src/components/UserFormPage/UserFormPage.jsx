@@ -24,7 +24,23 @@ function UserFormPage() {
     const [acceptsHomemade, setAcceptsHomemade] = useState(false);
 
 
+    const newProfileHandleSubmit = (event) => {
+        event.preventDefault();
+        console.log("in newProfileHandleSubmit")
 
+        let newProfile = {
+            name: name,
+            homemade_pref: acceptsHomemade,
+            about: userBio,
+            imgpath: userURL,
+            allergy_type: selectedAllergy,
+            restriction_type: selectedDietaryRestriction
+        }
+
+        dispatch({
+            type: 'ADD_USER_PROFILE', payload: newProfile
+        })
+    }
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
         event.preventDefault();
@@ -32,24 +48,6 @@ function UserFormPage() {
         setUserURL(URL.createdObjectURL(event.target.files[0]));
     }
 
-
-
-    // Function to handle changes in the allergy dropdown
-    const handleAllergyChange = (event) => {
-        //const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setSelectedAllergy(event.target.value);
-    };
-
-    // Function to handle changes in the dietary restriction dropdown
-    const handleDietaryRestrictionChange = (event) => {
-        //const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setSelectedDietaryRestriction(event.target.value);
-    };
-
-    // Function to handle changes in the "Y or N" checkbox
-    const handleAcceptsHomemadeChange = (event) => {
-        setAcceptsHomemade(event.target.checked);
-    };
 
     return (
         <>
@@ -61,7 +59,7 @@ function UserFormPage() {
                             type="text"
                             placeholder='Your name here'
                             value={name}
-                            required onChange={(event) => setName(event.target.value)}
+                            onChange={(event) => setName(event.target.value)}
                         />
                     </label>
                 </div>
@@ -70,12 +68,11 @@ function UserFormPage() {
                         Choose an image or photo of yourself:
                         <input
                             type="file"
-                            fullWidth={true}
                             placeholder='Upload URL here'
                             value={userURL}
-                            required onChange={(event) => setUserURL(event.target.value)}
+                            onChange={(event) => addUserPic(event.target.value)}
                         />
-                        <img src={userURL} alt="user image"/>
+                        <img src={userURL} alt="user image" />
 
                         {/* <button className='formBtn' onClick={addUserPic}>
                             Upload Photo
@@ -87,11 +84,10 @@ function UserFormPage() {
                     <label htmlFor="about">
                         Tell us a little about yourself:
                         <input
-                            fullWidth={true}
                             type='text'
                             placeholder='Why did you choose Cup Of Sugar?'
                             value={userBio}
-                            required onChange={(event) => setUserBio(event.target.value)}
+                            onChange={(event) => setUserBio(event.target.value)}
                             sx={{ width: '100%' }}
                         />
                     </label>
@@ -103,9 +99,8 @@ function UserFormPage() {
                             id="allergy"
                             multiple
                             value={selectedAllergy}
-                            onChange={handleAllergyChange}
+                            onChange={(event) => setSelectedAllergy(event.target.value)}
                             input={<OutlinedInput label="Please select allergies:" />}
-
                         >
                             <MenuItem value="none">None</MenuItem>
                             <MenuItem value="nuts">Nuts</MenuItem>
@@ -126,9 +121,8 @@ function UserFormPage() {
                             id="dietaryRestriction"
                             multiple
                             value={selectedDietaryRestriction}
-                            onChange={handleDietaryRestrictionChange}
+                            onChange={(event) => setSelectedDietaryRestriction(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
-
                         >
                             <MenuItem value="none">None</MenuItem>
                             <MenuItem value="vegetarian">Vegetarian</MenuItem>
@@ -147,7 +141,7 @@ function UserFormPage() {
                         Accept Homemade Items: Y
                         <Checkbox
                             checked={acceptsHomemade}
-                            onChange={handleAcceptsHomemadeChange}
+                            onChange={(event) => setAcceptsHomemade(event.target.value)}
                         />
                     </label>
                 </div>
