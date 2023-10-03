@@ -29,6 +29,7 @@ function UserViewGroupPage() {
                 <h4>Sharing location is: </h4>
                 {/* Sharing location name renders here */}
             </div>
+            <form className='formPanel'>
             <div>
                 <h4>Meet your neighbors who are a part of :</h4>
                 <FormControl fullWidth={true}>
@@ -42,6 +43,7 @@ function UserViewGroupPage() {
                     </Select>
                 </FormControl>
             </div>
+            </form>
         </>
     );
 }
