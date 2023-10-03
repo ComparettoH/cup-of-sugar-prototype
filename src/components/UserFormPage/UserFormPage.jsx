@@ -1,51 +1,87 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 function UserFormPage() {
 
+    
+
     const history = useHistory();
+    const dispatch = useDispatch();
+    const errors = useSelector((store) => store.errors);
     // State variables to store selected values for allergies and dietary restrictions
+    const [name, setName] = useState('');
+    const [userURL, setUserURL] = useState('');
     const [userBio, setUserBio] = useState('');
-    const [selectedAllergy, setSelectedAllergy] = useState('');
-    const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState('')
+    const [selectedAllergy, setSelectedAllergy] = useState([]);
+    const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(false);
 
+
+    const newProfileHandleSubmit = (event) => {
+        event.preventDefault();
+        console.log("in newProfileHandleSubmit")
+
+        let newProfile = {
+            name: name,
+            homemade_pref: acceptsHomemade,
+            about: userBio,
+            imgpath: userURL,
+            allergy_type: selectedAllergy,
+            restriction_type: selectedDietaryRestriction
+        }
+
+        dispatch({
+            type: 'ADD_USER_PROFILE', payload: newProfile
+        })
+    }
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
         event.preventDefault();
-        console.log("in addUserPic")
+        console.log("in addUserPic", event.target.files)
+        setUserURL(URL.createdObjectURL(event.target.files[0]));
     }
 
 
-
-    // Function to handle changes in the allergy dropdown
-    const handleAllergyChange = (event) => {
-        setSelectedAllergy(event.target.value);
-    };
-
-    // Function to handle changes in the dietary restriction dropdown
-    const handleDietaryRestrictionChange = (event) => {
-        setSelectedDietaryRestriction(event.target.value);
-    };
-
-    // Function to handle changes in the "Y or N" checkbox
-    const handleAcceptsHomemadeChange = (event) => {
-        setAcceptsHomemade(event.target.checked);
-    };
-
     return (
         <>
-            <div>
-                {/* username here */}
-                {/* img url here */}
-                <button className='formBtn' onClick={addUserPic}>
-                    Upload Photo
-                </button>
-            </div>
             <form className='formPanel'>
+                <div>
+                    <label htmlFor='name'>
+                        Name
+                        <input
+                            type="text"
+                            placeholder='Your name here'
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='image'>
+                        Choose an image or photo of yourself:
+                        <input
+                            type="file"
+                            placeholder='Upload URL here'
+                            value={userURL}
+                            onChange={(event) => addUserPic(event.target.value)}
+                        />
+                        <img src={userURL} alt="user image" />
+
+                        {/* <button className='formBtn' onClick={addUserPic}>
+                            Upload Photo
+                        </button> */}
+                    </label>
+                </div>
+
                 <div>
                     <label htmlFor="about">
                         Tell us a little about yourself:
@@ -53,60 +89,72 @@ function UserFormPage() {
                             type='text'
                             placeholder='Why did you choose Cup Of Sugar?'
                             value={userBio}
-                            required onChange={(event) => setUserBio(event.target.value)}
+                            onChange={(event) => setUserBio(event.target.value)}
+                            sx={{ width: '100%' }}
                         />
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="allergy">
-                        Please select allergies:
-                        <select id="allergy" value={selectedAllergy} onChange={handleAllergyChange}>
-                            <option value="">None</option>
-                            <option value="nuts">Nuts</option>
-                            <option value="dairy">Dairy</option>
-                            <option value="gluten">Gluten</option>
-                            <option value="shellfish">Shellfish</option>
-                            <option value="soy">Soy</option>
-                            <option value="eggs">Eggs</option>
-                            <option value="other">Other (please detail in your profile!)</option>
+                    <FormControl fullWidth={true}>
+                        <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
+                        <Select
+                            id="allergy"
+                            multiple
+                            value={selectedAllergy}
+                            onChange={(event) => setSelectedAllergy(event.target.value)}
+                            input={<OutlinedInput label="Please select allergies:" />}
+                        >
+                            <MenuItem value="none">None</MenuItem>
+                            <MenuItem value="nuts">Nuts</MenuItem>
+                            <MenuItem value="dairy">Dairy</MenuItem>
+                            <MenuItem value="gluten">Gluten</MenuItem>
+                            <MenuItem value="shellfish">Shellfish</MenuItem>
+                            <MenuItem value="soy">Soy</MenuItem>
+                            <MenuItem value="eggs">Eggs</MenuItem>
+                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
                             {/* Add more allergy options as needed */}
-                        </select>
-                    </label>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div>
-                    <label htmlFor="dietaryRestriction">
-                        Please select dietary restrictions:
-                        <select id="dietaryRestriction" value={selectedDietaryRestriction} onChange={handleDietaryRestrictionChange}>
-                            <option value="">None</option>
-                            <option value="vegetarian">Vegetarian</option>
-                            <option value="vegan">Vegan</option>
-                            <option value="glutenFree">Gluten-Free</option>
-                            <option value="dairyFree">Dairy-Free</option>
-                            <option value="halal">Halal</option>
-                            <option value="kosher">Kosher</option>
-                            <option value="other">Other (please detail in your profile!)</option>
+                    <FormControl fullWidth={true}>
+                        <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
+                        <Select
+                            id="dietaryRestriction"
+                            multiple
+                            value={selectedDietaryRestriction}
+                            onChange={(event) => setSelectedDietaryRestriction(event.target.value)}
+                            input={<OutlinedInput label="Please select dietary restrictions:" />}
+                        >
+                            <MenuItem value="none">None</MenuItem>
+                            <MenuItem value="vegetarian">Vegetarian</MenuItem>
+                            <MenuItem value="vegan">Vegan</MenuItem>
+                            <MenuItem value="glutenFree">Gluten-Free</MenuItem>
+                            <MenuItem value="dairyFree">Dairy-Free</MenuItem>
+                            <MenuItem value="halal">Halal</MenuItem>
+                            <MenuItem value="kosher">Kosher</MenuItem>
+                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
                             {/* Add more dietary restriction options as needed */}
-                        </select>
-                    </label>
+                        </Select>
+                    </FormControl>
                 </div>
                 <div>
                     <label>
                         Accept Homemade Items: Y
-                        <input
-                            type="checkbox"
+                        <Checkbox
                             checked={acceptsHomemade}
-                            onChange={handleAcceptsHomemadeChange}
+                            onChange={(event) => setAcceptsHomemade(event.target.value)}
                         />
                     </label>
                 </div>
                 <div>
-                    <button>
+                    <button type="submit">
                         Submit
                     </button>
                 </div>
             </form>
         </>
-    )
+    );
 }
 
 export default UserFormPage;

@@ -17,6 +17,29 @@ function* fetchUserProfile() {
 
 }
 
+
+function* updateProfile (action) {
+    try {
+        const config = {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true,
+        };
+        yield axios ({
+            method: 'PUT',
+            url: 'api/profile', 
+            config,
+            data: action.payload
+        });
+        yield put({ 
+            type: 'FETCH_USER_PROFILE'
+        });
+    } catch (error) {
+        console.log('updateProfile request failed', error)
+
+    }
+}
+
+
 // This is a worker Saga: will be fired upon 'ADD_USER_PROFILE' actions
 // Creates new user profile preferences and information to user_profile table in database
 function* setUserInfo (action) {
@@ -32,8 +55,8 @@ function* setUserInfo (action) {
 
 function* profileSaga() {
     yield takeLatest('FETCH_USER_PROFILE', fetchUserProfile);
-    yield takeLatest('ADD_USER_PROFILE', setUserInfo);
-
+    yield takeLatest('UPDATE_PROFILE', updateProfile);
+   yield takeLatest('ADD_USER_PROFILE', setUserInfo);
 };
 
 export default profileSaga;

@@ -19,13 +19,15 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RequestFormPage from '../RequestFormPage/RequestFormPage';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
-
+import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 
-
 import './App.css';
+import HowItWorks from '../HowItWorks/HowItWorks';
+import EditProfile from '../EditProfile/EditProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -57,12 +59,21 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+          
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
             path="/user"
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/howitworks"
+          >
+            <HowItWorks />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -80,6 +91,30 @@ function App() {
             path="/profile"
           >
             <UserProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserProfile else shows LoginPage
+            exact
+            path="/editprofile"
+          >
+            <EditProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/usergroup"
+          >
+            <UserViewGroupPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestform"
+          >
+              <RequestFormPage />
           </ProtectedRoute>
 
 
