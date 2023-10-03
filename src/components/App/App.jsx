@@ -19,9 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RequestFormPage from '../RequestFormPage/RequestFormPage';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
-
+import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 
 
@@ -66,13 +67,12 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-
             // newly registered user should be directed to this page immediately after registering!
             exact
             path="/userform"
-            >
-              <UserFormPage />
-            </ProtectedRoute>
+          >
+            <UserFormPage />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
@@ -80,6 +80,22 @@ function App() {
             path="/profile"
           >
             <UserProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/usergroup"
+          >
+            <UserViewGroupPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestform"
+          >
+              <RequestFormPage />
           </ProtectedRoute>
 
 

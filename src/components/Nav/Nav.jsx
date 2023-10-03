@@ -13,7 +13,7 @@ function Nav() {
     <div className="nav-top">
       <TopNavBar/>
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <h2 className="nav-title">Cup Of Sugar</h2>
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
