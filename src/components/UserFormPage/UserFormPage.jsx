@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function UserFormPage() {
 
+    
+
     const history = useHistory();
     // State variables to store selected values for allergies and dietary restrictions
     const [userBio, setUserBio] = useState('');
