@@ -19,8 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RequestFormPage from '../RequestFormPage/RequestFormPage';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
+import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 
 import './App.css';
@@ -82,6 +84,7 @@ function App() {
             >
               <UserFormPage />
             </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
@@ -89,6 +92,7 @@ function App() {
           >
             <UserProfile />
           </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
@@ -96,6 +100,23 @@ function App() {
           >
             <EditProfile />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/usergroup"
+          >
+            <UserViewGroupPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestform"
+          >
+              <RequestFormPage />
+          </ProtectedRoute>
+
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

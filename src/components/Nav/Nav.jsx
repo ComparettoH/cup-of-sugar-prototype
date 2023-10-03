@@ -5,6 +5,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
 import { BottomNavBar, newFunction } from './BottomNavBar';
+import TopNavBar from '../TopNavBar/TopNavBar';
 
 
 function Nav() {
@@ -12,9 +13,11 @@ function Nav() {
   const [value, setValue] = useState(0);
 
   return (
-    <div className="nav">
+
+    <div className="nav-top">
+      <TopNavBar/>
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <h2 className="nav-title">Cup Of Sugar</h2>
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
