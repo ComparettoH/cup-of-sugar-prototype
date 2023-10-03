@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import { useState } from 'react'
+import { BottomNavBar, newFunction } from './BottomNavBar';
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const [value, setValue] = useState(0);
 
   return (
     <div className="nav">
@@ -33,15 +37,14 @@ function Nav() {
             </Link>
 
             <LogOutButton className="navLink" />
+
+            <BottomNavBar value={value} setValue={setValue} />
           </>
         )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );
-}
+};
 
 export default Nav;
+

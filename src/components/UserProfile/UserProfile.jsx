@@ -1,0 +1,85 @@
+// React and Redux imports 
+import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import useReduxStore from '../../hooks/useReduxStore';
+import { useHistory } from "react-router-dom";
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+
+
+
+// CSS import
+
+// Material UI imports
+
+
+// This function will fetch user profile info:
+// Username, Picture, About Section, Allergies, and Dietary Restrictions,
+// allow for editing user profile info (navigate to user form),
+// and allow for navigation to group info view
+// Both bottom and top nav bar will be available
+function UserProfile() {
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const store = useReduxStore();
+    const profile = useSelector((store) => store.profile);
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_USER_PROFILE' });
+    }, [dispatch]);
+
+
+        // will this send user to original user profile form or new page EditProfile?
+    const linkEditProfile = () => {
+        // dispatch to 'SET_EDIT_PROFILE' with payload goes here
+        // This will need an edit_profile reducer
+        // history.push(`edit_profile`)
+        dispatch({ type: 'SET_EDIT_PROFILE', payload: profile })
+        // navigate to editprofile page
+        history.push('/editprofile')
+
+    }
+
+    const handleGroupInfo = () => {
+        // history.push(`/group_page`)
+    }
+
+    return (
+        <>
+        <Box>
+            <header>
+                <Typography variant="h3">Cup of Sugar</Typography>
+                <Avatar alt='Profile Picture'src={profile.imgpath} />
+            </header>
+
+                <section className="user-profile">
+
+                    <Typography variant="h4">{profile[0]?.name}</Typography>
+
+                    <Typography variant="h5">About Me</Typography>
+                    <Typography variant="h6">{profile[0]?.about}</Typography>
+
+                    <Typography variant="h5">My Allergies</Typography>
+                    <Typography variant="h6">{profile[0]?.allergy_type}</Typography>
+
+                    <Typography variant="h5">My Dietary Restrictions</Typography>
+                    <Typography variant="h6">{profile[0]?.restriction_type}</Typography>
+
+                </section >
+
+            <footer>
+                <Button variant="outlined" onClick={() => linkEditProfile()}>Edit</Button>
+                <Button variant="outlined" onClick={() => handleGroupInfo()}>Group Info</Button>
+            </footer>
+        </Box>
+        </>
+    )
+
+};
+
+export default UserProfile;
