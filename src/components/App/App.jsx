@@ -74,6 +74,7 @@ function App() {
               <UserFormPage />
             </ProtectedRoute>
 
+          <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
             path="/profile"

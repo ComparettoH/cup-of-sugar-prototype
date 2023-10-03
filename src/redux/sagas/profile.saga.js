@@ -17,9 +17,22 @@ function* fetchUserProfile() {
 
 }
 
+// This is a worker Saga: will be fired upon 'ADD_USER_PROFILE' actions
+// Creates new user profile preferences and information to user_profile table in database
+function* setUserInfo (action) {
+    try {
+      const newUserInfo = yield axios.post('/api/profile', action.payload);
+      console.log('in user_profile SAGA', newUserInfo)
+      yield put({ type: 'CREATE_USER_PROFILE', payload: newUserInfo.data});
+    }
+    catch (error) {
+      console.log(`User's profile information POST request failed`, error);
+    }
+  }
 
 function* profileSaga() {
     yield takeLatest('FETCH_USER_PROFILE', fetchUserProfile);
+    yield takeLatest('ADD_USER_PROFILE', setUserInfo);
 
 };
 
