@@ -40,7 +40,69 @@ router.get("/", async (req, res) => {
     }
 });
 
-module.exports = router;
+//POST to add user profile information and preferences to user_profile table in DB
+router.post('/', async (req, res) => {
+    const userId = req.user.id
+    const [
+      name,
+      homemade_pref,
+      about,
+      imgpath,
+      allergy_type,
+      restriction_type
+    ]
+      =
+      [
+        req.body.name,
+        req.body.homemade_pref,
+        req.body.about,
+        req.body.imgpath,
+        req.body.allergy_type,
+        req.body.restriction_type
+      ]
+  
+    //Testing console logs
+    console.log('in newUserInfo post', name, homemade_pref, about, imgpath, allergy_type, restriction_type)
+    console.log(userId)
+  
+    const connection = await pool.connect()
+    try {
+      await connection.query('BEGIN');
+  
+      // posts user info on user_profile table
+      const sqlUserInfo = `INSERT INTO "user_profile"
+      ("user_id", "name","homemade_pref", "about", "imgpath")
+        VALUES ($1, $2, $3, $4, $5);`
+      
+      await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath])
+      //posts user allergy selections to allergies table
+      const sqlUserAllergies = 
+      `INSERT INTO "allergies"
+      ("user_id", "allergy_type")
+      VALUES ($1, $2);`
+  
+      await connection.query(sqlUserAllergies, [userId, allergy_type])
+      //posts user dietary_restrictions to dietary_restrictions table
+      const sqlUserDietary =
+      `INSERT INTO "dietary_restrictions"
+      ("user_id", "restriction_type")
+      VALUES ($1, $2);`
+  
+    await connection.query(sqlUserDietary, [userId, restriction_type])
+  
+      await connection.query('COMMIT');
+      res.sendStatus(200);
+    }
+    catch (err) {
+      await connection.query('ROLLBACK');
+      console.log(' Transaction Error - completing POST userInfo query', err);
+      res.sendStatus(500)
+    }
+    finally {
+      connection.release()
+    }
+  });
+
 
 // PUT route to make changes to title, descripotion and tags of clip
 router.put("/", async (req, res) => {
@@ -109,3 +171,5 @@ router.put("/", async (req, res) => {
         connection.release()
     }
 });
+
+module.exports = router;

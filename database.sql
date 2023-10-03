@@ -80,3 +80,13 @@ CREATE TABLE "dietary_restrictions" (
     restriction_type varchar(80) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user_profile (user_id)
 );
+
+--Dummy Data
+INSERT INTO "group" (group_name, share_location)
+VALUES ('Elm Apartments', 'Rec Room');
+
+INSERT INTO "allergies" (allergy_type)
+VALUES ('None'), ('Nuts'), ('Dairy'), ('Gluten'), ('Shellfish'), ('Soy'), ('Eggs'), ('Other');
+
+INSERT INTO "dietary_restrictions" (restriction_type)
+VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('Kosher'), ('Other');
