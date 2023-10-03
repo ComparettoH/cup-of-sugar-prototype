@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RequestFormPage from '../RequestFormPage/RequestFormPage';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
@@ -87,6 +88,14 @@ function App() {
             path="/usergroup"
           >
             <UserViewGroupPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestform"
+          >
+              <RequestFormPage />
           </ProtectedRoute>
 
 
