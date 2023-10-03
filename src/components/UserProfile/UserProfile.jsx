@@ -35,10 +35,14 @@ function UserProfile() {
 
 
         // will this send user to original user profile form or new page EditProfile?
-    const handleEditProfile = () => {
+    const linkEditProfile = () => {
         // dispatch to 'SET_EDIT_PROFILE' with payload goes here
         // This will need an edit_profile reducer
         // history.push(`edit_profile`)
+        dispatch({ type: 'SET_EDIT_PROFILE', payload: profile })
+        // navigate to editprofile page
+        history.push('/editprofile')
+
     }
 
     const handleGroupInfo = () => {
@@ -69,7 +73,7 @@ function UserProfile() {
                 </section >
 
             <footer>
-                <Button variant="outlined" onClick={() => handleEditProfile()}>Edit</Button>
+                <Button variant="outlined" onClick={() => linkEditProfile()}>Edit</Button>
                 <Button variant="outlined" onClick={() => handleGroupInfo()}>Group Info</Button>
             </footer>
         </Box>

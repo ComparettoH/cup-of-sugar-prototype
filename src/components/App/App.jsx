@@ -23,9 +23,9 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserProfile from '../UserProfile/UserProfile';
 
-
 import './App.css';
 import HowItWorks from '../HowItWorks/HowItWorks';
+import EditProfile from '../EditProfile/EditProfile';
 
 function App() {
   const dispatch = useDispatch();
@@ -89,7 +89,13 @@ function App() {
           >
             <UserProfile />
           </ProtectedRoute>
-
+          <ProtectedRoute
+            // logged in shows UserProfile else shows LoginPage
+            exact
+            path="/editprofile"
+          >
+            <EditProfile />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

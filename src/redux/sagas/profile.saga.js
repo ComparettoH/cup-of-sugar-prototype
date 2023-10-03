@@ -17,10 +17,31 @@ function* fetchUserProfile() {
 
 }
 
+function* updateProfile (action) {
+    try {
+        const config = {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true,
+        };
+        yield axios ({
+            method: 'PUT',
+            url: 'api/profile', 
+            config,
+            data: action.payload
+        });
+        yield put({ 
+            type: 'FETCH_USER_PROFILE'
+        });
+    } catch (error) {
+        console.log('updateProfile request failed', error)
+
+    }
+}
+
 
 function* profileSaga() {
     yield takeLatest('FETCH_USER_PROFILE', fetchUserProfile);
-
+    yield takeLatest('UPDATE_PROFILE', updateProfile);
 };
 
 export default profileSaga;
