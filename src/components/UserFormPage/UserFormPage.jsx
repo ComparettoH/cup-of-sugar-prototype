@@ -60,15 +60,17 @@ function UserFormPage() {
                     <label htmlFor="about">
                         Tell us a little about yourself:
                         <input
+                            fullWidth={true}
                             type='text'
                             placeholder='Why did you choose Cup Of Sugar?'
                             value={userBio}
                             required onChange={(event) => setUserBio(event.target.value)}
+                            sx={{ width: '100%' }}
                         />
                     </label>
                 </div>
                 <div>
-                    <FormControl>
+                    <FormControl fullWidth={true}>
                         <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
                         <Select
                             id="allergy"
@@ -91,7 +93,7 @@ function UserFormPage() {
                     </FormControl>
                 </div>
                 <div>
-                    <FormControl>
+                    <FormControl fullWidth={true}>
                         <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
                         <Select
                             id="dietaryRestriction"

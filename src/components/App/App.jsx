@@ -21,7 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
-
+import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 
 
@@ -72,13 +72,21 @@ function App() {
           >
             <UserFormPage />
           </ProtectedRoute>
-          
+
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
             path="/profile"
           >
             <UserProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/usergroup"
+          >
+            <UserViewGroupPage />
           </ProtectedRoute>
 
 
