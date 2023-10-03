@@ -4,6 +4,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+
+
 
 // CSS import
 
@@ -20,7 +27,7 @@ function UserProfile() {
     const dispatch = useDispatch();
     const history = useHistory();
     const store = useReduxStore();
-    const user = useSelector((store) => store.user);
+    const profile = useSelector((store) => store.profile);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
@@ -28,10 +35,14 @@ function UserProfile() {
 
 
         // will this send user to original user profile form or new page EditProfile?
-    const handleEditProfile = () => {
+    const linkEditProfile = () => {
         // dispatch to 'SET_EDIT_PROFILE' with payload goes here
         // This will need an edit_profile reducer
         // history.push(`edit_profile`)
+        dispatch({ type: 'SET_EDIT_PROFILE', payload: profile })
+        // navigate to editprofile page
+        history.push('/editprofile')
+
     }
 
     const handleGroupInfo = () => {
@@ -40,35 +51,32 @@ function UserProfile() {
 
     return (
         <>
+        <Box>
             <header>
-                <h1>Cup of Sugar</h1>
-                {/* TODO: add alternate image if photo is null */}
-                <img src={user.imgpath} />
+                <Typography variant="h3">Cup of Sugar</Typography>
+                <Avatar alt='Profile Picture'src={profile.imgpath} />
             </header>
 
                 <section className="user-profile">
 
-                    <h2>{user.username}</h2>
+                    <Typography variant="h4">{profile[0]?.name}</Typography>
 
-                    <h3>About Me</h3>
-                    {/* This will change to profile reducer */}
-                    <h2>{user.about}</h2>
+                    <Typography variant="h5">About Me</Typography>
+                    <Typography variant="h6">{profile[0]?.about}</Typography>
 
-                    <h3>My Allergies</h3>
-                    {/* This will change based on allergy reducer*/}
-                    <h2>{user.allergies}</h2>
+                    <Typography variant="h5">My Allergies</Typography>
+                    <Typography variant="h6">{profile[0]?.allergy_type}</Typography>
 
-                    <h3>My Dietary Restrictions</h3>
-                    {/* This will change based on dietary restrictions reducer*/}
-                    <h2>{user.dietary_restrictions}</h2>
+                    <Typography variant="h5">My Dietary Restrictions</Typography>
+                    <Typography variant="h6">{profile[0]?.restriction_type}</Typography>
 
                 </section >
 
             <footer>
-                <button onClick={() => handleEditProfile()}>Edit</button>
-                <button onClick={() => handleGroupInfo()}>Group Info</button>
+                <Button variant="outlined" onClick={() => linkEditProfile()}>Edit</Button>
+                <Button variant="outlined" onClick={() => handleGroupInfo()}>Group Info</Button>
             </footer>
-    
+        </Box>
         </>
     )
 
