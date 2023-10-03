@@ -13,7 +13,11 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 function UserFormPage() {
 
     const history = useHistory();
+    const dispatch = useDispatch();
+    const errors = useSelector((store) => store.errors);
     // State variables to store selected values for allergies and dietary restrictions
+    const [name, setName] = useState('');
+    const [userURL, setUserURL] = useState('');
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
@@ -24,7 +28,8 @@ function UserFormPage() {
     //function that will upload photo to input field or activate in-app camera
     const addUserPic = (event) => {
         event.preventDefault();
-        console.log("in addUserPic")
+        console.log("in addUserPic", event.target.files)
+        setUserURL(URL.createdObjectURL(event.target.files[0]));
     }
 
 
@@ -48,14 +53,36 @@ function UserFormPage() {
 
     return (
         <>
-            <div>
-                {/* username here */}
-                {/* img url here */}
-                <button className='formBtn' onClick={addUserPic}>
-                    Upload Photo
-                </button>
-            </div>
             <form className='formPanel'>
+                <div>
+                    <label htmlFor='name'>
+                        Name
+                        <input
+                            type="text"
+                            placeholder='Your name here'
+                            value={name}
+                            required onChange={(event) => setName(event.target.value)}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label htmlFor='image'>
+                        Choose an image or photo of yourself:
+                        <input
+                            type="file"
+                            fullWidth={true}
+                            placeholder='Upload URL here'
+                            value={userURL}
+                            required onChange={(event) => setUserURL(event.target.value)}
+                        />
+                        <img src={userURL} alt="user image"/>
+
+                        {/* <button className='formBtn' onClick={addUserPic}>
+                            Upload Photo
+                        </button> */}
+                    </label>
+                </div>
+
                 <div>
                     <label htmlFor="about">
                         Tell us a little about yourself:

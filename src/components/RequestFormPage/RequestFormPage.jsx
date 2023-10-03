@@ -50,6 +50,14 @@ function RequestFormPage() {
                         onChange={handleItemCategorySelection}
                         input={<OutlinedInput label="Select from categories:" />}
                         >
+                            <MenuItem value="produce">Produce</MenuItem>
+                            <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
+                            <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
+                            <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
+                            <MenuItem value="prepFood">Prepared Food</MenuItem>
+                            <MenuItem value="dryGoods">Dry Goods</MenuItem>
+                            <MenuItem value="nonPerishables">Non-perishables</MenuItem>
+                            <MenuItem value="other">Other</MenuItem>
                         </Select>
                     </FormControl>
                 </label>
