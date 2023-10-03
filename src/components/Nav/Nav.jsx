@@ -40,7 +40,7 @@ function Nav() {
 
             <BottomNavBar value={value} setValue={setValue} />
           </>
-        )};
+        )}
       </div>
     </div>
   );
