@@ -12,6 +12,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import MaterialTheme from '../MaterialTheme/MaterialTheme';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -19,13 +20,18 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import RequestFormPage from '../RequestFormPage/RequestFormPage';
+import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
+import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
-
-import './App.css';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+
+import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -36,7 +42,11 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  // changes to the material ui color palette
+  let theme = MaterialTheme();
+
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -82,6 +92,7 @@ function App() {
             >
               <UserFormPage />
             </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
@@ -89,6 +100,7 @@ function App() {
           >
             <UserProfile />
           </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows UserProfile else shows LoginPage
             exact
@@ -96,6 +108,31 @@ function App() {
           >
             <EditProfile />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/usergroup"
+          >
+            <UserViewGroupPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestform"
+          >
+              <RequestFormPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer form view 2
+            exact
+            path="/offerform2"
+          >
+              <OfferFormPage2 />
+          </ProtectedRoute>
+
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
@@ -155,6 +192,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 
