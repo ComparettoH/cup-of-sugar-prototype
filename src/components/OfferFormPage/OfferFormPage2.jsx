@@ -19,11 +19,16 @@ function OfferFormPage2() {
     const [persihableItem, setPerishableItem] = useState(false)
     const [homemadeItem, setHomemadeItem] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedDate, setSelectedDate] = useState(null);
 
 
     const handleItemCategorySelection = (event) => {
         setSelectedCategory(event.target.value)
     }
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
     return (
         <>
@@ -81,20 +86,22 @@ function OfferFormPage2() {
                     </label>
                 </div>
                 <div>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Best if used by
-                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
-
+                            <MobileDatePicker
+                                value={selectedDate}
+                                onChange={handleDateChange} />
                         </label>
                     </LocalizationProvider>
                 </div>
                 <div>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Claim by
-                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
-
+                            <MobileDatePicker
+                                value={selectedDate}
+                                onChange={handleDateChange} />
                         </label>
                     </LocalizationProvider>
                 </div>

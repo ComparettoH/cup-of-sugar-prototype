@@ -46,7 +46,6 @@ function RequestFormPage() {
                     <label htmlFor="headline">
                         Headline
                         <input
-
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
@@ -81,7 +80,6 @@ function RequestFormPage() {
                     <label htmlFor="itemDescription">
                         Description
                         <input
-
                             type='text'
                             placeholder="How much do you need? What do you need it for? Provide some details. "
                             value={itemDescription}
@@ -94,8 +92,9 @@ function RequestFormPage() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             I need this by
-                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
-
+                            <MobileDatePicker
+                                value={selectedDate}
+                                onChange={handleDateChange} />
                         </label>
                     </LocalizationProvider>
                 </div>
