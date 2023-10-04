@@ -24,10 +24,12 @@ import RequestFormPage from '../RequestFormPage/RequestFormPage';
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
-
-import './App.css';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+
+import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,44 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
+
+  // changes to the material ui color palette
+  let theme = createTheme({
+    palette: {
+      primary: {
+        main: '#B8CA30'
+      },
+      secondary: {
+        main: '#17301C',
+      },
+      error: {
+        main: '#ff312e',
+      },
+      warning: {
+        main: '#BF6900',
+      },
+      info: {
+        main: '#3A3335',
+      },
+      success: {
+        main: '#276FBF'
+      },
+      contrastThreshold: 4.5,
+      tonalOffset: 0.5,
+    },
+  });
+
+  theme = createTheme(theme, {
+    // Custom colors created with augmentColor 
+    palette: {
+      pink: theme.palette.augmentColor({
+        color: {
+          main: '#FFEBC8',
+        },
+        name: 'background',
+      }),
+    },
+  });
 
   return (
     <Router>
