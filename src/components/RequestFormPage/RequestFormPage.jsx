@@ -37,15 +37,16 @@ function RequestFormPage() {
                     <label htmlFor="headline">
                         Headline
                         <input
-                            fullWidth={true}
+                            
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
-                            required onChange={(event) => setRequestedItem(event.target.value)}
+                            onChange={(event) => setRequestedItem(event.target.value)}
                             sx={{ width: '100%' }}
                         />
                     </label>
                 </div>
+                <div>
                 <label htmlFor="categoryDropdown">
                     Item Category 
                     <FormControl fullWidth={true}>
@@ -66,15 +67,16 @@ function RequestFormPage() {
                         </Select>
                     </FormControl>
                 </label>
+                </div>
                 <div>
                     <label htmlFor="itemDescription">
                         Description
                         <input
-                            fullWidth={true}
+                            
                             type='text'
                             placeholder="How much do you need? What do you need it for? Provide some details. "
                             value={itemDescription}
-                            required onChange={(event) => setItemDescription(event.target.value)}
+                            onChange={(event) => setItemDescription(event.target.value)}
                             sx={{ width: '100%' }}
                         />
                     </label>

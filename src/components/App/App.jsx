@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
+import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
@@ -96,6 +97,14 @@ function App() {
             path="/requestform"
           >
               <RequestFormPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer form view 2
+            exact
+            path="/offerform2"
+          >
+              <OfferFormPage2 />
           </ProtectedRoute>
 
 
