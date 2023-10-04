@@ -22,18 +22,18 @@ function TopNavBar() {
     }
 
     return (
-        <AppBar>
-            <Stack direction='row' spacing={4} justifyContent="space-around" alignItems="center">
-                <Typography variant='h7' gutterBottom mt={3}>
+        <AppBar sx={{bgcolor: 'secondary.light'}}>
+            <Stack direction='row' justifyContent="space-around" alignItems="center" >
+                <Typography variant='h7' gutterBottom >
                     Cup of Sugar
                 </Typography>
                 <IconButton sx={{ width: 60 }}>
                     <img src={CupIcon} height={50} width={50} />
                 </IconButton>
 
-                <IconButton size='large' onClick={navProfile}>
+                <IconButton size='large' onClick={navProfile} >
 
-                    <AccountCircleTwoToneIcon fontSize="inherit" />
+                    <AccountCircleTwoToneIcon fontSize="large" />
                 </IconButton>
             </Stack>
         </AppBar>

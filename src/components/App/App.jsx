@@ -12,6 +12,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import MaterialTheme from '../MaterialTheme/MaterialTheme';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -24,10 +25,12 @@ import RequestFormPage from '../RequestFormPage/RequestFormPage';
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
-
-import './App.css';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+
+import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +41,11 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  // changes to the material ui color palette
+  let theme = MaterialTheme();
+
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -176,6 +183,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 
