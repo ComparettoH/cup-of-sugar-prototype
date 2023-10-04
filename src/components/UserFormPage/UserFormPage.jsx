@@ -5,14 +5,17 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 
 
 function UserFormPage() {
 
-    
+
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -23,7 +26,7 @@ function UserFormPage() {
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
-    const [acceptsHomemade, setAcceptsHomemade] = useState(false);
+    const [acceptsHomemade, setAcceptsHomemade] = useState(true);
 
 
     const newProfileHandleSubmit = (event) => {
@@ -39,21 +42,27 @@ function UserFormPage() {
             restriction_type: selectedDietaryRestriction
         }
 
+        console.log('testing newProfile', newProfile)
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
     }
     //function that will upload photo to input field or activate in-app camera
-    const addUserPic = (event) => {
-        event.preventDefault();
-        console.log("in addUserPic", event.target.files)
-        setUserURL(URL.createdObjectURL(event.target.files[0]));
-    }
+    // const addUserPic = (event) => {
+    //     event.preventDefault();
+    //     console.log("in addUserPic", event.target.files)
+    //     setUserURL(URL.createdObjectURL(event.target.files[0]));
+    // }
 
+    //funtion that will handle homemade pref selection
+    const homemadePrefChange = (event) => {
+        event.preventDefault();
+        setAcceptsHomemade(event.target.value);
+    }
 
     return (
         <>
-            <form className='formPanel'>
+            <form className='formPanel' onSubmit={newProfileHandleSubmit}>
                 <div>
                     <label htmlFor='name'>
                         Name
@@ -139,13 +148,22 @@ function UserFormPage() {
                     </FormControl>
                 </div>
                 <div>
-                    <label>
-                        Accept Homemade Items: Y
-                        <Checkbox
+                        <FormControl>
+                            <FormLabel id="demo-radio-buttons-group-label">Accept Homemade Items:</FormLabel>
+                            <RadioGroup
+                                row
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                value={acceptsHomemade}
+                                onChange={homemadePrefChange}
+                            >
+                                <FormControlLabel value='true' control={<Radio />} label="Yes" />
+                                <FormControlLabel value='false' control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+                        {/* <
                             checked={acceptsHomemade}
                             onChange={(event) => setAcceptsHomemade(event.target.value)}
-                        />
-                    </label>
+                        /> */}
                 </div>
                 <div>
                     <button type="submit">
