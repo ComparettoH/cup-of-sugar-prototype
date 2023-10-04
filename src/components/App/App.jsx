@@ -21,6 +21,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
+import ActivityFeed from '../ActivityFeed/ActivityFeed';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
@@ -30,6 +31,7 @@ import EditProfile from '../EditProfile/EditProfile';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
+
 
 
 function App() {
@@ -106,6 +108,14 @@ function App() {
             path="/editprofile"
           >
             <EditProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ActivityFeed else shows LoginPage
+            exact
+            path="/activity"
+          >
+            <ActivityFeed />
           </ProtectedRoute>
 
           <ProtectedRoute
