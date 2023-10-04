@@ -23,7 +23,7 @@ export function BottomNavBar({value, setValue}) {
             <BottomNavigationAction 
                 label='Activity' 
                 icon={<ThreeSixtyIcon />} 
-                component={Link} to='' 
+                component={Link} to='/activity' 
             />
 
             <BottomNavigationAction 
