@@ -1,5 +1,7 @@
 // React and Redux imports 
 import React from "react";
+import dayjs from 'dayjs';
+
 import { useEffect, useState } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,19 +15,26 @@ import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-//import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+
 
 function RequestFormPage() {
 
     const [requestedItem, setRequestedItem] = useState('')
     const [itemDescription, setItemDescription] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedDate, setSelectedDate] = useState(null);
 
     const handleItemCategorySelection = (event) => {
         setSelectedCategory(event.target.value)
     }
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
     return (
         <>
@@ -37,7 +46,7 @@ function RequestFormPage() {
                     <label htmlFor="headline">
                         Headline
                         <input
-                            
+
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
@@ -47,32 +56,32 @@ function RequestFormPage() {
                     </label>
                 </div>
                 <div>
-                <label htmlFor="categoryDropdown">
-                    Item Category 
-                    <FormControl fullWidth={true}>
-                        <Select
-                        id="itemCategory"
-                        value={selectedCategory}
-                        onChange={handleItemCategorySelection}
-                        input={<OutlinedInput label="Select from categories:" />}
-                        >
-                            <MenuItem value="produce">Produce</MenuItem>
-                            <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                            <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                            <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                            <MenuItem value="prepFood">Prepared Food</MenuItem>
-                            <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                            <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                            <MenuItem value="other">Other</MenuItem>
-                        </Select>
-                    </FormControl>
-                </label>
+                    <label htmlFor="categoryDropdown">
+                        Item Category
+                        <FormControl fullWidth={true}>
+                            <Select
+                                id="itemCategory"
+                                value={selectedCategory}
+                                onChange={handleItemCategorySelection}
+                                input={<OutlinedInput label="Select from categories:" />}
+                            >
+                                <MenuItem value="produce">Produce</MenuItem>
+                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
+                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
+                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
+                                <MenuItem value="prepFood">Prepared Food</MenuItem>
+                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
+                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
+                                <MenuItem value="other">Other</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </label>
                 </div>
                 <div>
                     <label htmlFor="itemDescription">
                         Description
                         <input
-                            
+
                             type='text'
                             placeholder="How much do you need? What do you need it for? Provide some details. "
                             value={itemDescription}
@@ -82,9 +91,13 @@ function RequestFormPage() {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="calendarDropdown">
-                        I need this by
-                    </label>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <label htmlFor="calendar">
+                            I need this by
+                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
+
+                        </label>
+                    </LocalizationProvider>
                 </div>
             </form>
             <button type="submit">

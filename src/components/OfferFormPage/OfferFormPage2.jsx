@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dayjs from 'dayjs';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,6 +9,9 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 function OfferFormPage2() {
 
@@ -77,14 +81,22 @@ function OfferFormPage2() {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="calendarDropdown">
-                        Best if used by
-                    </label>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <label htmlFor="calendar">
+                            Best if used by
+                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
+
+                        </label>
+                    </LocalizationProvider>
                 </div>
                 <div>
-                    <label htmlFor="calendarDropdown">
-                        Claim by
-                    </label>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <label htmlFor="calendar">
+                            Claim by
+                            <MobileDatePicker defaultValue={dayjs('2023-10-5')} />
+
+                        </label>
+                    </LocalizationProvider>
                 </div>
             </form>
             <div>
