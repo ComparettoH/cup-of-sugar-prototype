@@ -39,7 +39,7 @@ function ActivityFeed(props) {
     };
 
     return (
-        <Box sx={{ width: '95%', margin: 'auto' }}>
+        <Box sx={{ width: '95%', margin: 'auto'}}>
             <FormGroup row>
                 <FormControlLabel
                     control={<Switch
@@ -112,7 +112,7 @@ function ActivityFeed(props) {
             <Typography>
                 All Activity
             </Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} >
                 {/* maps over offers and builds cards for each one */}
                 {offersAndRequests.map((activity, index) => {
                     // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
@@ -121,7 +121,7 @@ function ActivityFeed(props) {
                     return (
                         <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%' }} >
+                            <Card sx={{ width: '100%'}} >
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}
