@@ -37,7 +37,6 @@ CREATE TABLE requests (
     category_id integer NOT NULL,
     item_name varchar(80) NOT NULL,
     description text NOT NULL,
-    homemade boolean NOT NULL,
     requested_on date NOT NULL,
     expires_on timestamp NOT NULL,
     fulfilled_on timestamp,

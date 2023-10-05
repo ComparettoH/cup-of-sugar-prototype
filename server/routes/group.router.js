@@ -7,22 +7,36 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // GET for Group information
-router.get('/', rejectUnauthenticated, (req, res) => {
-    if (req.isAuthenticated()){
-      const queryText = `SELECT * FROM "group"
+router.get('/', async (req, res) => {
+    const userGroupID = req.user.group_id
+    const connection = await pool.connect()
+
+    try {
+        await connection.query('BEGIN');
+        //gets group name and drop off location
+        const groupQueryText = `SELECT * FROM "group"
       WHERE id = $1`
-  
-      pool.query(queryText, [req.user.group_id])
-      .then( (result) => {
-      res.send(result.rows);
-      })
-      .catch((err) => {
+
+        const reply1 = await connection.query(groupQueryText, [userGroupID]);
+        console.log('group information GET', reply1.rows)
+
+        const groupMemberQuery = `SELECT * FROM "user"
+      WHERE group_id = $1`
+
+        const reply2 = await connection.query(groupMemberQuery, [userGroupID])
+        console.log('group member GET', reply2.rows)
+
+        await connection.query('COMMIT');
+
+        res.send({ groupInfo: reply1.rows, groupMembers: reply2.rows})
+    }
+    catch (err) {
+        await connection.query('ROLLBACK');
         console.log('Error with GET for group information', err);
         res.sendStatus(500);
-      })}
-    else {
-      res.sendStatus(403);
+    } finally {
+        connection.release()
     }
-  });
+})
 
 module.exports = router;
