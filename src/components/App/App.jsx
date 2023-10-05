@@ -27,7 +27,6 @@ import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
-import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 
 
 
@@ -151,7 +150,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // offer form view 2
+            // offer form view 1
             exact
             path="/offerform1"
           >
@@ -159,9 +158,17 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // offer form view 1 (back button view from offer form view 2)
+            exact
+            path="/offerform1/:itemName"
+          >
+              <OfferFormPage1 />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // offer form view 2
             exact
-            path="/offerform2"
+            path="/offerform2/:itemName"
           >
               <OfferFormPage2 />
           </ProtectedRoute>

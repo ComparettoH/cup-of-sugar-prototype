@@ -18,6 +18,18 @@ function* fetchRequests() {
 
 }
 
+function* addRequest(action) {
+    try {
+        const newRequest = yield axios.post('/api/request', action.payload);
+        console.log('in request SAGA', newRequest)
+        yield put({ type: 'CREATE_NEW_REQUEST', payload: newRequest.data});
+      }
+      catch (error) {
+        console.log(`addRequest POST request failed`, error);
+      }
+}
+
+    
 function* fetchRequestItem() {
     try {
         const config = {
@@ -32,15 +44,10 @@ function* fetchRequestItem() {
 
 }
 
-// function* addRequest(action){
-//     try{
-//         const newRequest =yield axios.post(`/api/request`, action)
-//     }
-// }
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);
-    //yield takeLatest('ADD_REQUEST', addRequest);
+    yield takeLatest('ADD_REQUEST', addRequest);
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
 
 };
