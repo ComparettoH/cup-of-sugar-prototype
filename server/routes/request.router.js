@@ -24,7 +24,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         const result = await connection.query(addCategory, [categoryType]);
         console.log('result:', result);
         const categoryId = result.rows[0].id;
-        // use the newly inserted category id to add the new request
+        // use the newly returned category id to add the new request
         const addNewRequest = `INSERT INTO requests 
                                 (item_name, description, requested_on, expires_on, category_id, user_id, group_id) 
                                 VALUES ($1, $2, $3, $4, $5, $6, $7);`

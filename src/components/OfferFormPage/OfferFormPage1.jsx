@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+
 import Button from '@mui/material/Button';
 
 function OfferFormPage1(){
 
     const [itemHeadline, setItemHeadline] = useState('')
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const handleOfferFormPage2 = () => {
-        history.push(`/offerform2`)
+        console.log('itemHeadline:', itemHeadline)
+        // dispatch to offer reducer to store item headline 
+        dispatch({ type: 'SET_OFFER_ITEM_NAME', payload: itemHeadline})
+        // navigate to page 2 of offer form for this item
+        history.push(`/offerform2/${itemHeadline}`)
     }
 
     return(
@@ -21,7 +28,7 @@ function OfferFormPage1(){
                     type='text'
                     placeholder='What item are you sharing?'
                     value={itemHeadline}
-                    onChange={(event)=> setItemHeadline}
+                    onChange={(event)=> setItemHeadline(event.target.value)}
                     sx={{ width: '100%' }}
                     />
                 </label>
@@ -30,10 +37,11 @@ function OfferFormPage1(){
                 <h6>Upload an Image here:</h6>
             </div>
 
-        </form>
+        
         <div>
-        <Button variant="outlined" onClick={() => handleOfferFormPage2()}>Next</Button>
+        <Button variant="outlined" onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
         </div>
+        </form>
         </>
     )
 }

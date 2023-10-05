@@ -52,7 +52,7 @@ function RequestFormPage() {
             requested_on: timestamp,
             expires_on: selectedDate,
         };
-        
+        // dispatch to request saga
         dispatch({
             type: 'ADD_REQUEST', payload: newRequest
         })
