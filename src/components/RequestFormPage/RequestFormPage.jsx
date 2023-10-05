@@ -32,9 +32,9 @@ function RequestFormPage() {
     const [selectedCategory, setSelectedCategory] = useState('')
     const [selectedDate, setSelectedDate] = useState(null);
 
-    const handleItemCategorySelection = (event) => {
-        setSelectedCategory(event.target.value)
-    }
+    // const handleItemCategorySelection = (event) => {
+    //     setSelectedCategory(event.target.value)
+    // }
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -64,7 +64,7 @@ function RequestFormPage() {
             <div>
                 <h3>I wish I had:</h3>
             </div>
-            <form className='formPanel'>
+            <form onSubmit={handleSubmitRequest} className='formPanel'>
                 <div>
                     <label htmlFor="headline">
                         Headline
@@ -84,7 +84,7 @@ function RequestFormPage() {
                             <Select
                                 id="itemCategory"
                                 value={selectedCategory}
-                                onChange={handleItemCategorySelection}
+                                onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
@@ -121,10 +121,11 @@ function RequestFormPage() {
                         </label>
                     </LocalizationProvider>
                 </div>
-            </form>
-            <button type="submit">
+            
+            <Button type="submit" variant="contained">
                 Request
-            </button>
+            </Button>
+            </form>
         </>)
 }
 

@@ -32,6 +32,7 @@ function* addRequest(action) {
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);
     yield takeLatest('ADD_REQUEST', addRequest);
+    
 };
 
 export default requestSaga;
