@@ -5,7 +5,8 @@ import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
 import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
 
-export function BottomNavBar(value, setValue) {
+export function BottomNavBar({value, setValue}) {
+    
     return <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
         <BottomNavigation
             showLabels
@@ -16,19 +17,19 @@ export function BottomNavBar(value, setValue) {
             <BottomNavigationAction
                 label='Request'
                 icon={<TurnSlightLeftIcon />}
-                component={Link} to=''
+                component={Link} to='/requestform'
             />
 
             <BottomNavigationAction 
                 label='Activity' 
                 icon={<ThreeSixtyIcon />} 
-                component={Link} to='' 
+                component={Link} to='/activity' 
             />
 
             <BottomNavigationAction 
                 label='Offer' 
                 icon={<TurnSlightRightIcon />} 
-                component={Link} to='' 
+                component={Link} to='/offerform1' 
             />
 
         </BottomNavigation>
