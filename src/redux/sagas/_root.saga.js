@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import profileSaga from './profile.saga';
 import offerSaga from './offer.saga';
 import requestSaga from './request.saga';
+import groupSaga from './group.saga';
 
 
 // rootSaga is the primary saga.
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     profileSaga(),
     offerSaga(),
     requestSaga(),
+    groupSaga()
   ]);
 }

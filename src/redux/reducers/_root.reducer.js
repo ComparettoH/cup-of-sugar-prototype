@@ -5,7 +5,7 @@ import profile from './profile.reducer';
 import editProfile from './editProfile.reducer';
 import requests from './request.reducer';
 import offers from './offer.reducer'
-
+import group from './group.reducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
   editProfile, // contains a user's edited profile info
   requests, // contains all requests for a specific group
   offers, // contains all offers for a specific group
+  group, // contains all group info & members of group
 });
 
 export default rootReducer;
