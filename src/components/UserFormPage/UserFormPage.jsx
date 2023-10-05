@@ -81,7 +81,7 @@ function UserFormPage() {
                             type="file"
                             placeholder='Upload URL here'
                             value={userURL}
-                            onChange={(event) => addUserPic(event.target.value)}
+                            onChange={(event) => setUserURL(event.target.value)}
                         />
                         <img src={userURL} alt="user image" />
 

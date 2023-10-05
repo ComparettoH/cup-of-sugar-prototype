@@ -25,8 +25,8 @@ CREATE TABLE user_profile (
     user_id integer NOT NULL,
     name varchar(80) NOT NULL,
     homemade_pref boolean NOT NULL,
-    about text NOT NULL,
-    imgpath varchar(200) NOT NULL,
+    about text,
+    imgpath varchar(200),
     role integer NOT NULL,
     FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
@@ -43,10 +43,10 @@ CREATE TABLE requests (
     category_id integer NOT NULL,
     item_name varchar(80) NOT NULL,
     description text NOT NULL,
-    homemade boolean NOT NULL,
-    requested_on timestamp NOT NULL,
-    fulfilled_by_user integer NOT NULL,
-    fulfilled_on timestamp NOT NULL,
+    requested_on date NOT NULL,
+    expires_on timestamp NOT NULL,
+    fulfilled_on timestamp,
+    fulfilled_by_user integer,
     FOREIGN KEY (user_id) REFERENCES "user" (id),
     FOREIGN KEY (group_id) REFERENCES "group" (id),
     FOREIGN KEY (category_id) REFERENCES categories (id),
@@ -60,10 +60,14 @@ CREATE TABLE offers (
     category_id integer NOT NULL,
     item_name varchar(80) NOT NULL,
     description text NOT NULL,
+    perishable boolean NOT NULL,
     homemade boolean NOT NULL,
-    imgpath varchar(100) NOT NULL,
-    claimed_by_user integer NOT NULL,
-    claimed_on timestamp NOT NULL,
+    imgpath varchar(100),
+    offered_on date NOT NULL,
+    best_by date NOT NULL,
+    expires_on timestamp NOT NULL,
+    claimed_on timestamp,
+    claimed_by_user integer,
     FOREIGN KEY (user_id) REFERENCES "user" (id),
     FOREIGN KEY (group_id) REFERENCES "group" (id),
     FOREIGN KEY (category_id) REFERENCES categories (id),
@@ -84,22 +88,27 @@ CREATE TABLE dietary_restrictions (
     FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
 
---Dummy Data
 INSERT INTO "group" (group_name, share_location)
-VALUES ('Elm Apartments', 'Rec Room');
+VALUES ('Cup of Sugar Team', 'Prime Commons'), 
+('Elm Apartments', 'Rec Room')
+;
 
 INSERT INTO "allergies" (allergy_type)
 VALUES ('None'), ('Nuts'), ('Dairy'), ('Gluten'), ('Shellfish'), ('Soy'), ('Eggs'), ('Other');
 
+
 INSERT INTO "dietary_restrictions" (restriction_type)
 VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('Kosher'), ('Other');
 
--- User profile view get query
+INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath, role)
+VALUES (2, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8', 1);
+
 SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type   
-        FROM user_profile 
-        JOIN allergies 
+        FROM user_profile
+		JOIN allergies 
         ON user_profile.user_id = allergies.user_id
         JOIN dietary_restrictions 
         ON user_profile.user_id = dietary_restrictions.user_id
-        WHERE user_profile.user_id = 1
-        ;
+        WHERE user_profile.user_id = 2 ;
+       
+
