@@ -21,9 +21,16 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
+
 import RequestItemPage from '../RequestItemPage/RequestItemPage';
 import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
+
+import ActivityFeed from '../ActivityFeed/ActivityFeed';
+import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
+
+
+
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
@@ -32,6 +39,7 @@ import EditProfile from '../EditProfile/EditProfile';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
+
 
 
 function App() {
@@ -108,6 +116,14 @@ function App() {
             path="/editprofile"
           >
             <EditProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ActivityFeed else shows LoginPage
+            exact
+            path="/activity"
+          >
+            <ActivityFeed />
           </ProtectedRoute>
 
           <ProtectedRoute

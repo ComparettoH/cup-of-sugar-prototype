@@ -52,7 +52,9 @@ function TopNavBar() {
     };
 
     return (
-        <AppBar sx={{ bgcolor: 'secondary.light' }}>
+
+        <AppBar sx={{bgcolor: 'warning.main'}}>
+
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
                 <Typography variant='h7' gutterBottom >
                     Cup of Sugar
