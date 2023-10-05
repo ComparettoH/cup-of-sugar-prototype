@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,13 +12,21 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function UserViewGroupPage() {
 
+    const dispatch = useDispatch();
     const history = useHistory();
+    const group = useSelector((store) => store.group);
 
     const [selectedNeighbor, setSelectedNeighbor] = useState('');
 
     const handleNeighborSelection = (event) => {
         setSelectedNeighbor(event.target.value);
     }
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GROUP_INFO' });
+    }, [dispatch]);
+
+    console.log('testing group info data', group)
 
     return (
         <>

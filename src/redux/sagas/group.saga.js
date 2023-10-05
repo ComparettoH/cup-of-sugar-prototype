@@ -5,7 +5,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchGroupInfo() {
     try {
         // gets all Group info & members to be displayed in the Group page
-        const response = yield axios.get('api/offer');
+        const response = yield axios.get('api/group');
         yield put({ type: 'SET_GROUP_INFO', payload: response.data });
     } catch (error) {
         console.log('fetchGroupInfo get request failed for Group', error)

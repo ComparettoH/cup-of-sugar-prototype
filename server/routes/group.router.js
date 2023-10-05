@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
         const reply1 = await connection.query(groupQueryText, [userGroupID]);
         console.log('group information GET', reply1.rows)
 
+        //gets group members that are part of group
         const groupMemberQuery = `SELECT * FROM "user"
       WHERE group_id = $1`
 
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
 
         await connection.query('COMMIT');
 
-        res.send({ groupInfo: reply1.rows, groupMembers: reply2.rows})
+        res.send({ groupInfo: reply1.rows, groupMembers: reply2.rows })
     }
     catch (err) {
         await connection.query('ROLLBACK');
