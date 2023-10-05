@@ -1,13 +1,14 @@
 // Material UI imports
 import { CardContent, CardActionArea, Typography } from '@mui/material';
 
-function OfferCardContent({ activity }) {
-
+function OfferCardContent({ activity, activityView}) {
+console.log('offered on', activity.offered_on);
+console.log('offersChecked', activityView);
     return (
 
         <CardActionArea onClick={() => { }} sx={{}}>
-            {/* /* checks if the activity has been completed, if so displays a share card */ }
-            {activity.claimed_on || activity.fulfilled_on ?
+            {/* /* checks if the activity has been completed, if so displays a share card */}
+            {activityView.shares && (activity.claimed_on || activity.fulfilled_on) ?
                 <CardContent sx={{ bgcolor: 'warning.light' }}>
                     <Typography gutterBottom variant="button" color='info.main'>
                         Share
@@ -21,7 +22,12 @@ function OfferCardContent({ activity }) {
                 </CardContent>
                 :
                 /* <AdvancedVideo cldVid={video} controls /> */
-                /* creates card content with conditional logic for request or offer */
+                // checks to see if offer and/or activity toggles are checked, and if so if the current activity matches the checked switch. 
+                ((activity.requested_on && activityView.requests) 
+                || 
+                (activity.offered_on && activityView.offers))
+                &&
+                /* creates card content with conditional logic for request or offer  */
                 <CardContent sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main' }}>
                     <Typography gutterBottom variant="button" color='info.main'>
                         {activity.offered_on ? 'offer' : 'request'}
