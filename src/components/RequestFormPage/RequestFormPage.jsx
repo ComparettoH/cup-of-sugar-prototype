@@ -25,6 +25,8 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 function RequestFormPage() {
 
+    const dispatch = useDispatch();
+
     const [requestedItem, setRequestedItem] = useState('')
     const [itemDescription, setItemDescription] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
@@ -37,6 +39,25 @@ function RequestFormPage() {
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
+
+    const handleSubmitRequest = (event) => {
+        event.preventDefault();
+
+        let timestamp = new Date();
+
+        let newRequest = {
+            item_name: requestedItem,
+            description: itemDescription,
+            category_type: selectedCategory,
+            requested_on: timestamp,
+            expires_on: selectedDate,
+        };
+        
+        dispatch({
+            type: 'ADD_REQUEST', payload: newRequest
+        })
+
+    }
 
     return (
         <>
@@ -83,7 +104,7 @@ function RequestFormPage() {
                         Description
                         <input
                             type='text'
-                            placeholder="How much do you need? What do you need it for? Provide some details. "
+                            placeholder="How much do you need? What do you need it for? Provide some details."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
                             sx={{ width: '100%' }}
