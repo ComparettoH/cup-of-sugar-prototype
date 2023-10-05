@@ -96,6 +96,7 @@ VALUES ('Cup of Sugar Team', 'Prime Commons'),
 INSERT INTO "allergies" (allergy_type)
 VALUES ('None'), ('Nuts'), ('Dairy'), ('Gluten'), ('Shellfish'), ('Soy'), ('Eggs'), ('Other');
 
+
 INSERT INTO "dietary_restrictions" (restriction_type)
 VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('Kosher'), ('Other');
 
@@ -110,3 +111,4 @@ SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type
         ON user_profile.user_id = dietary_restrictions.user_id
         WHERE user_profile.user_id = 2 ;
        
+
