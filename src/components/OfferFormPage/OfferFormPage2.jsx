@@ -11,11 +11,13 @@ import { useParams, useHistory } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+
 import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers)
-    console.log('itemName:', itemName)
+    // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -26,11 +28,6 @@ function OfferFormPage2() {
     const [selectedCategory, setSelectedCategory] = useState('')
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
-
-
-    const handleItemCategorySelection = (event) => {
-        setSelectedCategory(event.target.value)
-    }
 
     const handleBestByDate = (date) => {
         setBestByDate(date);
@@ -63,7 +60,8 @@ function OfferFormPage2() {
 
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
-
+        // navigate to activity feed
+        // history.push('/activity')
     }
 
     return (
@@ -106,7 +104,7 @@ function OfferFormPage2() {
                             <Select
                                 id="itemCategory"
                                 value={selectedCategory}
-                                onChange={handleItemCategorySelection}
+                                onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
@@ -135,7 +133,8 @@ function OfferFormPage2() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Claim by
-                            <MobileDatePicker
+                            <DateTimeField
+                                label='Date & Time'
                                 value={offerExpiresDate}
                                 onChange={handleOfferExpiresDate} />
                         </label>

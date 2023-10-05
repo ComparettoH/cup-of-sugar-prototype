@@ -5,7 +5,7 @@ const offerReducer = (state = [], action) => {
         case 'SET_OFFER_ITEM_NAME':
                 return action.payload; 
         case 'CREATE_NEW_OFFER':
-                return action.payload;
+                return state;
         default:
             return state;
     }
