@@ -5,11 +5,11 @@ function OfferCardContent({ offer }) {
 
     return (
 
-        <CardContent sx={{ bgcolor: 'info.main' }}>
-            <Typography gutterBottom variant="h5" color='secondary.light'>
+        <CardContent sx={{ bgcolor: 'primary.light' }}>
+            <Typography gutterBottom variant="button" color='info.main'>
                 Offer
             </Typography>
-            <Typography variant="body2" color="secondary.light">
+            <Typography variant="body1" color="info.main">
                 {offer.item_name}
             </Typography>
         </CardContent>
