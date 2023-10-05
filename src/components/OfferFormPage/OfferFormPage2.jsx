@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
 
@@ -106,9 +107,9 @@ function OfferFormPage2() {
                 </div>
             </form>
             <div>
-                <button type="submit">
+                <Button variant="outlined">
                     Submit Offer
-                </button>
+                </Button>
             </div>
         </>
     )

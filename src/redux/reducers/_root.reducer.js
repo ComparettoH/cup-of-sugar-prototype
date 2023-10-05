@@ -4,7 +4,9 @@ import user from './user.reducer';
 import profile from './profile.reducer';
 import editProfile from './editProfile.reducer';
 import requests from './request.reducer';
+import requestItem from './requestitem.reducer'
 import offers from './offer.reducer'
+import offerItem from './offeritem.reducer'
 
 
 
@@ -20,7 +22,9 @@ const rootReducer = combineReducers({
   profile, // contains a user's profile information for user profile view
   editProfile, // contains a user's edited profile info
   requests, // contains all requests for a specific group
+  requestItem, // contains specific request item
   offers, // contains all offers for a specific group
+  offerItem // contains specific offer item
 });
 
 export default rootReducer;

@@ -101,9 +101,9 @@ function RequestFormPage() {
                     </LocalizationProvider>
                 </div>
             </form>
-            <button type="submit">
+            <Button variant="outlined">
                 Request
-            </button>
+            </Button>
         </>)
 }
 
