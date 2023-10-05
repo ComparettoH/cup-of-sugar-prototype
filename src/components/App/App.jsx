@@ -21,8 +21,14 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
+
+import RequestItemPage from '../RequestItemPage/RequestItemPage';
+import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
+import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
+
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
+
 
 
 import UserFormPage from '../UserFormPage/UserFormPage';
@@ -134,6 +140,22 @@ function App() {
             path="/requestform"
           >
               <RequestFormPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // request form view
+            exact
+            path="/requestitem"
+          >
+              <RequestItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer form view 2
+            exact
+            path="/offerform1"
+          >
+              <OfferFormPage1 />
           </ProtectedRoute>
 
           <ProtectedRoute
