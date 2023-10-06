@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 // import RequestCardContent from '../RequestCardContent/RequestCardContent';
 // material ui imports
 import { CardActionArea, Card, Grid, Box } from '@mui/material';
-
 import ActivityCardContent from '../ActivityCardContent/ActivityCardContent';
 // material ui imports
 import { Switch, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
@@ -17,8 +16,6 @@ function ActivityFeed(props) {
     const offers = useSelector((store) => store.offers);
     const requests = useSelector((store) => store.requests);
     const user = useSelector((store) => store.user)
-
-
     // states for the toggle switches to change what is being shown in the activity lists
     const [activityView, setActivityView] = useState({
         offers: true,
@@ -26,12 +23,12 @@ function ActivityFeed(props) {
         shares: true,
     });
 
-
     //   gets activity information for current user's group
     useEffect(() => {
         dispatch({ type: 'FETCH_OFFERS' });
         dispatch({ type: 'FETCH_REQUESTS' });
     }, []);
+
 
 
     return (
@@ -95,6 +92,7 @@ function ActivityFeed(props) {
             }
         </Grid>
     )
+
     // declare and assign an array of all the offers and requests, and then sorts them by created date
     const offersAndRequests = offers.concat(requests);
     offersAndRequests.sort((a, b) => {
@@ -148,7 +146,7 @@ function ActivityFeed(props) {
                                             primary={`You shared ${activity.item_name} 
                                                         with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
                                                         on ${activity.claimed_on ? activity.claimed_on : activity.fulfilled_on}`}
-                                         secondary={`Offer is set to expire on ${activity.expires_on}`}
+                                        // secondary={`Offer is set to expire on ${activity.expires_on}`}
                                         />
                                     </ListItem>
                                 )
@@ -169,12 +167,7 @@ function ActivityFeed(props) {
                                         />
                                     </ListItem>
                                 )
-
-
                         }
-
-
-
                     }
                     )
                     }
@@ -205,7 +198,6 @@ function ActivityFeed(props) {
                 }
             </Grid>
         </Box>
-
     );
 }
 
