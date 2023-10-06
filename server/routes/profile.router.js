@@ -103,6 +103,22 @@ router.post('/', async (req, res) => {
     }
   });
 
+  // post to add profile image from webcam 
+  router
+  .post('/webcam', (req, res) => {
+      console.log('body in route', req.body)
+      const url = req.body.url;
+      const sqlText = `INSERT INTO images ("path") VALUES ($1);`
+
+      pool
+          .query(sqlText, [url])
+          .then((result) => {
+              res.sendStatus(201);
+          })
+          .catch((error) => {
+              res.sendStatus(500);
+          })
+  });
 
 // PUT route to make changes to title, descripotion and tags of clip
 router.put("/", async (req, res) => {

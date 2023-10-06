@@ -40,7 +40,6 @@ console.log('offersChecked', activityView);
                 /* <PhraseCardActions phrase={phrase} /> */
             }
         </CardActionArea>
-
     );
 }
 

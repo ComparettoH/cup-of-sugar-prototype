@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import WebcamPage from '../WebcamPage/WebcamPage'
+// material ui imports
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+
 
 
 function UserFormPage() {
@@ -74,6 +77,11 @@ function UserFormPage() {
                         />
                     </label>
                 </div>
+                {/* webcam page to take and display picture for your profile */}
+                <WebcamPage
+            // imageGallery={imageGallery}
+            // fetchImages={fetchImages}
+            />
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
@@ -81,7 +89,7 @@ function UserFormPage() {
                             type="file"
                             placeholder='Upload URL here'
                             value={userURL}
-                            onChange={(event) => addUserPic(event.target.value)}
+                            // onChange={(event) => addUserPic(event.target.value)}
                         />
                         <img src={userURL} alt="user image" />
 

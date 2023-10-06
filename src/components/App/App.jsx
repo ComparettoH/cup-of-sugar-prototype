@@ -23,8 +23,6 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
-
-
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';

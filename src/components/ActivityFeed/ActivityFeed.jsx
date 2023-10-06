@@ -98,12 +98,7 @@ function ActivityFeed(props) {
                                         />
                                     </ListItem>
                                 )
-
-
                         }
-
-
-
                     }
                     )
                     }
