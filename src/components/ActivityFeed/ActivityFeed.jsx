@@ -4,15 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import OfferCardContent from '../OfferCardContent/OfferCardContent';
 import RequestCardContent from '../RequestCardContent/RequestCardContent';
 // material ui imports
-import { CardActionArea, Card, Grid, Box } from '@mui/material';
-
 import ActivityCardContent from '../ActivityCardContent/ActivityCardContent';
 // material ui imports
-import { Switch, Card, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
+import { Switch, Card, CardActionArea, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 // displays user activity and all offers, requests, and shares
-function ActivityFeed(props) {
+function ActivityFeed() {
     const dispatch = useDispatch();
     const offers = useSelector((store) => store.offers);
     const requests = useSelector((store) => store.requests);
@@ -169,12 +167,7 @@ function ActivityFeed(props) {
                                         />
                                     </ListItem>
                                 )
-
-
                         }
-
-
-
                     }
                     )
                     }
@@ -205,7 +198,6 @@ function ActivityFeed(props) {
                 }
             </Grid>
         </Box>
-
     );
 }
 
