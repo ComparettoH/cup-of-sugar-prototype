@@ -21,7 +21,6 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
-
 import RequestItemPage from '../RequestItemPage/RequestItemPage';
 import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
@@ -33,6 +32,8 @@ import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+
+import AdminViewGroupPage from '../AdminViewGroupPage/AdminViewGroupPage';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
@@ -177,6 +178,14 @@ function App() {
             path="/offeritem"
           >
               <OfferItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // Group page - user view
+            exact
+            path="/admingroup"
+          >
+            <AdminViewGroupPage />
           </ProtectedRoute>
 
           <ProtectedRoute

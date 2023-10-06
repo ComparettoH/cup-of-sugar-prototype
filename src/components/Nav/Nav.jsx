@@ -4,8 +4,9 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
-import { BottomNavBar, newFunction } from './BottomNavBar';
+import BottomNavBar from '../BottomNavBar/BottomNavBar';
 import TopNavBar from '../TopNavBar/TopNavBar';
+import zIndex from '@mui/material/styles/zIndex';
 
 
 function Nav() {
@@ -14,7 +15,7 @@ function Nav() {
 
   return (
 
-    <div className="nav-top">
+    <div className="nav">
 
 
       
@@ -44,7 +45,7 @@ function Nav() {
 
             <LogOutButton className="navLink" /> */}
 
-            <BottomNavBar value={value} setValue={setValue} />
+            <BottomNavBar />
           </>
         )}
       </div>
