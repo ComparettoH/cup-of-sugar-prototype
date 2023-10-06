@@ -25,10 +25,8 @@ import RequestFormPage from '../RequestFormPage/RequestFormPage';
 import RequestItemPage from '../RequestItemPage/RequestItemPage';
 import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
-
+import OfferItemPage from '../OfferItemPage/OfferItemPage';
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
-
-
 
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
@@ -142,7 +140,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // request form view
+            // offer item view
             exact
             path="/requestitem"
           >
@@ -172,7 +170,14 @@ function App() {
           >
               <OfferFormPage2 />
           </ProtectedRoute>
-
+          
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/offeritem"
+          >
+              <OfferItemPage />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
