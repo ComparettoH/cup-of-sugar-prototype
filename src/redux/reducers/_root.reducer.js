@@ -11,8 +11,6 @@ import group from './group.reducer';
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
 
-
-
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -29,8 +27,10 @@ const rootReducer = combineReducers({
   offers, // contains all offers for a specific group
   offerItem, // contains specific offer item
   group, // contains all group info & members of group
+  activityItem, // contains current activity item when user clicks on a card in the activity feed.
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options
+
 });
 
 export default rootReducer;
