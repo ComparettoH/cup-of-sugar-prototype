@@ -131,7 +131,7 @@ function OfferFormPage2() {
                         </label>
                     </LocalizationProvider>
                 </div>
-                <div>
+                <div >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Claim by
@@ -143,20 +143,15 @@ function OfferFormPage2() {
                     </LocalizationProvider>
                 </div>
 
-                <div>
-                    <Button onClick={() => handleBackButton()} variant="outlined">Back</Button>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>
                 </div>
             </form>
 
-            <div>
-                <Button variant="outlined">
-                    Submit Offer
-                </Button>
-            </div>
-
+            
         </>
     )
 }

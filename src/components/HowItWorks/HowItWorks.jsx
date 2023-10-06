@@ -26,9 +26,6 @@ function HowItWorks() {
 
     return (
         <>
-
-        <Button variant="outlined" onClick={() => handleGetStarted()}>Get Started</Button>
-
             <Box className="how-it-works">
                 <img className="cup-of-sugar" src={CupIcon} height={100} width={100} />
                 <header>
@@ -50,7 +47,7 @@ function HowItWorks() {
                     <Typography variant="h6" align="center">See how your community is helping each other out!</Typography>
                 </section>
                 <footer>
-                    <Button onClick={() => handleGetStarted()}>Get Started</Button>
+                    <Button variant='contained' onClick={() => handleGetStarted()}>Get Started</Button>
                 </footer>
             </Box>
 
