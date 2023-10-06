@@ -21,7 +21,12 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import RequestFormPage from '../RequestFormPage/RequestFormPage';
+
+import RequestItemPage from '../RequestItemPage/RequestItemPage';
+import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
+import OfferItemPage from '../OfferItemPage/OfferItemPage';
+import ActivityFeed from '../ActivityFeed/ActivityFeed';
 
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
@@ -31,6 +36,7 @@ import EditProfile from '../EditProfile/EditProfile';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
+
 
 
 function App() {
@@ -110,6 +116,14 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows ActivityFeed else shows LoginPage
+            exact
+            path="/activity"
+          >
+            <ActivityFeed />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // Group page - user view
             exact
             path="/usergroup"
@@ -126,13 +140,44 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // offer item view
+            exact
+            path="/requestitem"
+          >
+              <RequestItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer form view 1
+            exact
+            path="/offerform1"
+          >
+              <OfferFormPage1 />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer form view 1 (back button view from offer form view 2)
+            exact
+            path="/offerform1/:itemName"
+          >
+              <OfferFormPage1 />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // offer form view 2
             exact
-            path="/offerform2"
+            path="/offerform2/:itemName"
           >
               <OfferFormPage2 />
           </ProtectedRoute>
-
+          
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/offeritem"
+          >
+              <OfferItemPage />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
