@@ -1,7 +1,10 @@
 import axios from "axios";
 import { put, takeLatest } from 'redux-saga/effects';
 
-// This is a worker saga; will be fired upon 'FETCH_USER_PROFILE' actions
+// This is a worker saga; will be fired upon 
+// 'FETCH_USER_PROFILE' 
+// 'UPDATE_PROFILE 
+// 'ADD_USER_PROFILE' actions
 
 function* fetchUserProfile() {
     try {
@@ -16,7 +19,6 @@ function* fetchUserProfile() {
     }
 
 }
-
 
 function* updateProfile (action) {
     try {
@@ -39,8 +41,6 @@ function* updateProfile (action) {
     }
 }
 
-
-// This is a worker Saga: will be fired upon 'ADD_USER_PROFILE' actions
 // Creates new user profile preferences and information to user_profile table in database
 function* setUserInfo (action) {
     try {
@@ -56,7 +56,7 @@ function* setUserInfo (action) {
 function* profileSaga() {
     yield takeLatest('FETCH_USER_PROFILE', fetchUserProfile);
     yield takeLatest('UPDATE_PROFILE', updateProfile);
-   yield takeLatest('ADD_USER_PROFILE', setUserInfo);
+    yield takeLatest('ADD_USER_PROFILE', setUserInfo);
 };
 
 export default profileSaga;

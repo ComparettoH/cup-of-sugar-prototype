@@ -7,32 +7,68 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams, useHistory } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+
+import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+
+
 import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
+    const itemName = useSelector((store) => store.offers)
+    // console.log('itemName:', itemName)
+
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const [itemDescription, setItemDescription] = useState('')
     const [persihableItem, setPerishableItem] = useState(false)
     const [homemadeItem, setHomemadeItem] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('')
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [bestByDate, setBestByDate] = useState(null);
+    const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
+    const handleBestByDate = (date) => {
+        setBestByDate(date);
+    };
 
-    const handleItemCategorySelection = (event) => {
-        setSelectedCategory(event.target.value)
+    const handleOfferExpiresDate = (date) => {
+        setOfferExpiresDate(date);
+    };
+
+    const handleBackButton = () => {
+        history.push(`/offerform1/${itemName}`)
+
     }
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    const handleSubmitOffer = (event) => {
+        event.preventDefault();
+
+        let timestamp = new Date();
+
+        let newOffer = {
+            item_name: itemName,
+            description: itemDescription,
+            perishable: persihableItem,
+            homemade: homemadeItem,
+            category_type: selectedCategory,
+            offered_on: timestamp,
+            best_by: bestByDate,
+            expires_on: offerExpiresDate
+        }
+
+        // dispatch to offer saga
+        dispatch({ type: 'ADD_OFFER', payload: newOffer })
+        // navigate to activity feed
+        // history.push('/activity')
+    }
 
     return (
         <>
-            <form className='formPanel'>
+            <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <label htmlFor="itemDescription">
                         Description
@@ -70,7 +106,7 @@ function OfferFormPage2() {
                             <Select
                                 id="itemCategory"
                                 value={selectedCategory}
-                                onChange={handleItemCategorySelection}
+                                onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
@@ -90,8 +126,8 @@ function OfferFormPage2() {
                         <label htmlFor="calendar">
                             Best if used by
                             <MobileDatePicker
-                                value={selectedDate}
-                                onChange={handleDateChange} />
+                                value={bestByDate}
+                                onChange={handleBestByDate} />
                         </label>
                     </LocalizationProvider>
                 </div>
@@ -99,18 +135,28 @@ function OfferFormPage2() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Claim by
-                            <MobileDatePicker
-                                value={selectedDate}
-                                onChange={handleDateChange} />
+                            <DateTimeField
+                                label='Date & Time'
+                                value={offerExpiresDate}
+                                onChange={handleOfferExpiresDate} />
                         </label>
                     </LocalizationProvider>
                 </div>
+
+                <div>
+                    <Button onClick={() => handleBackButton()} variant="outlined">Back</Button>
+                    <Button type="submit" variant="contained">
+                        Submit Offer
+                    </Button>
+                </div>
             </form>
+
             <div>
                 <Button variant="outlined">
                     Submit Offer
                 </Button>
             </div>
+
         </>
     )
 }

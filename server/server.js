@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const profileRouter = require('./routes/profile.router')
 const offerRouter = require('./routes/offer.router')
 const requestRouter = require('./routes/request.router')
+const groupRouter = require('./routes/group.router')
 
 
 // Body parser middleware
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/offer', offerRouter);
 app.use('/api/request', requestRouter);
+app.use('/api/group', groupRouter)
 
 // Serve static files
 app.use(express.static('build'));
