@@ -4,12 +4,12 @@ import user from './user.reducer';
 import profile from './profile.reducer';
 import editProfile from './editProfile.reducer';
 import requests from './request.reducer';
-import requestItem from './requestitem.reducer'
-import offers from './offer.reducer'
-
-import offerItem from './offeritem.reducer'
-
-import group from './group.reducer'
+import requestItem from './requestitem.reducer';
+import offers from './offer.reducer';
+import offerItem from './offeritem.reducer';
+import group from './group.reducer';
+import allergy from './allergy.reducer';
+import restriction from './restriction.reducer';
 
 
 
@@ -27,11 +27,10 @@ const rootReducer = combineReducers({
   requests, // contains all requests for a specific group
   requestItem, // contains specific request item
   offers, // contains all offers for a specific group
-
   offerItem, // contains specific offer item
-
   group, // contains all group info & members of group
-
+  allergy, // contains all allergy selection options
+  restriction, // contains all restriction selection options
 });
 
 export default rootReducer;

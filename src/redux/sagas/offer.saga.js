@@ -40,8 +40,9 @@ function* addOffer(action) {
         yield put({ type: 'CREATE_NEW_OFFER', payload: newOffer.data});
       }
       catch (error) {
-        console.log(`addOffer POST request failed`, error);
+        console.log(`addOffer POST request failed`, error);}
       }
+
 }
 
 function* offerSaga() {
@@ -54,4 +55,4 @@ function* offerSaga() {
 
 };
 
-export default offerSaga;
+export default offerSaga

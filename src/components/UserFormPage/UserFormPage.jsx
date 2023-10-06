@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -20,6 +20,8 @@ function UserFormPage() {
     const history = useHistory();
     const dispatch = useDispatch();
     const errors = useSelector((store) => store.errors);
+    const allergy = useSelector((store) => store.allergy);
+    const restriction = useSelector((store) => store.restriction);
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
     const [userURL, setUserURL] = useState('');
@@ -28,7 +30,13 @@ function UserFormPage() {
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(true);
 
+    useEffect(() => {
+        getAllergyList();
+    }, [])
 
+    const getAllergyList = () => {
+        dispatch({ type: 'FETCH_ALLERGY' })
+    }
     const newProfileHandleSubmit = (event) => {
         event.preventDefault();
         console.log("in newProfileHandleSubmit")
@@ -60,6 +68,7 @@ function UserFormPage() {
         setAcceptsHomemade(event.target.value);
     }
 
+    console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -106,21 +115,20 @@ function UserFormPage() {
                 <div>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
+                        {/* Allergy Drop Down menu */}
                         <Select
-                            id="allergy"
+                            id="dietaryRestriction"
                             multiple
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}
-                            input={<OutlinedInput label="Please select allergies:" />}
+                            input={<OutlinedInput label="Please select dietary restrictions:" />}
                         >
-                            <MenuItem value="none">None</MenuItem>
-                            <MenuItem value="nuts">Nuts</MenuItem>
-                            <MenuItem value="dairy">Dairy</MenuItem>
-                            <MenuItem value="gluten">Gluten</MenuItem>
-                            <MenuItem value="shellfish">Shellfish</MenuItem>
-                            <MenuItem value="soy">Soy</MenuItem>
-                            <MenuItem value="eggs">Eggs</MenuItem>
-                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
+                            {allergy.map((option1) =>
+                                <MenuItem key={option1.id} value={option1.allergy_type}
+                                >
+                                    {option1.allergy_type}
+                                </MenuItem>
+                            )}
                             {/* Add more allergy options as needed */}
                         </Select>
                     </FormControl>
@@ -148,19 +156,19 @@ function UserFormPage() {
                     </FormControl>
                 </div>
                 <div>
-                        <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Accept Homemade Items:</FormLabel>
-                            <RadioGroup
-                                row
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                value={acceptsHomemade}
-                                onChange={homemadePrefChange}
-                            >
-                                <FormControlLabel value='true' control={<Radio />} label="Yes" />
-                                <FormControlLabel value='false' control={<Radio />} label="No" />
-                            </RadioGroup>
-                        </FormControl>
-                        {/* <
+                    <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">Accept Homemade Items:</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            value={acceptsHomemade}
+                            onChange={homemadePrefChange}
+                        >
+                            <FormControlLabel value='true' control={<Radio />} label="Yes" />
+                            <FormControlLabel value='false' control={<Radio />} label="No" />
+                        </RadioGroup>
+                    </FormControl>
+                    {/* <
                             checked={acceptsHomemade}
                             onChange={(event) => setAcceptsHomemade(event.target.value)}
                         /> */}
