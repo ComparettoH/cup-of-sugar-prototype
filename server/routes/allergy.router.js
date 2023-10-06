@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-// GET 
+// GET to pull allergy selections from DB
 router.get('/', (req, res) => {
   const queryText = `SELECT * FROM "allergies";`
   pool.query(queryText)

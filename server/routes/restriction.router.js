@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 
 const router = express.Router();
 
-
+// GET to pull restrictions from DB
 router.get('/', (req, res) => {
   const queryText = `SELECT * FROM "dietary_restrictions";`
   pool.query(queryText)
