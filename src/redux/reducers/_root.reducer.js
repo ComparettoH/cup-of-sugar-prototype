@@ -6,10 +6,9 @@ import editProfile from './editProfile.reducer';
 import requests from './request.reducer';
 import requestItem from './requestitem.reducer'
 import offers from './offer.reducer'
-
 import offerItem from './offeritem.reducer'
-
 import group from './group.reducer'
+import activityItem from './activityItem.reducer'
 
 
 
@@ -27,11 +26,9 @@ const rootReducer = combineReducers({
   requests, // contains all requests for a specific group
   requestItem, // contains specific request item
   offers, // contains all offers for a specific group
-
   offerItem, // contains specific offer item
-
   group, // contains all group info & members of group
-
+  activityItem, // contains current activity item when user clicks on a card in the activity feed.
 });
 
 export default rootReducer;

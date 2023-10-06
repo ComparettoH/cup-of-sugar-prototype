@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
-import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
-import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
-import zIndex from '@mui/material/styles/zIndex';
+import requestIcon from '../../Icons/cupOfSugarSquiggleArrowDL.png';
+import offerIcon from '../../Icons/cupOfSugarSquiggleArrow.png';
+import activityIcon from '../../Icons/cupOfSugarCircleArrow.png'
 
 export function BottomNavBar({value, setValue}) {
     
@@ -18,19 +17,19 @@ export function BottomNavBar({value, setValue}) {
             }}>
             <BottomNavigationAction
                 label='Request'
-                icon={<TurnSlightLeftIcon />}
+                icon={<img style={{ width: '50px', height: '50px' }} src={requestIcon} alt="Request" />}
                 component={Link} to='/requestform'
             />
 
             <BottomNavigationAction 
                 label='Activity' 
-                icon={<ThreeSixtyIcon />} 
+                icon={<img style={{ width: '50px', height: '50px' }} src={activityIcon} alt="Activities" />} 
                 component={Link} to='/activity' 
             />
 
             <BottomNavigationAction 
                 label='Offer' 
-                icon={<TurnSlightRightIcon />} 
+                icon={<img style={{ width: '50px', height: '50px' }}  src={offerIcon} alt="Offer" />} 
                 component={Link} to='/offerform1' 
             />
 
