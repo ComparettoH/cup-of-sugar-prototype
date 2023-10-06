@@ -30,7 +30,7 @@ function* fetchOfferItem() {
     } catch (error) {
         console.log('fetchOfferItem get request failed', error)
     }
-
+}
 
 function* addOffer(action) {
     try {
@@ -41,7 +41,7 @@ function* addOffer(action) {
       }
       catch (error) {
         console.log(`addOffer POST request failed`, error);
-
+      }
 }
 
 function* offerSaga() {
