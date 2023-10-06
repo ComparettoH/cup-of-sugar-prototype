@@ -44,8 +44,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 // GET for ALL of group's request posts for activity feed
 router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.isAuthenticated()){
-      const queryText = `SELECT * FROM "requests"
-      WHERE group_id = $1`
+      const queryText = `
+      SELECT *
+      FROM "requests"
+      JOIN "user_profile"
+      ON requests."user_id" = user_profile."user_id"
+      WHERE group_id = $1;
+      `
   
       pool.query(queryText, [req.user.group_id])
       .then( (result) => {

@@ -1,5 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+
+
 // material ui imports
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,6 +12,7 @@ import CircleArrow from '../../Icons/cupOfSugarCircleArrow.png'
 import SquiggleArrow from '../../Icons/cupOfSugarSquiggleArrow.png'
 // css to align page format
 import './HowItWorks.css'
+
 
 // This is a static page to show how the app works
 function HowItWorks() {
@@ -23,6 +26,9 @@ function HowItWorks() {
 
     return (
         <>
+
+        <Button variant="outlined" onClick={() => handleGetStarted()}>Get Started</Button>
+
             <Box className="how-it-works">
                 <img className="cup-of-sugar" src={CupIcon} height={100} width={100} />
                 <header>
@@ -47,6 +53,7 @@ function HowItWorks() {
                     <Button onClick={() => handleGetStarted()}>Get Started</Button>
                 </footer>
             </Box>
+
         </>
     )
 };

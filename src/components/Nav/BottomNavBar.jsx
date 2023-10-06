@@ -4,6 +4,7 @@ import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
 import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
+import zIndex from '@mui/material/styles/zIndex';
 
 export function BottomNavBar({value, setValue}) {
     
@@ -11,6 +12,7 @@ export function BottomNavBar({value, setValue}) {
         <BottomNavigation
             showLabels
             value={value}
+            sx={{height: 80, width: '100%', position: 'fixed', bottom: 0, backgroundColor: 'secondary.light', zIndex:2,}}
             onChange={(event, newValue) => {
                 setValue(newValue);
             }}>
