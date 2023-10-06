@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 // This is a worker saga; will be fired upon 'FETCH_ALLERGY' actions
 function* fetchAllergy() {
   try {
-    const allergyResponse = yield axios.get('/api/gender');
+    const allergyResponse = yield axios.get('/api/allergy');
     console.log('in allergySaga test data state', allergyResponse)
     yield put({ type: 'SET_ALLERGY', payload: allergyResponse.data });
   }
