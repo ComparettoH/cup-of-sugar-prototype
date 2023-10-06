@@ -42,8 +42,8 @@ function* addOffer(action) {
       catch (error) {
         console.log(`addOffer POST request failed`, error);}
       }
+    
 
-}
 
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
