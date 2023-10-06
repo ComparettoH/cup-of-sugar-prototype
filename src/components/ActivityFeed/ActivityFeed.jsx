@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import OfferCardContent from '../OfferCardContent/OfferCardContent';
-import RequestCardContent from '../RequestCardContent/RequestCardContent';
+// import OfferCardContent from '../OfferCardContent/OfferCardContent';
+// import RequestCardContent from '../RequestCardContent/RequestCardContent';
 // material ui imports
 import { CardActionArea, Card, Grid, Box } from '@mui/material';
 
 import ActivityCardContent from '../ActivityCardContent/ActivityCardContent';
 // material ui imports
-import { Switch, Card, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
+import { Switch, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 // displays user activity and all offers, requests, and shares
@@ -94,7 +94,7 @@ function ActivityFeed(props) {
             })
             }
         </Grid>
-
+    )
     // declare and assign an array of all the offers and requests, and then sorts them by created date
     const offersAndRequests = offers.concat(requests);
     offersAndRequests.sort((a, b) => {
