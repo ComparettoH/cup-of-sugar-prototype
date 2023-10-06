@@ -30,51 +30,51 @@ function ActivityFeed(props) {
         return new Date(a.offered_on || a.requested_on) - new Date(b.offered_on || b.requested_on);
     });
 
-            {/* //   sets toggle switch state */}
+    //   sets toggle switch state
     const handleViewChange = (event) => {
-                setActivityView({
-                    ...activityView,
-                    [event.target.name]: event.target.checked,
-                });
+        setActivityView({
+            ...activityView,
+            [event.target.name]: event.target.checked,
+        });
     };
 
-            return (
+    return (
+        <Box sx={{ width: '95%', margin: 'auto'}}>
+            <FormGroup row>
+                <FormControlLabel
+                    control={<Switch
+                        checked={activityView.requests}
+                        onChange={handleViewChange}
+                        name="requests" />}
+                    label="Requests" />
+                <FormControlLabel
+                    control={<Switch
+                        checked={activityView.shares}
+                        onChange={handleViewChange}
+                        name="shares" />}
+                    label="Shares" />
+                <FormControlLabel
+                    control={<Switch
+                        checked={activityView.offers}
+                        onChange={handleViewChange}
+                        name="offers" />}
+                    label="Offers" />
+            </FormGroup>
             <Box sx={{ width: '95%', margin: 'auto' }}>
-                <FormGroup row>
-                    <FormControlLabel
-                        control={<Switch
-                            checked={activityView.requests}
-                            onChange={handleViewChange}
-                            name="requests" />}
-                        label="Requests" />
-                    <FormControlLabel
-                        control={<Switch
-                            checked={activityView.shares}
-                            onChange={handleViewChange}
-                            name="shares" />}
-                        label="Shares" />
-                    <FormControlLabel
-                        control={<Switch
-                            checked={activityView.offers}
-                            onChange={handleViewChange}
-                            name="offers" />}
-                        label="Offers" />
-                </FormGroup>
-                <Box sx={{ width: '95%', margin: 'auto' }}>
-                    <Typography>
-                        My Activity
-                    </Typography>
-                    {/* Creates a list of user's offers and requests in order of when they created them */}
-                    <List dense>
-                        {offersAndRequests.map((activity, index) => {
-                            if (user.id === activity.user_id) {
-                                return activity.claimed_on || activity.fulfilled_on ?
-                                    (
-                                        <ListItem
-                                            key={index}
-                                        >
-                                            <ListItemText
-                                                primary={`You shared ${activity.item_name} 
+                <Typography>
+                    My Activity
+                </Typography>
+                {/* Creates a list of user's offers and requests in order of when they created them */}
+                <List dense>
+                    {offersAndRequests.map((activity, index) => {
+                        if (user.id === activity.user_id) {
+                            return activity.claimed_on || activity.fulfilled_on ?
+                                (
+                                    <ListItem
+                                        key={index}
+                                    >
+                                        <ListItemText
+                                            primary={`You shared ${activity.item_name} 
                                                         with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
                                                         on ${activity.claimed_on ? activity.claimed_on : activity.fulfilled_on}`}
                                         // secondary={`Offer is set to expire on ${activity.expires_on}`}
@@ -100,7 +100,9 @@ function ActivityFeed(props) {
                                 )
                         }
                     }
-                </Grid>
+                    )
+                    }
+                </List>
             </Box>
             <Typography>
                 All Activity
