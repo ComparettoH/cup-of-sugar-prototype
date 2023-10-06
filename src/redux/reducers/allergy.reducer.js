@@ -1,6 +1,6 @@
 const allergyReducer = (state = [], action) => {
     switch (action.type) {
-      case 'ALLERGY_CLASS':
+      case 'SET_ALLERGY':
         return action.payload;
       default:
         return state;
