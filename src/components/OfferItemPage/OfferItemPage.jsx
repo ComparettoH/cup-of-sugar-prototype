@@ -38,7 +38,7 @@ function OfferItemPage() {
                     </div>
                 </section>
                 <footer>
-                    <Button variant="outlined">Claim</Button>
+                    <Button variant="contained">Claim</Button>
                 </footer>
             </Box>
         </>);

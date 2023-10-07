@@ -34,6 +34,7 @@ import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
 
 import AdminViewGroupPage from '../AdminViewGroupPage/AdminViewGroupPage';
+import AdminViewActivityFeed from '../AdminViewActivityFeed/AdminViewActivityFeed';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
@@ -44,6 +45,11 @@ function App() {
   const dispatch = useDispatch();
 
   const user = useSelector(store => store.user);
+  const bottomNavHeight = 80; // Replace with the actual height of your bottom navigation bar
+  const mainContentStyle = {
+    paddingBottom: `${bottomNavHeight}px`,
+  };
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -54,198 +60,206 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-    <Router>
-      <div>
-        <Nav />
-        <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+      <Router>
+        <div style={mainContentStyle}>
+          <Nav />
+          <Switch>
+            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+            <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/about"
-          >
-            <AboutPage />
-          </Route>
+            {/* Visiting localhost:3000/about will show the about page. */}
+            <Route
+              // shows AboutPage at all times (logged in or not)
+              exact
+              path="/about"
+            >
+              <AboutPage />
+            </Route>
 
-          {/* For protected routes, the view could show one of several things on the same route.
+            {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/howitworks"
-          >
-            <HowItWorks />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/user"
+            >
+              <UserPage />
+            </ProtectedRoute>
 
-          <ProtectedRoute
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/howitworks"
+            >
+              <HowItWorks />
+            </ProtectedRoute>
 
-            // newly registered user should be directed to this page immediately after registering!
-            exact
-            path="/userform"
+            <ProtectedRoute
+
+              // newly registered user should be directed to this page immediately after registering!
+              exact
+              path="/userform"
             >
               <UserFormPage />
             </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows UserProfile else shows LoginPage
-            exact
-            path="/profile"
-          >
-            <UserProfile />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserProfile else shows LoginPage
+              exact
+              path="/profile"
+            >
+              <UserProfile />
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows UserProfile else shows LoginPage
-            exact
-            path="/editprofile"
-          >
-            <EditProfile />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows UserProfile else shows LoginPage
+              exact
+              path="/editprofile"
+            >
+              <EditProfile />
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows ActivityFeed else shows LoginPage
-            exact
-            path="/activity"
-          >
-            <ActivityFeed />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // logged in shows ActivityFeed else shows LoginPage
+              exact
+              path="/activity"
+            >
+              <ActivityFeed />
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // Group page - user view
-            exact
-            path="/usergroup"
-          >
-            <UserViewGroupPage />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // Group page - user view
+              exact
+              path="/usergroup"
+            >
+              <UserViewGroupPage />
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // request form view
-            exact
-            path="/requestform"
-          >
+            <ProtectedRoute
+              // request form view
+              exact
+              path="/requestform"
+            >
               <RequestFormPage />
-          </ProtectedRoute>
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // offer item view
-            exact
-            path="/requestitem"
-          >
+            <ProtectedRoute
+              // offer item view
+              exact
+              path="/requestitem"
+            >
               <RequestItemPage />
-          </ProtectedRoute>
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // offer form view 1
-            exact
-            path="/offerform1"
-          >
+            <ProtectedRoute
+              // offer form view 1
+              exact
+              path="/offerform1"
+            >
               <OfferFormPage1 />
-          </ProtectedRoute>
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // offer form view 1 (back button view from offer form view 2)
-            exact
-            path="/offerform1/:itemName"
-          >
+            <ProtectedRoute
+              // offer form view 1 (back button view from offer form view 2)
+              exact
+              path="/offerform1/:itemName"
+            >
               <OfferFormPage1 />
-          </ProtectedRoute>
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // offer form view 2
-            exact
-            path="/offerform2/:itemName"
-          >
+            <ProtectedRoute
+              // offer form view 2
+              exact
+              path="/offerform2/:itemName"
+            >
               <OfferFormPage2 />
-          </ProtectedRoute>
-          
-          <ProtectedRoute
-            // offer item view
-            exact
-            path="/offeritem"
-          >
+            </ProtectedRoute>
+
+            <ProtectedRoute
+              // offer item view
+              exact
+              path="/offeritem"
+            >
               <OfferItemPage />
-          </ProtectedRoute>
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // Group page - user view
-            exact
-            path="/admingroup"
-          >
-            <AdminViewGroupPage />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // Group page - admin view
+              exact
+              path="/admingroup"
+            >
+              <AdminViewGroupPage />
+            </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </ProtectedRoute>
+            <ProtectedRoute
+              // Activity feed - admin view
+              exact
+              path="/adminactivity"
+            >
+              <AdminViewActivityFeed />
+            </ProtectedRoute>
 
-          <Route
-            exact
-            path="/login"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the login page
-              <LoginPage />
-            }
-          </Route>
+            <ProtectedRoute
+              // logged in shows InfoPage else shows LoginPage
+              exact
+              path="/info"
+            >
+              <InfoPage />
+            </ProtectedRoute>
 
-          <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the registration page
-              <RegisterPage />
-            }
-          </Route>
+            <Route
+              exact
+              path="/login"
+            >
+              {user.id ?
+                // If the user is already logged in, 
+                // redirect to the /user page
+                <Redirect to="/user" />
+                :
+                // Otherwise, show the login page
+                <LoginPage />
+              }
+            </Route>
 
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
-              <LandingPage />
-            }
-          </Route>
+            <Route
+              exact
+              path="/registration"
+            >
+              {user.id ?
+                // If the user is already logged in, 
+                // redirect them to the /user page
+                <Redirect to="/user" />
+                :
+                // Otherwise, show the registration page
+                <RegisterPage />
+              }
+            </Route>
 
-          {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
-            <h1>404</h1>
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
-    </Router>
+            <Route
+              exact
+              path="/home"
+            >
+              {user.id ?
+                // If the user is already logged in, 
+                // redirect them to the /user page
+                <Redirect to="/user" />
+                :
+                // Otherwise, show the Landing page
+                <LandingPage />
+              }
+            </Route>
+
+            {/* If none of the other routes matched, we will show a 404. */}
+            <Route>
+              <h1>404</h1>
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+      </Router>
     </ThemeProvider>
   );
 }

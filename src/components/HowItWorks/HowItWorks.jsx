@@ -19,6 +19,8 @@ function HowItWorks() {
 
     const history = useHistory();
 
+    
+
     // takes the user to the user form after registration
     const handleGetStarted = () => {
         history.push('/userform')
