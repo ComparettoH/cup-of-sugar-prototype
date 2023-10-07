@@ -8,6 +8,7 @@ import requestItem from './requestitem.reducer';
 import offers from './offer.reducer';
 import offerItem from './offeritem.reducer';
 import group from './group.reducer';
+import activityItem from './activityItem.reducer'
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
 

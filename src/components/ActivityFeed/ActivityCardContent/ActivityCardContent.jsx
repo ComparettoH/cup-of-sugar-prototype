@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { DateTimeFormatter, DateFormatter } from '../../../utils/DateTimeFormatter/DateTimeFormatter';
 // Material UI imports
 import { CardContent, CardActionArea, Typography } from '@mui/material';
 
@@ -32,7 +33,7 @@ function OfferCardContent({ activity, activityView }) {
                         {`${activity.name} 
                     shared ${activity.item_name} 
                     with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
-                    on ${activity.claimed_on ? activity.claimed_on : activity.fulfilled_on}`}
+                    on ${activity.claimed_on ? DateFormatter(activity.claimed_on) : DateFormatter(activity.fulfilled_on)}`}
                     </Typography>
                 </CardContent>
                 :
@@ -49,7 +50,7 @@ function OfferCardContent({ activity, activityView }) {
                     </Typography>
                     <Typography variant="body1" color="info.main">
                         {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
-                    ${activity.item_name} on ${activity.offered_on ? activity.offered_on : activity.requested_on}`}
+                    ${activity.item_name} on ${activity.offered_on ? DateTimeFormatter(activity.offered_on) : DateTimeFormatter(activity.requested_on)}`}
                     </Typography>
                 </CardContent>
                 /* <PhraseCardActions phrase={phrase} /> */
