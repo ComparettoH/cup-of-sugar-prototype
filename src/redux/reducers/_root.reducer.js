@@ -4,13 +4,13 @@ import user from './user.reducer';
 import profile from './profile.reducer';
 import editProfile from './editProfile.reducer';
 import requests from './request.reducer';
-import requestItem from './requestitem.reducer'
-import offers from './offer.reducer'
-import offerItem from './offeritem.reducer'
-import group from './group.reducer'
+import requestItem from './requestitem.reducer';
+import offers from './offer.reducer';
+import offerItem from './offeritem.reducer';
+import group from './group.reducer';
 import activityItem from './activityItem.reducer'
-
-
+import allergy from './allergy.reducer';
+import restriction from './restriction.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -29,6 +29,9 @@ const rootReducer = combineReducers({
   offerItem, // contains specific offer item
   group, // contains all group info & members of group
   activityItem, // contains current activity item when user clicks on a card in the activity feed.
+  allergy, // contains all allergy selection options
+  restriction, // contains all restriction selection options
+
 });
 
 export default rootReducer;

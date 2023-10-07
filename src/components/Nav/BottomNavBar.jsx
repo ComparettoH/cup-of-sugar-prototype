@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import requestIcon from '../../Icons/cupOfSugarSquiggleArrowDL.png';
-import offerIcon from '../../Icons/cupOfSugarSquiggleArrow.png';
-import activityIcon from '../../Icons/cupOfSugarCircleArrow.png'
+import requestIcon from '../../assets/cupOfSugarSquiggleArrowDL.png';
+import offerIcon from '../../assets/cupOfSugarSquiggleArrow.png';
+import activityIcon from '../../assets/cupOfSugarCircleArrow.png'
 
 export function BottomNavBar({value, setValue}) {
     
