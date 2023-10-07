@@ -1,4 +1,5 @@
 const offerReducer = (state = [], action) => {
+    console.log('reducer offer', action.payload)
     switch(action.type) {
         case 'SET_OFFERS':
             return action.payload;

@@ -40,7 +40,7 @@ function ActivityFeed() {
     };
 
     return (
-        <Box sx={{ width: '95%', margin: 'auto'}}>
+        <Box sx={{ width: '95%', margin: 'auto' }}>
             <FormGroup row>
                 <FormControlLabel
                     control={<Switch
@@ -113,11 +113,19 @@ function ActivityFeed() {
                 {offersAndRequests.map((activity, index) => {
                     // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
                     // if (user.id !== activity.user_id) {
-
                     return (
+                        // checks to see if activity should be displayed based on toggle switches
+                        (activity.requested_on && activityView.requests)
+                        ||
+                        (activity.offered_on && activityView.offers)
+                        ||
+                        ((activity.fulfilled_on || activity.claimed_on) && activityView.shares)
+                    ) 
+&&
+                    (
                         <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%'}} >
+                            <Card sx={{ width: '100%' }} >
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}
@@ -125,7 +133,7 @@ function ActivityFeed() {
                             </Card>
                         </Grid>
                     );
-                    // } 
+                    
                 })
                 }
             </Grid>

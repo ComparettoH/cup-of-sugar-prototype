@@ -38,10 +38,8 @@ function OfferCardContent({ activity, activityView }) {
                 </CardContent>
                 :
                 /* <AdvancedVideo cldVid={video} controls /> */
-                // checks to see if offer and/or activity toggles are checked, and if so if the current activity matches the checked switch. 
-                ((activity.requested_on && activityView.requests)
-                    ||
-                    (activity.offered_on && activityView.offers))
+                // checks to see if the activity has been claimed/fulfilled or not.  
+                (!activity.claimed_on && !activity.fulfilled_on)
                 &&
                 /* creates card content with conditional logic for request or offer  */
                 <CardContent sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main' }}>
