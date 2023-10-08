@@ -33,9 +33,6 @@ import UserProfile from '../UserProfile/UserProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
 
-import AdminViewGroupPage from '../AdminViewGroupPage/AdminViewGroupPage';
-import AdminViewActivityFeed from '../AdminViewActivityFeed/AdminViewActivityFeed';
-
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -184,22 +181,6 @@ function App() {
               path="/offeritem"
             >
               <OfferItemPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute
-              // Group page - admin view
-              exact
-              path="/admingroup"
-            >
-              <AdminViewGroupPage />
-            </ProtectedRoute>
-
-            <ProtectedRoute
-              // Activity feed - admin view
-              exact
-              path="/adminactivity"
-            >
-              <AdminViewActivityFeed />
             </ProtectedRoute>
 
             <ProtectedRoute

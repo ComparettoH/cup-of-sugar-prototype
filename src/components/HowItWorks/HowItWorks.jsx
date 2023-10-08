@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // custom icon imports
-import CupIcon from '../../Icons/cupOfSugarIcon.png'
-import CircleArrow from '../../Icons/cupOfSugarCircleArrow.png'
-import SquiggleArrow from '../../Icons/cupOfSugarSquiggleArrow.png'
+import CupIcon from '../../assets/cupOfSugarIcon.png'
+import CircleArrow from '../../assets/cupOfSugarCircleArrow.png'
+import SquiggleArrow from '../../assets/cupOfSugarSquiggleArrow.png'
 // css to align page format
 import './HowItWorks.css'
 

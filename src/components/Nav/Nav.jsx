@@ -4,8 +4,8 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
-import BottomNavBar from '../BottomNavBar/BottomNavBar';
-import TopNavBar from '../TopNavBar/TopNavBar';
+import BottomNavBar from './BottomNavBar/BottomNavBar';
+import TopNavBar from './TopNavBar/TopNavBar';
 import zIndex from '@mui/material/styles/zIndex';
 
 

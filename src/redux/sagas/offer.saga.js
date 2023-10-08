@@ -56,4 +56,4 @@ function* offerSaga() {
 
 };
 
-export default offerSaga;
+export default offerSaga
