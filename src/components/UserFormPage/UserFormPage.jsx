@@ -98,10 +98,10 @@ function UserFormPage() {
                     </label>
                 </div>
                 {/* webcam page to take and display picture for your profile */}
-                <WebcamPage
+                {/* <WebcamPage
                 // imageGallery={imageGallery}
                 // fetchImages={fetchImages}
-                />
+                /> */}
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
