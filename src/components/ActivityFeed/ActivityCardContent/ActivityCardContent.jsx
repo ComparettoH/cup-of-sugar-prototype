@@ -56,7 +56,6 @@ function OfferCardContent({ activity, activityView }) {
                 /* <PhraseCardActions phrase={phrase} /> */
             }
         </CardActionArea>
-
     );
 }
 

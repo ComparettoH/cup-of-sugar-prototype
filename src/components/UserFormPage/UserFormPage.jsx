@@ -1,3 +1,8 @@
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import WebcamPage from '../WebcamPage/WebcamPage'
+// material ui imports
 import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -5,12 +10,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import { TextField } from '@mui/material';
+
 
 
 function UserFormPage() {
@@ -24,7 +29,7 @@ function UserFormPage() {
     const restriction = useSelector((store) => store.restriction);
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
-    const [userURL, setUserURL] = useState('');
+    const [profImage, setProfImage] = useState('');
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
@@ -54,7 +59,7 @@ function UserFormPage() {
             name: name,
             homemade_pref: acceptsHomemade,
             about: userBio,
-            imgpath: userURL,
+            imgpath: profImage,
             allergy_type: selectedAllergy,
             restriction_type: selectedDietaryRestriction
         }
@@ -92,20 +97,21 @@ function UserFormPage() {
                         />
                     </label>
                 </div>
+                {/* webcam page to take and display picture for your profile */}
+                <WebcamPage
+                // imageGallery={imageGallery}
+                // fetchImages={fetchImages}
+                />
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
-                        <input
+                        <TextField
+                            onChange={e => setProfImage(e.target.files[0])}
                             type="file"
-                            placeholder='Upload URL here'
-                            value={userURL}
-                            onChange={(event) => setUserURL(event.target.value)}
-                        />
-                        <img src={userURL} alt="user image" />
+                            accept="image/*"
+                            variant='filled'
 
-                        {/* <button className='formBtn' onClick={addUserPic}>
-                            Upload Photo
-                        </button> */}
+                        />
                     </label>
                 </div>
 
