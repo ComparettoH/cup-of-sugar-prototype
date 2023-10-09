@@ -71,24 +71,24 @@ router.post('/', async (req, res) => {
   
       // posts user info on user_profile table
       const sqlUserInfo = `INSERT INTO "user_profile"
-      ("user_id", "name","homemade_pref", "about", "imgpath")
-        VALUES ($1, $2, $3, $4, $5);`
+      ("user_id", "name","homemade_pref", "about", "imgpath", "allergies", "restrictions")
+        VALUES ($1, $2, $3, $4, $5, $6, $7);`
       
-      await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath])
-      //posts user allergy selections to allergies table
-      const sqlUserAllergies = 
-      `INSERT INTO "allergies"
-      ("user_id", "allergy_type")
-      VALUES ($1, $2);`
+    //   await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath, allergy_type, restriction_type])
+    //   //posts user allergy selections to allergies table
+    //   const sqlUserAllergies = 
+    //   `INSERT INTO "user_allergies"
+    //   ("user_id", "allergy_id")
+    //   VALUES ($1, $2);`
   
-      await connection.query(sqlUserAllergies, [userId, allergy_type])
-      //posts user dietary_restrictions to dietary_restrictions table
-      const sqlUserDietary =
-      `INSERT INTO "dietary_restrictions"
-      ("user_id", "restriction_type")
-      VALUES ($1, $2);`
+    //   await connection.query(sqlUserAllergies, [userId, allergy_type])
+    //   //posts user dietary_restrictions to dietary_restrictions table
+    //   const sqlUserDietary =
+    //   `INSERT INTO "user_dietary_restrictions"
+    //   ("user_id", "user_restriction_id")
+    //   VALUES ($1, $2);`
   
-    await connection.query(sqlUserDietary, [userId, restriction_type])
+    // await connection.query(sqlUserDietary, [userId, restriction_type])
   
       await connection.query('COMMIT');
       res.sendStatus(200);

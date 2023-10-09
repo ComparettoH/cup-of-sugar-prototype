@@ -68,7 +68,7 @@ function UserFormPage() {
         setAcceptsHomemade(event.target.value);
     }
 
-    console.log('testing on clientside in UserForm', allergy, restriction)
+    // console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -124,7 +124,7 @@ function UserFormPage() {
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                         >
                             {allergy.map((option1) =>
-                                <MenuItem key={option1.id} value={option1.allergy_type}
+                                <MenuItem key={option1.id} value={option1.id}
                                 >
                                     {option1.allergy_type}
                                 </MenuItem>
