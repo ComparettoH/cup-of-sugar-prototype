@@ -35,9 +35,29 @@ function* fetchOfferItem() {
 function* addOffer(action) {
     try {
         // Posts a new offer to the database
-        const newOffer = yield axios.post('/api/offer', action.payload);
-        console.log('in offer SAGA', newOffer)
-        yield put({ type: 'CREATE_NEW_OFFER', payload: newOffer.data});
+        const headers = {
+            'content-type': 'multipart/form-data'
+        }
+        const offerForm = new FormData();
+// appends offer information to the profile form so that it can be posted to db as a multipart form
+        offerForm.append('image', action.payload.imgpath);
+        offerForm.append('item_name', action.payload.item_name);
+        offerForm.append('homemade', action.payload.homemade);
+        offerForm.append('description', action.payload.description);
+        offerForm.append('perishable', action.payload.perishable);
+        offerForm.append('category_type', action.payload.category_type);
+        offerForm.append('offered_on', action.payload.offered_on);
+        offerForm.append('best_by', action.payload.best_by);
+        offerForm.append('expires_on', action.payload.expires_on);
+
+        const newOffer = yield axios({
+            method: 'POST',
+            url: '/api/offer', 
+            headers: headers,
+            data: offerForm
+        })
+
+        yield put({ type: 'FETCH_OFFERS'});
       }
       catch (error) {
         console.log(`addOffer POST request failed`, error);}

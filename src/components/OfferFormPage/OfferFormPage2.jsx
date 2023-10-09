@@ -18,7 +18,8 @@ import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
-    const itemName = useSelector((store) => store.offers)
+    const itemName = useSelector((store) => store.offers.itemHeadline)
+    const imgpath = useSelector((store) => store.offers.offerImage)
     // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function OfferFormPage2() {
 
         let newOffer = {
             item_name: itemName,
+            imgpath: imgpath,
             description: itemDescription,
             perishable: persihableItem,
             homemade: homemadeItem,
@@ -59,7 +61,7 @@ function OfferFormPage2() {
             best_by: bestByDate,
             expires_on: offerExpiresDate
         }
-
+console.log('newoffer:', newOffer)
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
         // navigate to activity feed

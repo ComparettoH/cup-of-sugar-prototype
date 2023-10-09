@@ -102,9 +102,11 @@ function UserFormPage() {
                 // imageGallery={imageGallery}
                 // fetchImages={fetchImages}
                 />
+
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
+                        {/* lets user upload an image from their device */}
                         <TextField
                             onChange={e => setProfImage(e.target.files[0])}
                             type="file"

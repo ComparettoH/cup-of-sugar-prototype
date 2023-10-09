@@ -1,5 +1,6 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const cloudinaryUpload = require('../modules/cloudinary-config');
 
 const pool = require('../modules/pool');
 
@@ -30,9 +31,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   });
 
   // POST to add a new offer
-  router.post('/', rejectUnauthenticated, async (req, res) => {
+  router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async (req, res) => {
+    console.log('sent to cloudinary: ', req.file)
+    console.log('post body', req.body)
+
     const userId = req.user.id;
     const groupId = req.user.group_id;
+    const imgPath = req.file.path;
     const categoryType = req.body.category_type;
     const itemName = req.body.item_name;
     const itemDescription = req.body.description;
@@ -48,13 +53,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       // insert category type into categories table and return category id
       const addCategory = `INSERT INTO categories (category_type) VALUES ($1) RETURNING id;`
       const result = await connection.query(addCategory, [categoryType]);
-      console.log('result:', result);
+    
       const categoryId = result.rows[0].id;
       // use the newly returned category id to add the new offer
-      const addNewOffer = `INSERT INTO offers
-                            (user_id, group_id, category_id, item_name, description, perishable, homemade, offered_on, best_by, expires_on)
-                            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
-      await connection.query(addNewOffer, [userId, groupId, categoryId, itemName, itemDescription, perishableItem, homemadeItem, offerDate, bestByDate, expiryDate])
+      const addNewOffer = `
+      INSERT INTO offers
+        (user_id, group_id, category_id, item_name, description, perishable, homemade, imgpath, offered_on, best_by, expires_on)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
+        `
+      await connection.query(addNewOffer, [userId, groupId, categoryId, itemName, itemDescription, perishableItem, homemadeItem, imgPath, offerDate, bestByDate, expiryDate])
       await connection.query('COMMIT');
       res.sendStatus(200);
     } catch (error) {
