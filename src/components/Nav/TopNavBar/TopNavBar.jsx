@@ -6,7 +6,7 @@ import { Box, Typography, Stack, AppBar } from '@mui/material';
 import { IconButton } from "@mui/material";
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 // custom icon imports
-import CupIcon from '../../Icons/cupOfSugarIcon.png'
+import CupIcon from '../../../assets/cupOfSugarIcon.png'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch } from 'react-redux';

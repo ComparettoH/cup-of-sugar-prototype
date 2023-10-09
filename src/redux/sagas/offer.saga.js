@@ -17,8 +17,6 @@ function* fetchOffers() {
     }
 
 }
-
-
 function* fetchOfferItem() {
     try {
         const config = {
@@ -30,8 +28,8 @@ function* fetchOfferItem() {
     } catch (error) {
         console.log('fetchOfferItem get request failed', error)
     }
-
 }
+
 function* addOffer(action) {
     try {
         // Posts a new offer to the database
@@ -41,9 +39,9 @@ function* addOffer(action) {
       }
       catch (error) {
         console.log(`addOffer POST request failed`, error);
-    }
-}
 
+}
+}
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);
@@ -52,4 +50,4 @@ function* offerSaga() {
 
 };
 
-export default offerSaga;
+export default offerSaga
