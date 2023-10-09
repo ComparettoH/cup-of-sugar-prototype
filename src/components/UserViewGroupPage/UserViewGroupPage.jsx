@@ -15,6 +15,7 @@ function UserViewGroupPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const group = useSelector((store) => store.group);
+    const groupMembers = useSelector((store) => store.groupMembers)
 
     const [selectedNeighbor, setSelectedNeighbor] = useState('');
 
@@ -24,18 +25,25 @@ function UserViewGroupPage() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_INFO' });
-    }, [dispatch]);
+    }, []);
 
-    console.log('testing group info data', group)
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GROUP_MEMBERS' });
+    }, []);
+
+    console.log('testing group info data', group, groupMembers)
 
     return (
         <>
             <div>
-                <h2>//Group name here//</h2>
+                <h2>{group[0].group_name}</h2>
                 {/* Group name renders here */}
             </div>
             <div>
-                <h4>Sharing location is: </h4>
+                <h4>Sharing location is: 
+                <br></br>
+                    {group[0].share_location}
+                </h4>
                 {/* Sharing location name renders here */}
             </div>
             <form className='formPanel'>
@@ -49,6 +57,12 @@ function UserViewGroupPage() {
                         onChange={handleNeighborSelection}
                         input={<OutlinedInput label="Select from neighbors:" />}
                         >
+                          {groupMembers.map((member) =>
+                                <MenuItem key={member.id} value={member.id}
+                                >
+                                    {member.name}
+                                </MenuItem>
+                            )}    
                     </Select>
                 </FormControl>
             </div>
