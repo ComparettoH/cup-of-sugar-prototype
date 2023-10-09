@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ActivityCardContent from '../ActivityCardContent/ActivityCardContent';
+import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
+import { DateTimeFormatter, DateFormatter } from '../../utils/DateTimeFormatter/DateTimeFormatter';
 // material ui imports
-import { Switch, Card, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
+import {
+    Switch,
+    Card,
+    Grid,
+    Box,
+    Typography,
+    List,
+    ListItem,
+    IconButton,
+    ListItemText,
+    FormGroup,
+    FormControlLabel
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 // displays user activity and all offers, requests, and shares
-function ActivityFeed(props) {
+function ActivityFeed() {
     const dispatch = useDispatch();
     const offers = useSelector((store) => store.offers);
     const requests = useSelector((store) => store.requests);
@@ -39,7 +52,7 @@ function ActivityFeed(props) {
     };
 
     return (
-        <Box sx={{ width: '95%', margin: 'auto'}}>
+        <Box sx={{ width: '95%', margin: 'auto' }}>
             <FormGroup row>
                 <FormControlLabel
                     control={<Switch
@@ -76,7 +89,7 @@ function ActivityFeed(props) {
                                         <ListItemText
                                             primary={`You shared ${activity.item_name} 
                                                         with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
-                                                        on ${activity.claimed_on ? activity.claimed_on : activity.fulfilled_on}`}
+                                                        on ${activity.claimed_on ? DateFormatter(activity.claimed_on) : DateFormatter(activity.fulfilled_on)}`}
                                         // secondary={`Offer is set to expire on ${activity.expires_on}`}
                                         />
                                     </ListItem>
@@ -93,8 +106,8 @@ function ActivityFeed(props) {
                                     >
                                         <ListItemText
                                             primary={`You ${activity.offered_on ? 'offered' : 'requested'} ${activity.item_name} 
-                                                        on ${activity.offered_on || activity.requested_on}`}
-                                            secondary={`Offer is set to expire on ${activity.expires_on}`}
+                                                        on ${DateFormatter(activity.offered_on) || DateFormatter(activity.requested_on)}`}
+                                            secondary={`Offer is set to expire on ${DateTimeFormatter(activity.expires_on)}`}
                                         />
                                     </ListItem>
                                 )
@@ -116,7 +129,7 @@ function ActivityFeed(props) {
                     return (
                         <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%'}} >
+                            <Card sx={{ width: '100%' }} >
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}

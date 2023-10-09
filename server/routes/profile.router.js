@@ -1,5 +1,6 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const cloudinaryUpload = require('../modules/cloudinary-config');
 
 const pool = require('../modules/pool');
 
@@ -40,9 +41,13 @@ router.get("/", async (req, res) => {
     }
 });
 
-//POST to add user profile information and preferences to user_profile table in DB
-router.post('/', async (req, res) => {
+//POST to add user profile image to cloudinary, and then information and preferences to user_profile table in DB
+router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
+  console.log('sent to cloudinary: ', req.file)
+  console.log('post body', req.body)
     const userId = req.user.id
+
+
     const [
       name,
       homemade_pref,
@@ -56,9 +61,9 @@ router.post('/', async (req, res) => {
         req.body.name,
         req.body.homemade_pref,
         req.body.about,
-        req.body.imgpath,
-        req.body.allergy_type,
-        req.body.restriction_type
+        req.file.path,
+        req.body.allergy_type.split(',').map(Number),
+        req.body.restriction_type.split(',').map(Number)
       ]
   
     //Testing console logs
@@ -77,18 +82,22 @@ router.post('/', async (req, res) => {
       await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath])
       //posts user allergy selections to allergies table
       const sqlUserAllergies = 
-      `INSERT INTO "allergies"
-      ("user_id", "allergy_type")
+      `INSERT INTO "user_allergies"
+      ("user_id", "allergy_id")
       VALUES ($1, $2);`
   
-      await connection.query(sqlUserAllergies, [userId, allergy_type])
+      for (let allergy of allergy_type) {
+        await connection.query(sqlUserAllergies, [userId, allergy])
+      }
       //posts user dietary_restrictions to dietary_restrictions table
       const sqlUserDietary =
-      `INSERT INTO "dietary_restrictions"
-      ("user_id", "restriction_type")
+      `INSERT INTO "user_dietary_restrictions"
+      ("user_id", "user_restriction_id")
       VALUES ($1, $2);`
   
-    await connection.query(sqlUserDietary, [userId, restriction_type])
+    for (let restriction of restriction_type) {
+      await connection.query(sqlUserDietary, [userId, restriction])
+    }
   
       await connection.query('COMMIT');
       res.sendStatus(200);
@@ -102,7 +111,6 @@ router.post('/', async (req, res) => {
       connection.release()
     }
   });
-
 
 // PUT route to make changes to title, descripotion and tags of clip
 router.put("/", async (req, res) => {
