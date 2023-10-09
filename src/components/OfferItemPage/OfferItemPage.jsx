@@ -65,7 +65,7 @@ function OfferItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button variant="contained">Fulfill</Button>
             </footer>
         </Box>
     )

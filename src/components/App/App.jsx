@@ -4,7 +4,7 @@ import {
   Redirect,
   Route,
   Switch,
- 
+
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,22 +57,16 @@ function App() {
   // changes to the material ui color palette
   let theme = MaterialTheme();
 
-  
+
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
-      <Switch>
-      <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/howitworks"
-            >
-              <HowItWorks />
-            </ProtectedRoute>
+
+
         <div style={mainContentStyle}>
           <Nav />
-          
+          <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
@@ -84,6 +78,14 @@ function App() {
             >
               <AboutPage />
             </Route>
+
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/howitworks"
+            >
+              <HowItWorks />
+            </ProtectedRoute>
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -98,7 +100,7 @@ function App() {
               <UserPage />
             </ProtectedRoute>
 
-            
+
 
             <ProtectedRoute
 
@@ -243,12 +245,12 @@ function App() {
             <Route>
               <h1>404</h1>
             </Route>
-          
-          <Footer />
+            </Switch>
+            <Footer />
         </div>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+      
+    </Router>
+    </ThemeProvider >
   );
 }
 

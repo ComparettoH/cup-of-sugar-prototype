@@ -45,7 +45,7 @@ function Nav() {
 
             <LogOutButton className="navLink" /> */}
 
-            <BottomNavBar />
+            <BottomNavBar value={value} setValue={setValue}/>
           </>
         )}
       </div>
