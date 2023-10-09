@@ -43,10 +43,31 @@ function* updateProfile (action) {
 // This is a worker Saga: will be fired upon 'ADD_USER_PROFILE' actions
 // Creates new user profile preferences and information to user_profile table in database
 function* setUserInfo (action) {
+    console.log('payload in profSaga:', action.payload)
     try {
-      const newUserInfo = yield axios.post('/api/profile', action.payload);
+        const headers = {
+            'content-type': 'multipart/form-data'
+        }
+        const profileForm = new FormData();
+
+        profileForm.append('image', action.payload.imgpath);
+        profileForm.append('name', action.payload.name);
+        profileForm.append('homemade_pref', action.payload.homemade_pref);
+        profileForm.append('about', action.payload.about);
+        profileForm.append('allergy_type', action.payload.allergy_type);
+        profileForm.append('restriction_type', action.payload.restriction_type)
+
+        console.log('progfileForm:', profileForm)
+
+      const newUserInfo = yield axios({
+        method: 'POST',
+        url: '/api/profile', 
+        headers: headers,
+        data: profileForm
+    })
+
       console.log('in user_profile SAGA', newUserInfo)
-      yield put({ type: 'CREATE_USER_PROFILE', payload: newUserInfo.data});
+      yield put({ type: 'SET_USER_PROFILE', payload: newUserInfo.data});
     }
     catch (error) {
       console.log(`User's profile information POST request failed`, error);

@@ -13,6 +13,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import { TextField } from '@mui/material';
 
 
 
@@ -25,7 +26,7 @@ function UserFormPage() {
     const errors = useSelector((store) => store.errors);
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
-    const [userURL, setUserURL] = useState('');
+    const [profImage, setProfImage] = useState('');
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
@@ -40,7 +41,7 @@ function UserFormPage() {
             name: name,
             homemade_pref: acceptsHomemade,
             about: userBio,
-            imgpath: userURL,
+            imgpath: profImage,
             allergy_type: selectedAllergy,
             restriction_type: selectedDietaryRestriction
         }
@@ -79,23 +80,18 @@ function UserFormPage() {
                 </div>
                 {/* webcam page to take and display picture for your profile */}
                 <WebcamPage
-            // imageGallery={imageGallery}
-            // fetchImages={fetchImages}
-            />
+                // imageGallery={imageGallery}
+                // fetchImages={fetchImages}
+                />
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
-                        <input
+                        <TextField
+                            onChange={e => setProfImage(e.target.files[0])}
                             type="file"
-                            placeholder='Upload URL here'
-                            value={userURL}
-                            // onChange={(event) => addUserPic(event.target.value)}
+                            accept="image/*"
+                            variant='filled'
                         />
-                        <img src={userURL} alt="user image" />
-
-                        {/* <button className='formBtn' onClick={addUserPic}>
-                            Upload Photo
-                        </button> */}
                     </label>
                 </div>
 
@@ -156,19 +152,19 @@ function UserFormPage() {
                     </FormControl>
                 </div>
                 <div>
-                        <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Accept Homemade Items:</FormLabel>
-                            <RadioGroup
-                                row
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                value={acceptsHomemade}
-                                onChange={homemadePrefChange}
-                            >
-                                <FormControlLabel value='true' control={<Radio />} label="Yes" />
-                                <FormControlLabel value='false' control={<Radio />} label="No" />
-                            </RadioGroup>
-                        </FormControl>
-                        {/* <
+                    <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">Accept Homemade Items:</FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            value={acceptsHomemade}
+                            onChange={homemadePrefChange}
+                        >
+                            <FormControlLabel value='true' control={<Radio />} label="Yes" />
+                            <FormControlLabel value='false' control={<Radio />} label="No" />
+                        </RadioGroup>
+                    </FormControl>
+                    {/* <
                             checked={acceptsHomemade}
                             onChange={(event) => setAcceptsHomemade(event.target.value)}
                         /> */}

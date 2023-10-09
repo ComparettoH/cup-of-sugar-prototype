@@ -1,5 +1,6 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const cloudinaryUpload = require('../modules/cloudinary-config');
 
 const pool = require('../modules/pool');
 
@@ -40,9 +41,13 @@ router.get("/", async (req, res) => {
     }
 });
 
-//POST to add user profile information and preferences to user_profile table in DB
-router.post('/', async (req, res) => {
+//POST to add user profile image to cloudinary, and then information and preferences to user_profile table in DB
+router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
+  console.log('sent to cloudinary: ', req.file)
+  console.log('post body', req.body)
     const userId = req.user.id
+
+
     const [
       name,
       homemade_pref,
@@ -56,7 +61,7 @@ router.post('/', async (req, res) => {
         req.body.name,
         req.body.homemade_pref,
         req.body.about,
-        req.body.imgpath,
+        req.file.path,
         req.body.allergy_type,
         req.body.restriction_type
       ]
@@ -101,23 +106,6 @@ router.post('/', async (req, res) => {
     finally {
       connection.release()
     }
-  });
-
-  // post to add profile image from webcam 
-  router
-  .post('/webcam', (req, res) => {
-      console.log('body in route', req.body)
-      const url = req.body.url;
-      const sqlText = `INSERT INTO images ("path") VALUES ($1);`
-
-      pool
-          .query(sqlText, [url])
-          .then((result) => {
-              res.sendStatus(201);
-          })
-          .catch((error) => {
-              res.sendStatus(500);
-          })
   });
 
 // PUT route to make changes to title, descripotion and tags of clip

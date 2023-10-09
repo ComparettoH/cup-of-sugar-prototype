@@ -2,7 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ActivityCardContent from '../ActivityCardContent/ActivityCardContent';
 // material ui imports
-import { Switch, Card, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
+import {
+    Switch,
+    Card,
+    Grid,
+    Box,
+    Typography,
+    List,
+    ListItem,
+    IconButton,
+    ListItemText,
+    FormGroup,
+    FormControlLabel
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 // displays user activity and all offers, requests, and shares
@@ -39,7 +51,7 @@ function ActivityFeed(props) {
     };
 
     return (
-        <Box sx={{ width: '95%', margin: 'auto'}}>
+        <Box sx={{ width: '95%', margin: 'auto' }}>
             <FormGroup row>
                 <FormControlLabel
                     control={<Switch
@@ -116,7 +128,7 @@ function ActivityFeed(props) {
                     return (
                         <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%'}} >
+                            <Card sx={{ width: '100%' }} >
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}
