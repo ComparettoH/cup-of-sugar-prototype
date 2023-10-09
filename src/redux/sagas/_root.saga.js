@@ -5,6 +5,9 @@ import userSaga from './user.saga';
 import profileSaga from './profile.saga';
 import offerSaga from './offer.saga';
 import requestSaga from './request.saga';
+import groupSaga from './group.saga';
+import allergySaga from './allergy.saga';
+import restrictionSaga from './restriction.saga';
 
 
 // rootSaga is the primary saga.
@@ -22,5 +25,8 @@ export default function* rootSaga() {
     profileSaga(),
     offerSaga(),
     requestSaga(),
+    groupSaga(),
+    allergySaga(),
+    restrictionSaga(),
   ]);
 }

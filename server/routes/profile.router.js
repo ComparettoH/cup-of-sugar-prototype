@@ -62,8 +62,8 @@ router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
         req.body.homemade_pref,
         req.body.about,
         req.file.path,
-        req.body.allergy_type,
-        req.body.restriction_type
+        req.body.allergy_type.split(',').map(Number),
+        req.body.restriction_type.split(',').map(Number)
       ]
   
     //Testing console logs
@@ -82,18 +82,22 @@ router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
       await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath])
       //posts user allergy selections to allergies table
       const sqlUserAllergies = 
-      `INSERT INTO "allergies"
-      ("user_id", "allergy_type")
+      `INSERT INTO "user_allergies"
+      ("user_id", "allergy_id")
       VALUES ($1, $2);`
   
-      await connection.query(sqlUserAllergies, [userId, allergy_type])
+      for (let allergy of allergy_type) {
+        await connection.query(sqlUserAllergies, [userId, allergy])
+      }
       //posts user dietary_restrictions to dietary_restrictions table
       const sqlUserDietary =
-      `INSERT INTO "dietary_restrictions"
-      ("user_id", "restriction_type")
+      `INSERT INTO "user_dietary_restrictions"
+      ("user_id", "user_restriction_id")
       VALUES ($1, $2);`
   
-    await connection.query(sqlUserDietary, [userId, restriction_type])
+    for (let restriction of restriction_type) {
+      await connection.query(sqlUserDietary, [userId, restriction])
+    }
   
       await connection.query('COMMIT');
       res.sendStatus(200);

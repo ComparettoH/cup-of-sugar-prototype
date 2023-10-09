@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import WebcamPage from '../WebcamPage/WebcamPage'
 // material ui imports
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,6 +25,8 @@ function UserFormPage() {
     const history = useHistory();
     const dispatch = useDispatch();
     const errors = useSelector((store) => store.errors);
+    const allergy = useSelector((store) => store.allergy);
+    const restriction = useSelector((store) => store.restriction);
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
     const [profImage, setProfImage] = useState('');
@@ -32,6 +35,21 @@ function UserFormPage() {
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(true);
 
+    useEffect(() => {
+        getAllergyList();
+    }, [])
+
+    useEffect(() => {
+        getRestrictionList();
+    }, [])
+
+    const getAllergyList = () => {
+        dispatch({ type: 'FETCH_ALLERGY' })
+    }
+
+    const getRestrictionList = () => {
+        dispatch({ type: 'FETCH_RESTRICTION' })
+    }
 
     const newProfileHandleSubmit = (event) => {
         event.preventDefault();
@@ -64,6 +82,7 @@ function UserFormPage() {
         setAcceptsHomemade(event.target.value);
     }
 
+    console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -91,6 +110,7 @@ function UserFormPage() {
                             type="file"
                             accept="image/*"
                             variant='filled'
+
                         />
                     </label>
                 </div>
@@ -110,28 +130,27 @@ function UserFormPage() {
                 <div>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
+                        {/* Allergy Drop Down menu */}
                         <Select
-                            id="allergy"
+                            id="allergies"
                             multiple
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}
-                            input={<OutlinedInput label="Please select allergies:" />}
+                            input={<OutlinedInput label="Please select dietary restrictions:" />}
                         >
-                            <MenuItem value="none">None</MenuItem>
-                            <MenuItem value="nuts">Nuts</MenuItem>
-                            <MenuItem value="dairy">Dairy</MenuItem>
-                            <MenuItem value="gluten">Gluten</MenuItem>
-                            <MenuItem value="shellfish">Shellfish</MenuItem>
-                            <MenuItem value="soy">Soy</MenuItem>
-                            <MenuItem value="eggs">Eggs</MenuItem>
-                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
-                            {/* Add more allergy options as needed */}
+                            {allergy.map((option1) =>
+                                <MenuItem key={option1.id} value={option1.id}
+                                >
+                                    {option1.allergy_type}
+                                </MenuItem>
+                            )}
                         </Select>
                     </FormControl>
                 </div>
                 <div>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
+                        {/* Dietary Restriction Drop Down menu */}
                         <Select
                             id="dietaryRestriction"
                             multiple
@@ -139,15 +158,9 @@ function UserFormPage() {
                             onChange={(event) => setSelectedDietaryRestriction(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                         >
-                            <MenuItem value="none">None</MenuItem>
-                            <MenuItem value="vegetarian">Vegetarian</MenuItem>
-                            <MenuItem value="vegan">Vegan</MenuItem>
-                            <MenuItem value="glutenFree">Gluten-Free</MenuItem>
-                            <MenuItem value="dairyFree">Dairy-Free</MenuItem>
-                            <MenuItem value="halal">Halal</MenuItem>
-                            <MenuItem value="kosher">Kosher</MenuItem>
-                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
-                            {/* Add more dietary restriction options as needed */}
+                             {restriction.map((option2, i) =>
+                            <MenuItem key= {i} value={option2.id}>{option2.restriction_type}</MenuItem>
+                            )}
                         </Select>
                     </FormControl>
                 </div>
