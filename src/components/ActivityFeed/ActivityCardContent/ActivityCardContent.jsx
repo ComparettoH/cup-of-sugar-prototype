@@ -4,7 +4,7 @@ import { DateTimeFormatter, DateFormatter } from '../../../utils/DateTimeFormatt
 // Material UI imports
 import { CardContent, CardActionArea, Typography } from '@mui/material';
 
-function OfferCardContent({ activity, activityView }) {
+function ActivityCardContent({ activity, activityView }) {
     const history = useHistory();
     const dispatch = useDispatch();
     // console.log('offered on', activity.offered_on);
@@ -58,4 +58,4 @@ function OfferCardContent({ activity, activityView }) {
     );
 }
 
-export default OfferCardContent
+export default ActivityCardContent
