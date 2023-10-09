@@ -7,37 +7,35 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // GET for Group information
-router.get('/', async (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const userGroupID = req.user.group_id
-    const connection = await pool.connect()
+    const groupQueryText = `SELECT * FROM "group"
+    WHERE id = $1`
+    pool.query(groupQueryText, [userGroupID])
+    .then( (result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log('Error with class GET', err);
+      res.sendStatus(500);
+    })
+  });
 
-    try {
-        await connection.query('BEGIN');
-        //gets group name and drop off location
-        const groupQueryText = `SELECT * FROM "group"
-      WHERE id = $1`
-
-        const reply1 = await connection.query(groupQueryText, [userGroupID]);
-        console.log('group information GET', reply1.rows)
-
-        //gets group members that are part of group
-        const groupMemberQuery = `SELECT * FROM "user"
-      WHERE group_id = $1`
-
-        const reply2 = await connection.query(groupMemberQuery, [userGroupID])
-        console.log('group member GET', reply2.rows)
-
-        await connection.query('COMMIT');
-
-        res.send({ groupInfo: reply1.rows, groupMembers: reply2.rows })
-    }
-    catch (err) {
-        await connection.query('ROLLBACK');
-        console.log('Error with GET for group information', err);
-        res.sendStatus(500);
-    } finally {
-        connection.release()
-    }
-})
+  // GET members that are in Group
+router.get('/members', rejectUnauthenticated, (req, res) => {
+  const userGroupID = req.user.group_id
+  const groupQueryText = 
+  `SELECT "user".id, user_profile.name FROM "user_profile"
+  JOIN "user" ON "user".id = "user_profile".user_id
+  WHERE "user".group_id = $1 ORDER BY user_profile.name DESC;`
+  pool.query(groupQueryText, [userGroupID])
+  .then( (result) => {
+    res.send(result.rows);
+  })
+  .catch((err) => {
+    console.log('Error with class GET', err);
+    res.sendStatus(500);
+  })
+});
 
 module.exports = router;
