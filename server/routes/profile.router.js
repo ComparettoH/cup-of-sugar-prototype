@@ -45,6 +45,7 @@ router.get("/", async (req, res) => {
 router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
   console.log('sent to cloudinary: ', req.file)
   console.log('post body', req.body)
+  console.log('post user', req.user)
     const userId = req.user.id
 
 
