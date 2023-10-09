@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HashRouter as Router,
   Redirect,
   Route,
   Switch,
-
+  useLocation
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { NavVisibilityContext } from '../Nav/NavVisibilityContext';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -41,7 +41,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
   const dispatch = useDispatch();
-
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const user = useSelector(store => store.user);
   const bottomNavHeight = 80; // Replace with the actual height of your bottom navigation bar
   const mainContentStyle = {
@@ -54,6 +54,8 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  
+
   // changes to the material ui color palette
   let theme = MaterialTheme();
 
@@ -61,11 +63,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
-
-
+        
         <div style={mainContentStyle}>
-          <Nav />
+          {location.pathname !== '/howitworks' && <Nav />}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -84,7 +86,7 @@ function App() {
               exact
               path="/howitworks"
             >
-              <HowItWorks />
+              <HowItWorks setIsNavVisible={setIsNavVisible}/>
             </ProtectedRoute>
 
             {/* For protected routes, the view could show one of several things on the same route.
@@ -245,11 +247,12 @@ function App() {
             <Route>
               <h1>404</h1>
             </Route>
-            </Switch>
-            <Footer />
+          </Switch>
+          <Footer />
         </div>
-      
-    </Router>
+
+      </Router>
+      </NavVisibilityContext.Provider>
     </ThemeProvider >
   );
 }

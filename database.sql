@@ -16,6 +16,7 @@ CREATE TABLE "user" (
     username varchar(80) NOT NULL,
     password varchar(1000) NOT NULL,
     group_id integer NOT NULL,
+    role integer DEFAULT 0,
     FOREIGN KEY (group_id) REFERENCES "group" (id),
     UNIQUE (username)
 );

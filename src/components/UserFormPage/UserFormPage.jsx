@@ -118,7 +118,7 @@ function UserFormPage() {
                         <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
                         {/* Allergy Drop Down menu */}
                         <Select
-                            id="dietaryRestriction"
+                            id="allergy"
                             multiple
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}

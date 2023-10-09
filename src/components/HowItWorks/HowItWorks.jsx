@@ -1,5 +1,5 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, {useEffect} from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 
 // material ui imports
@@ -15,7 +15,15 @@ import './HowItWorks.css'
 
 
 // This is a static page to show how the app works
-function HowItWorks() {
+function HowItWorks({setIsNavVisible}) {
+
+    useEffect(() => {
+        setIsNavVisible(false);
+    
+        return () => {
+          setIsNavVisible(true);
+        };
+      }, []);
 
     const history = useHistory();
 
