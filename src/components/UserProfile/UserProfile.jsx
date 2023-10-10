@@ -4,18 +4,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+// Material UI imports
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-
-
-
-
-// CSS import
-
-// Material UI imports
-
 
 // This function will fetch user profile info:
 // Username, Picture, About Section, Allergies, and Dietary Restrictions,

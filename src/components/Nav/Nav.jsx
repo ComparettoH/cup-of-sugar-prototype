@@ -5,7 +5,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
 import BottomNavBar from '../BottomNavBar/BottomNavBar';
-import TopNavBar from '../TopNavBar/TopNavBar';
+import TopNavBar from './TopNavBar/TopNavBar';
 import zIndex from '@mui/material/styles/zIndex';
 
 

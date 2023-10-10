@@ -26,7 +26,6 @@ import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 import OfferItemPage from '../OfferItemPage/OfferItemPage';
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
-
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
