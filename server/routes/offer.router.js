@@ -10,7 +10,22 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
   if (req.isAuthenticated()) {
     const queryText = `
-      SELECT *
+      SELECT 
+        offers.id, 
+        offers.user_id, 
+        offers.group_id, 
+        offers.category_id, 
+        offers.item_name, 
+        offers.description, 
+        offers.perishable, 
+        offers.homemade, 
+        offers.imgpath, 
+        offers.offered_on, 
+        offers.best_by, 
+        offers.expires_on, 
+        offers.claimed_on, 
+        offers.claimed_by_user, 
+        user_profile.name
       FROM "offers"
       JOIN "user_profile"
       ON offers."user_id" = user_profile."user_id"
@@ -96,6 +111,31 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
   } catch (error) {
     await connection.query('ROLLBACK');
     console.log('Error adding new offer - rolling back offer', error)
+    res.sendStatus(500);
+  } finally {
+    connection.release()
+  }
+});
+
+router.delete("/:id", rejectUnauthenticated, async (req, res) => {
+  console.log('in offer delete req.params:', req.params)
+
+  const offerId = [req.params.id];
+
+  const connection = await pool.connect()
+  try {
+    await connection.query('BEGIN');
+    const sqlDeleteOffer = `
+      DELETE FROM offers 
+      WHERE id = $1 
+      ;`
+    await connection.query(sqlDeleteOffer, offerId);
+    
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query('ROLLBACK');
+    console.log(`Transaction Error - Rolling back new account`, error);
     res.sendStatus(500);
   } finally {
     connection.release()
