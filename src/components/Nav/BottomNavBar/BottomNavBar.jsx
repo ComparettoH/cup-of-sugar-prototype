@@ -5,6 +5,7 @@ import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
 import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
 import zIndex from '@mui/material/styles/zIndex';
+import './BottomNavBar.css';
 
 export function BottomNavBar({value, setValue}) {
     

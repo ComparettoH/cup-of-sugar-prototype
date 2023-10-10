@@ -4,7 +4,6 @@ import {
   Redirect,
   Route,
   Switch,
-  useLocation
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -66,8 +65,8 @@ function App() {
       <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
         
-        <div style={mainContentStyle}>
-          {location.pathname !== '/howitworks' && <Nav />}
+        <div style={mainContentStyle }>
+        {location.pathname !== '/howitworks' && location.pathname !== '/userform' && <Nav />}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -116,13 +115,13 @@ function App() {
               exact
               path="/userform"
             >
-              <UserFormPage />
+              <UserFormPage setIsNavVisible={setIsNavVisible}/>
             </ProtectedRoute>
 
             <ProtectedRoute
               // logged in shows UserProfile else shows LoginPage
               exact
-              path="/profile"
+              path="/profile" 
             >
               <UserProfile />
             </ProtectedRoute>

@@ -14,7 +14,15 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 
 
-function UserFormPage() {
+function UserFormPage({setIsNavVisible}) {
+
+    useEffect(() => {
+        setIsNavVisible(false);
+    
+        return () => {
+          setIsNavVisible(true);
+        };
+      }, []);
 
 
 
@@ -30,6 +38,10 @@ function UserFormPage() {
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(true);
+
+    
+
+    
 
     useEffect(() => {
         getAllergyList();
@@ -67,6 +79,11 @@ function UserFormPage() {
     const homemadePrefChange = (event) => {
         event.preventDefault();
         setAcceptsHomemade(event.target.value);
+    }
+
+    const handleBackButton = () => {
+        history.push(`/howitworks`)
+
     }
 
     console.log('testing on clientside in UserForm', allergy, restriction)
@@ -174,7 +191,8 @@ function UserFormPage() {
                             onChange={(event) => setAcceptsHomemade(event.target.value)}
                         /> */}
                 </div>
-                <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button variant='contained' type="submit">
                         Submit
                     </Button>

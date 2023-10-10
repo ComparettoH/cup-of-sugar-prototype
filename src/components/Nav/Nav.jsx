@@ -10,6 +10,7 @@ import zIndex from '@mui/material/styles/zIndex';
 import { useContext } from 'react';
 import { NavVisibilityContext } from './NavVisibilityContext';
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
   const [value, setValue] = useState(0);
@@ -48,8 +49,9 @@ function Nav() {
             </Link>
 
             <LogOutButton className="navLink" /> */}
-
-            <BottomNavBar value={value} setValue={setValue} />
+            
+              <BottomNavBar id='bottomNav' value={value} setValue={setValue} />
+         
           </div>
         )}
       </div>
