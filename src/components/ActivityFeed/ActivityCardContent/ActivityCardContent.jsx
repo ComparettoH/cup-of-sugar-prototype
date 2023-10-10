@@ -68,7 +68,7 @@ function OfferCardContent({ activity, activityView }) {
                         </Typography>
                         <Typography variant="body1" color="info.main">
                             {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
-                    ${activity.item_name} on ${activity.offered_on ? DateTimeFormatter(activity.offered_on) : DateTimeFormatter(activity.requested_on)}`}
+                    ${activity.item_name}. Expires on ${DateTimeFormatter(activity.expires_on)}`}
                         </Typography>
 
                     </CardContent>

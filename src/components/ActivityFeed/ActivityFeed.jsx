@@ -40,7 +40,7 @@ function ActivityFeed() {
     // declare and assign an array of all the offers and requests, and then sorts them by created date
     const offersAndRequests = offers.concat(requests);
     offersAndRequests.sort((a, b) => {
-        return new Date(a.offered_on || a.requested_on) - new Date(b.offered_on || b.requested_on);
+        return new Date(a.expires_on) - new Date(b.expires_on);
     });
 
     //   sets toggle switch state
