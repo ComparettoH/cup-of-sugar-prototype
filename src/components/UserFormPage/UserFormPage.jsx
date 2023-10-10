@@ -68,6 +68,8 @@ function UserFormPage() {
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
+
+        history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera
     // const addUserPic = (event) => {
@@ -98,10 +100,10 @@ function UserFormPage() {
                     </label>
                 </div>
                 {/* webcam page to take and display picture for your profile */}
-                <WebcamPage
+                {/* <WebcamPage
                 // imageGallery={imageGallery}
                 // fetchImages={fetchImages}
-                />
+                /> */}
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
