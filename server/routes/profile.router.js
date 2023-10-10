@@ -17,14 +17,17 @@ router.get("/", async (req, res) => {
         await connection.query('BEGIN');
         //gets all information for the profile page
         const sqlProfileInfo = `
-        SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type   
-        FROM user_profile 
-        JOIN allergies 
-        ON user_profile.user_id = allergies.user_id
-        JOIN dietary_restrictions 
-        ON user_profile.user_id = dietary_restrictions.user_id
-        WHERE user_profile.user_id = $1
-        ;`
+        SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type
+        FROM user_profile
+        JOIN user_allergies
+        ON user_profile.user_id = user_allergies.user_id
+        JOIN allergies
+        ON user_allergies.allergy_id = allergies.id
+        JOIN user_dietary_restrictions
+        ON user_profile.user_id = user_dietary_restrictions.user_id
+        JOIN dietary_restrictions
+        ON user_dietary_restrictions.user_restriction_id = dietary_restrictions.id
+        WHERE user_profile.user_id = $1;`
         const reply = await connection.query(sqlProfileInfo, [userCurrent]);
         console.log('reply', reply.rows[0])
 
@@ -44,6 +47,7 @@ router.get("/", async (req, res) => {
 router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
   console.log('sent to cloudinary: ', req.file)
   console.log('post body', req.body)
+  console.log('post user', req.user)
     const userId = req.user.id
 
     const [

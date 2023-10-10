@@ -41,7 +41,6 @@ function OfferFormPage2() {
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)
-
     }
 
     const handleSubmitOffer = (event) => {
