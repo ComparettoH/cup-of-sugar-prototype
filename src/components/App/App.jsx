@@ -34,6 +34,8 @@ import EditProfile from '../EditProfile/EditProfile';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 
@@ -51,6 +53,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Router>
       <div>
         <Nav />
@@ -235,6 +238,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </LocalizationProvider>
     </ThemeProvider>
   );
 }
