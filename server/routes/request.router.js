@@ -45,7 +45,19 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.isAuthenticated()){
       const queryText = `
-      SELECT *
+      SELECT 
+        requests.id, 
+        requests.user_id, 
+        requests.group_id, 
+        requests.category_id, 
+        requests.item_name, 
+        requests.description,  
+        requests.imgpath, 
+        requests.requested_on, 
+        requests.expires_on, 
+        requests.fulfilled_on, 
+        requests.fulfilled_by_user, 
+        user_profile.name
       FROM "requests"
       JOIN "user_profile"
       ON requests."user_id" = user_profile."user_id"
@@ -62,6 +74,31 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       })}
     else {
       res.sendStatus(403);
+    }
+  });
+
+  router.delete("/:id", rejectUnauthenticated, async (req, res) => {
+    console.log('in request post req.params:', req.params)
+  
+    const requestId = [req.params.id];
+  
+    const connection = await pool.connect()
+    try {
+      await connection.query('BEGIN');
+      const sqlDeleteClip = `
+        DELETE FROM requests 
+        WHERE id = $1 
+        ;`
+      await connection.query(sqlDeleteClip, requestId);
+      
+      await connection.query('COMMIT');
+      res.sendStatus(200);
+    } catch (error) {
+      await connection.query('ROLLBACK');
+      console.log(`Transaction Error - Rolling back new account`, error);
+      res.sendStatus(500);
+    } finally {
+      connection.release()
     }
   });
 

@@ -4,11 +4,11 @@ const cloudinaryUpload = require('../modules/cloudinary-config');
 
 const pool = require('../modules/pool');
 
-
 const router = express.Router();
 
 // gets user profile information to display on user profile page
 router.get("/", async (req, res) => {
+
   // sets userCurrent with id
   const userCurrent = req.user.id;
   console.log(userCurrent);
@@ -46,6 +46,7 @@ router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
   console.log('post body', req.body)
   console.log('post user', req.user)
   const userId = req.user.id
+
 
 
   const [

@@ -8,9 +8,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
 
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 
@@ -18,7 +17,8 @@ import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
-    const itemName = useSelector((store) => store.offers)
+    const itemName = useSelector((store) => store.offers.itemHeadline)
+    const imgpath = useSelector((store) => store.offers.offerImage)
     // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
@@ -31,26 +31,25 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
-    const handleBestByDate = (date) => {
-        setBestByDate(date);
-    };
+    // const handleBestByDate = (date) => {
+    //     setBestByDate(date);
+    // };
 
-    const handleOfferExpiresDate = (date) => {
-        setOfferExpiresDate(date);
-    };
+    // const handleOfferExpiresDate = (date) => {
+    //     setOfferExpiresDate(date);
+    // };
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)
-
     }
 
     const handleSubmitOffer = (event) => {
         event.preventDefault();
 
         let timestamp = new Date();
-
         let newOffer = {
             item_name: itemName,
+            imgpath: imgpath,
             description: itemDescription,
             perishable: persihableItem,
             homemade: homemadeItem,
@@ -59,7 +58,7 @@ function OfferFormPage2() {
             best_by: bestByDate,
             expires_on: offerExpiresDate
         }
-
+        console.log('newoffer:', newOffer)
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
         // navigate to activity feed
@@ -122,25 +121,20 @@ function OfferFormPage2() {
                     </label>
                 </div>
                 <div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <label htmlFor="calendar">
-                            Best if used by
-                            <MobileDatePicker
-                                value={bestByDate}
-                                onChange={handleBestByDate} />
-                        </label>
-                    </LocalizationProvider>
+                    <label htmlFor="calendar">
+                        Best if used by
+                        <MobileDatePicker
+                            value={bestByDate}
+                            onChange={(date) => setBestByDate(date)} />
+                    </label>
                 </div>
                 <div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <label htmlFor="calendar">
-                            Claim by
-                            <DateTimeField
-                                label='Date & Time'
-                                value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate} />
-                        </label>
-                    </LocalizationProvider>
+                    <label htmlFor="calendar">
+                        Claim by
+                        <MobileDateTimePicker
+                            value={offerExpiresDate}
+                            onChange={(date) => setOfferExpiresDate(date)} />
+                    </label>
                 </div>
 
                 <div>
