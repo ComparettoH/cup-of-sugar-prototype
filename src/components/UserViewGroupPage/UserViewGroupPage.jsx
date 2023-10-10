@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useReduxStore from '../../hooks/useReduxStore';
 import { useEffect } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -14,6 +15,7 @@ function UserViewGroupPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const store = useReduxStore();
     const group = useSelector((store) => store.group);
     const groupMembers = useSelector((store) => store.groupMembers)
 
@@ -25,11 +27,11 @@ function UserViewGroupPage() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_INFO' });
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_MEMBERS' });
-    }, []);
+    }, [dispatch]);
 
     console.log('testing group info data', group, groupMembers)
 

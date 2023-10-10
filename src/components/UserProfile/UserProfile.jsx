@@ -38,8 +38,9 @@ function UserProfile() {
 
     }
 
-    const handleGroupInfo = () => {
+    function handleGroupInfo() {{
         history.push(`/usergroup`)
+    }
     }
 
     return (
