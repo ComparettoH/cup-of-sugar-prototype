@@ -27,11 +27,11 @@ function UserViewGroupPage() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_INFO' });
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_MEMBERS' });
-    }, [dispatch]);
+    }, []);
 
     console.log('testing group info data', group, groupMembers)
 
