@@ -50,7 +50,7 @@ function AddMemberForm(){
                 </label>
             </div>
             <div>
-                    <Button variant='contained' type="submit">
+                    <Button variant='contained' id="submit">
                         Send Invite
                     </Button>
                 </div>

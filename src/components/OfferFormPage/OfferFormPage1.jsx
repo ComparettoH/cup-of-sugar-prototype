@@ -39,7 +39,7 @@ function OfferFormPage1(){
 
         
         <div>
-        <Button variant="contained" onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
+        <Button id="submit" variant="contained" onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
         </div>
         </form>
         </>

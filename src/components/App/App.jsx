@@ -42,10 +42,10 @@ function App() {
   const dispatch = useDispatch();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const user = useSelector(store => store.user);
-  const bottomNavHeight = 80; // Replace with the actual height of your bottom navigation bar
-  const mainContentStyle = {
-    paddingBottom: `${bottomNavHeight}px`,
-  };
+  // const bottomNavHeight = 80; // Replace with the actual height of your bottom navigation bar
+  // const mainContentStyle = {
+  //   paddingBottom: `${bottomNavHeight}px`,
+  // };
 
 
 
@@ -65,7 +65,8 @@ function App() {
       <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
         
-        <div style={mainContentStyle }>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <div style={{ flex: '1 0 auto' }}>
         {location.pathname !== '/howitworks' && location.pathname !== '/userform' && <Nav />}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -253,6 +254,7 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
+          </div>
           <Footer />
         </div>
 

@@ -49,7 +49,7 @@ function RequestItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button id="submit" variant="contained">Fulfill</Button>
             </footer>
         </Box>
     );
