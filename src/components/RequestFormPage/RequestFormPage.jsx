@@ -26,6 +26,7 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 function RequestFormPage() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [requestedItem, setRequestedItem] = useState('')
     const [itemDescription, setItemDescription] = useState('')
@@ -56,7 +57,8 @@ function RequestFormPage() {
         dispatch({
             type: 'ADD_REQUEST', payload: newRequest
         })
-
+        // sends user to Activity Feed to confirm request post
+        history.push('/activity')
     }
 
     return (

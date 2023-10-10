@@ -68,7 +68,6 @@ function UserFormPage() {
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
-
         history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera
