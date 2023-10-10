@@ -63,7 +63,7 @@ function OfferFormPage2() {
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
         // navigate to activity feed
-        // history.push('/activity')
+        history.push('/activity')
     }
 
     return (
