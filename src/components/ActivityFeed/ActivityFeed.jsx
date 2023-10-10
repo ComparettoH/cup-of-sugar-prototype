@@ -40,7 +40,7 @@ function ActivityFeed() {
     // declare and assign an array of all the offers and requests, and then sorts them by created date
     const offersAndRequests = offers.concat(requests);
     offersAndRequests.sort((a, b) => {
-        return new Date(a.offered_on || a.requested_on) - new Date(b.offered_on || b.requested_on);
+        return new Date(a.expires_on) - new Date(b.expires_on);
     });
 
     //   sets toggle switch state
@@ -80,6 +80,7 @@ function ActivityFeed() {
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
                     {offersAndRequests.map((activity, index) => {
+                        console.log('activity in initial map:', activity)
                         if (user.id === activity.user_id) {
                             return activity.claimed_on || activity.fulfilled_on ?
                                 (
@@ -127,14 +128,14 @@ function ActivityFeed() {
                     // if (user.id !== activity.user_id) {
 
                     return (
-                        <Grid item key={index} xs={6} sm={6} md={6} >
+                        <Grid item key={index} xs={12} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%' }} >
+                            {/* <Card sx={{ width: '100%' }} > */}
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}
                                 />
-                            </Card>
+                            {/* </Card> */}
                         </Grid>
                     );
                     // } 
