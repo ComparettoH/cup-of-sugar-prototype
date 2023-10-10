@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -32,36 +34,39 @@ function RegisterForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <TextField
             type="text"
             name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
+            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
           Password:
-          <input
+          <TextField
             type="password"
             name="password"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
           Group:
-          <input
+          <TextField
             type="group"
             name="group"
             value={group}
             required
             onChange={(event) => setGroup(event.target.value)}
+            sx={{ mb: 2 }}
           />
         </label>
       </div>

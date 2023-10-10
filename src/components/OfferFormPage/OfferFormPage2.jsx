@@ -11,7 +11,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
+import TextField from '@mui/material/TextField';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 
 
@@ -72,14 +72,16 @@ function OfferFormPage2() {
                 <div>
                     <label htmlFor="itemDescription">
                         Description
-                        <input
-
+                        <TextField
+                            id="itemDescription"
                             type='text'
+                            multiline rows={4}
                             placeholder="Provide some details about the item you'd like to share. 
                             You can add information about quantity, date of purchase, reason for sharing, etc."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -89,6 +91,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                     <label>
@@ -96,6 +99,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -108,6 +112,7 @@ function OfferFormPage2() {
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
                                 <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
@@ -127,7 +132,9 @@ function OfferFormPage2() {
                             Best if used by
                             <MobileDatePicker
                                 value={bestByDate}
-                                onChange={handleBestByDate} />
+                                onChange={handleBestByDate}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                     </LocalizationProvider>
                 </div>
@@ -138,7 +145,9 @@ function OfferFormPage2() {
                             <DateTimeField
                                 label='Date & Time'
                                 value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate} />
+                                onChange={handleOfferExpiresDate}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                     </LocalizationProvider>
                 </div>
@@ -151,7 +160,7 @@ function OfferFormPage2() {
                 </div>
             </form>
 
-            
+
         </>
     )
 }

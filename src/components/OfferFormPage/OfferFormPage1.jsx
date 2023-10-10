@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 function OfferFormPage1(){
@@ -24,12 +24,13 @@ function OfferFormPage1(){
             <div>
                 <label htmlFor='itemHeadline'>
                     Headline 
-                    <input
+                    <TextField
                     type='text'
                     placeholder='What item are you sharing?'
                     value={itemHeadline}
                     onChange={(event)=> setItemHeadline(event.target.value)}
-                    sx={{ width: '100%' }}
+                    fullWidth
+                    sx={{ mb: 2 }}
                     />
                 </label>
             </div>
@@ -39,7 +40,11 @@ function OfferFormPage1(){
 
         
         <div>
-        <Button id="submit" variant="contained" onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
+        <Button 
+        id="submit" 
+        variant="contained" 
+        sx={{ mt: 2 }}
+        onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
         </div>
         </form>
         </>

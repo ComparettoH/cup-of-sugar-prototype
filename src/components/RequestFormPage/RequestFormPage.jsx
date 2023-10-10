@@ -68,12 +68,12 @@ function RequestFormPage() {
                 <div>
                     <label htmlFor="headline">
                         Headline
-                        <input
+                        <TextField
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
                             onChange={(event) => setRequestedItem(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
                         />
                     </label>
                 </div>
@@ -102,12 +102,14 @@ function RequestFormPage() {
                 <div>
                     <label htmlFor="itemDescription">
                         Description
-                        <input
+                        <TextField
+                            id="itemDescription"
                             type='text'
+                            multiline rows={4}
                             placeholder="How much do you need? What do you need it for? Provide some details."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
                         />
                     </label>
                 </div>

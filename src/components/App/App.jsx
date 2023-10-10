@@ -65,7 +65,7 @@ function App() {
       <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
         
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', marginBottom: '20px' }}>
             <div style={{ flex: '1 0 auto' }}>
         {location.pathname !== '/howitworks' && location.pathname !== '/userform' && <Nav />}
           <Switch>

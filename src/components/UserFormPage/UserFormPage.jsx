@@ -12,17 +12,18 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'
 
 
-function UserFormPage({setIsNavVisible}) {
+function UserFormPage({ setIsNavVisible }) {
 
     useEffect(() => {
         setIsNavVisible(false);
-    
+
         return () => {
-          setIsNavVisible(true);
+            setIsNavVisible(true);
         };
-      }, []);
+    }, []);
 
 
 
@@ -39,9 +40,9 @@ function UserFormPage({setIsNavVisible}) {
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(true);
 
-    
 
-    
+
+
 
     useEffect(() => {
         getAllergyList();
@@ -93,11 +94,13 @@ function UserFormPage({setIsNavVisible}) {
                 <div>
                     <label htmlFor='name'>
                         Name
-                        <input
+                        <TextField
                             type="text"
                             placeholder='Your name here'
                             value={name}
                             onChange={(event) => setName(event.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -109,6 +112,7 @@ function UserFormPage({setIsNavVisible}) {
                             placeholder='Upload URL here'
                             value={userURL}
                             onChange={(event) => setUserURL(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                         <img src={userURL} alt="user image" />
 
@@ -121,12 +125,15 @@ function UserFormPage({setIsNavVisible}) {
                 <div>
                     <label htmlFor="about">
                         Tell us a little about yourself:
-                        <input
+                        <TextField
+                            id="about"
                             type='text'
+                            multiline rows={4}
                             placeholder='Why did you choose Cup Of Sugar?'
                             value={userBio}
                             onChange={(event) => setUserBio(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -140,6 +147,7 @@ function UserFormPage({setIsNavVisible}) {
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
+                            sx={{ mb: 2 }}
                         >
                             {allergy.map((option1) =>
                                 <MenuItem key={option1.id} value={option1.allergy_type}
@@ -160,6 +168,7 @@ function UserFormPage({setIsNavVisible}) {
                             value={selectedDietaryRestriction}
                             onChange={(event) => setSelectedDietaryRestriction(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
+                            sx={{ mb: 2 }}
                         >
                             <MenuItem value="none">None</MenuItem>
                             <MenuItem value="vegetarian">Vegetarian</MenuItem>
@@ -181,6 +190,7 @@ function UserFormPage({setIsNavVisible}) {
                             aria-labelledby="demo-radio-buttons-group-label"
                             value={acceptsHomemade}
                             onChange={homemadePrefChange}
+                            sx={{ mb: 2 }}
                         >
                             <FormControlLabel value='true' control={<Radio />} label="Yes" />
                             <FormControlLabel value='false' control={<Radio />} label="No" />
@@ -192,7 +202,7 @@ function UserFormPage({setIsNavVisible}) {
                         /> */}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
+                    <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button variant='contained' id="submit">
                         Submit
                     </Button>
