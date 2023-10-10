@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import WebcamPage from '../WebcamPage/WebcamPage'
+// material ui imports
+import React, { useState, useEffect  } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -34,23 +37,28 @@ function UserFormPage({ setIsNavVisible }) {
     const restriction = useSelector((store) => store.restriction);
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
-    const [userURL, setUserURL] = useState('');
+    const [profImage, setProfImage] = useState('');
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
     const [acceptsHomemade, setAcceptsHomemade] = useState(true);
 
-
-
-
-
     useEffect(() => {
         getAllergyList();
+    }, [])
+
+    useEffect(() => {
+        getRestrictionList();
     }, [])
 
     const getAllergyList = () => {
         dispatch({ type: 'FETCH_ALLERGY' })
     }
+
+    const getRestrictionList = () => {
+        dispatch({ type: 'FETCH_RESTRICTION' })
+    }
+
     const newProfileHandleSubmit = (event) => {
         event.preventDefault();
         console.log("in newProfileHandleSubmit")
@@ -59,7 +67,7 @@ function UserFormPage({ setIsNavVisible }) {
             name: name,
             homemade_pref: acceptsHomemade,
             about: userBio,
-            imgpath: userURL,
+            imgpath: profImage,
             allergy_type: selectedAllergy,
             restriction_type: selectedDietaryRestriction
         }
@@ -68,6 +76,8 @@ function UserFormPage({ setIsNavVisible }) {
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
+
+        history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera
     // const addUserPic = (event) => {
@@ -104,21 +114,22 @@ function UserFormPage({ setIsNavVisible }) {
                         />
                     </label>
                 </div>
+                {/* webcam page to take and display picture for your profile */}
+                {/* <WebcamPage
+                // imageGallery={imageGallery}
+                // fetchImages={fetchImages}
+                /> */}
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
-                        <input
+                        <TextField
+                            onChange={e => setProfImage(e.target.files[0])}
                             type="file"
                             placeholder='Upload URL here'
-                            value={userURL}
-                            onChange={(event) => setUserURL(event.target.value)}
                             sx={{ mb: 2 }}
+                            accept="image/*"
+                            variant='filled'
                         />
-                        <img src={userURL} alt="user image" />
-
-                        {/* <button className='formBtn' onClick={addUserPic}>
-                            Upload Photo
-                        </button> */}
                     </label>
                 </div>
 
@@ -142,7 +153,7 @@ function UserFormPage({ setIsNavVisible }) {
                         <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
                         {/* Allergy Drop Down menu */}
                         <Select
-                            id="allergy"
+                            id="allergies"
                             multiple
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}
@@ -150,7 +161,7 @@ function UserFormPage({ setIsNavVisible }) {
                             sx={{ mb: 2 }}
                         >
                             {allergy.map((option1) =>
-                                <MenuItem key={option1.id} value={option1.allergy_type}
+                                <MenuItem key={option1.id} value={option1.id}
                                 >
                                     {option1.allergy_type}
                                 </MenuItem>
@@ -162,6 +173,7 @@ function UserFormPage({ setIsNavVisible }) {
                 <div>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
+                        {/* Dietary Restriction Drop Down menu */}
                         <Select
                             id="dietaryRestriction"
                             multiple
@@ -170,15 +182,9 @@ function UserFormPage({ setIsNavVisible }) {
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                             sx={{ mb: 2 }}
                         >
-                            <MenuItem value="none">None</MenuItem>
-                            <MenuItem value="vegetarian">Vegetarian</MenuItem>
-                            <MenuItem value="vegan">Vegan</MenuItem>
-                            <MenuItem value="glutenFree">Gluten-Free</MenuItem>
-                            <MenuItem value="dairyFree">Dairy-Free</MenuItem>
-                            <MenuItem value="halal">Halal</MenuItem>
-                            <MenuItem value="kosher">Kosher</MenuItem>
-                            <MenuItem value="other">Other (please detail in your profile!)</MenuItem>
-                            {/* Add more dietary restriction options as needed */}
+                             {restriction.map((option2, i) =>
+                            <MenuItem key= {i} value={option2.id}>{option2.restriction_type}</MenuItem>
+                            )}
                         </Select>
                     </FormControl>
                 </div>

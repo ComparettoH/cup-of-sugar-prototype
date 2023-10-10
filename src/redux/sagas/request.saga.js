@@ -1,7 +1,10 @@
 import axios from "axios";
 import { put, takeLatest } from 'redux-saga/effects';
 
-// This is a worker saga; will be fired upon 'FETCH_USER_PROFILE' actions
+// This is a worker saga; will be fired upon 
+// 'FETCH_REQUESTS' 
+// 'ADD_REQUEST'
+// 'FETCH_REQUEST_ITEM' actions
 
 function* fetchRequests() {
     try {
