@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import TextField from '@mui/material/TextField';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -35,24 +36,26 @@ function LoginForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <TextField
             type="text"
             name="username"
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
+            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
           Password:
-          <input
+          <TextField
             type="password"
             name="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            sx={{ mb: 2 }}
           />
         </label>
       </div>

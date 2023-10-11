@@ -47,12 +47,38 @@ function* fetchRequestItem() {
 
 }
 
+function* updateRequest(action) {
+    
+    try {
+        // PUTS the updated request from updateActivity reducer to the DB
+        const updateRequest = action.payload
+        yield axios({
+            method: 'PUT',
+            url: `api/request/${action.payload.id}`,
+            data: updateRequest
+        })
+
+        // yield put({ type: 'FETCH_REQUESTS' });
+    } catch (error) {
+        console.log('updateRequest put request failed', error)
+
+function* claimRequest (action) {
+    console.log('claim offer SAGA', action.payload)
+    try {
+        yield axios.put(`/api/request/${action.payload}`, action.payload)
+        yield put({ type: 'FETCH_REQUESTS'})
+    }
+    catch (err) {
+        console.log('Error with claiming Request', err)
+    }
+}
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);
     yield takeLatest('ADD_REQUEST', addRequest);
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
-
+    yield takeLatest('UPDATE_REQUEST', updateRequest);
+    yield takeLatest('FULFILL_REQUEST', claimRequest);
 };
 
 export default requestSaga;

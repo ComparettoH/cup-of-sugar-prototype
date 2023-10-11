@@ -5,7 +5,7 @@ const editProfileReducer = (state = [], action) => {
         case 'PROFILE_EDIT_ONCHANGE':
             return {
                 ...state,
-                [action.payload.propery]: action.payload.value
+                [action.payload.property]: action.payload.value
             };
         case 'EDIT_CLEAR':
             return {}

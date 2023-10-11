@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import WebcamPage from '../WebcamPage/WebcamPage'
 // material ui imports
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect  } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,11 +14,19 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'
 
 
+function UserFormPage({ setIsNavVisible }) {
 
-function UserFormPage() {
+    useEffect(() => {
+        setIsNavVisible(false);
+
+        return () => {
+            setIsNavVisible(true);
+        };
+    }, []);
 
 
 
@@ -68,7 +76,6 @@ function UserFormPage() {
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
-
         history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera
@@ -84,6 +91,11 @@ function UserFormPage() {
         setAcceptsHomemade(event.target.value);
     }
 
+    const handleBackButton = () => {
+        history.push(`/howitworks`)
+
+    }
+
     console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
@@ -91,11 +103,13 @@ function UserFormPage() {
                 <div>
                     <label htmlFor='name'>
                         Name
-                        <input
+                        <TextField
                             type="text"
                             placeholder='Your name here'
                             value={name}
                             onChange={(event) => setName(event.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -107,12 +121,14 @@ function UserFormPage() {
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
+                        {/* lets user upload an image from their device */}
                         <TextField
                             onChange={e => setProfImage(e.target.files[0])}
                             type="file"
+                            placeholder='Upload URL here'
+                            sx={{ mb: 2 }}
                             accept="image/*"
                             variant='filled'
-
                         />
                     </label>
                 </div>
@@ -120,12 +136,15 @@ function UserFormPage() {
                 <div>
                     <label htmlFor="about">
                         Tell us a little about yourself:
-                        <input
+                        <TextField
+                            id="about"
                             type='text'
+                            multiline rows={4}
                             placeholder='Why did you choose Cup Of Sugar?'
                             value={userBio}
                             onChange={(event) => setUserBio(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -139,6 +158,7 @@ function UserFormPage() {
                             value={selectedAllergy}
                             onChange={(event) => setSelectedAllergy(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
+                            sx={{ mb: 2 }}
                         >
                             {allergy.map((option1) =>
                                 <MenuItem key={option1.id} value={option1.id}
@@ -146,6 +166,7 @@ function UserFormPage() {
                                     {option1.allergy_type}
                                 </MenuItem>
                             )}
+                            {/* Add more allergy options as needed */}
                         </Select>
                     </FormControl>
                 </div>
@@ -159,6 +180,7 @@ function UserFormPage() {
                             value={selectedDietaryRestriction}
                             onChange={(event) => setSelectedDietaryRestriction(event.target.value)}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
+                            sx={{ mb: 2 }}
                         >
                              {restriction.map((option2, i) =>
                             <MenuItem key= {i} value={option2.id}>{option2.restriction_type}</MenuItem>
@@ -174,6 +196,7 @@ function UserFormPage() {
                             aria-labelledby="demo-radio-buttons-group-label"
                             value={acceptsHomemade}
                             onChange={homemadePrefChange}
+                            sx={{ mb: 2 }}
                         >
                             <FormControlLabel value='true' control={<Radio />} label="Yes" />
                             <FormControlLabel value='false' control={<Radio />} label="No" />
@@ -184,10 +207,11 @@ function UserFormPage() {
                             onChange={(event) => setAcceptsHomemade(event.target.value)}
                         /> */}
                 </div>
-                <div>
-                    <button type="submit">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
+                    <Button variant='contained' id="submit">
                         Submit
-                    </button>
+                    </Button>
                 </div>
             </form>
         </>

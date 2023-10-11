@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HashRouter as Router,
   Redirect,
@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { NavVisibilityContext } from '../Nav/NavVisibilityContext';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MaterialTheme from '../MaterialTheme/MaterialTheme';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+// import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -26,34 +26,54 @@ import OfferFormPage1 from '../OfferFormPage/OfferFormPage1';
 import OfferFormPage2 from '../OfferFormPage/OfferFormPage2';
 import OfferItemPage from '../OfferItemPage/OfferItemPage';
 import ActivityFeed from '../ActivityFeed/ActivityFeed';
+import AddMemberForm from '../AddMemberForm/AddMemberForm'
 import UserFormPage from '../UserFormPage/UserFormPage';
 import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+import EditOfferItemPage from '../OfferItemPage/EditOfferItemPage';
+import EditRequestItemPage from '../RequestItemPage/EditRequestItemPage';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 
 function App() {
   const dispatch = useDispatch();
-
+  const [isNavVisible, setIsNavVisible] = useState(true);
   const user = useSelector(store => store.user);
+  // const bottomNavHeight = 80; // Replace with the actual height of your bottom navigation bar
+  // const mainContentStyle = {
+  //   paddingBottom: `${bottomNavHeight}px`,
+  // };
+
+
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  
+
   // changes to the material ui color palette
   let theme = MaterialTheme();
 
+
+
   return (
     <ThemeProvider theme={theme}>
+
+      <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
-        <div>
-          <Nav />
+        
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', marginBottom: '20px' }}>
+            <div style={{ flex: '1 0 auto' }}>
+        {location.pathname !== '/howitworks' && location.pathname !== '/userform' && <Nav />}
+
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -67,25 +87,40 @@ function App() {
               <AboutPage />
             </Route>
 
-            {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-
-            <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
-              exact
-              path="/user"
-            >
-              <UserPage />
-            </ProtectedRoute>
 
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
               path="/howitworks"
             >
-              <HowItWorks />
+              <HowItWorks setIsNavVisible={setIsNavVisible}/>
+            </ProtectedRoute>
+
+            {/* For protected routes, the view could show one of several things on the same route.
+
+
+            Visiting localhost:3000/user will show the UserPage if the user is logged in.
+            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
+            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+
+
+            <ProtectedRoute
+
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/user"
+            >
+
+              <UserPage /> */}
+            {/* </ProtectedRoute> */}
+
+            <ProtectedRoute
+              // admin page to add members
+              exact
+              path="/adminaddmember"
+              >
+              <AddMemberForm />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -94,13 +129,14 @@ function App() {
               exact
               path="/userform"
             >
-              <UserFormPage />
+              <UserFormPage setIsNavVisible={setIsNavVisible}/>
             </ProtectedRoute>
 
             <ProtectedRoute
               // logged in shows UserProfile else shows LoginPage
               exact
-              path="/profile"
+
+              path="/profile" 
             >
               <UserProfile />
             </ProtectedRoute>
@@ -175,6 +211,24 @@ function App() {
               path="/offeritem"
             >
               <OfferItemPage />
+
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/updateoffer"
+          >
+              <EditOfferItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/updaterequest"
+          >
+              <EditRequestItemPage />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -192,7 +246,8 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /user page
-                <Redirect to="/user" />
+
+                <Redirect to="/activity" />
                 :
                 // Otherwise, show the login page
                 <LoginPage />
@@ -206,7 +261,8 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
-                <Redirect to="/user" />
+
+                <Redirect to="/howitworks" />
                 :
                 // Otherwise, show the registration page
                 <RegisterPage />
@@ -220,7 +276,8 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
-                <Redirect to="/user" />
+
+                <Redirect to="/activity" />
                 :
                 // Otherwise, show the Landing page
                 <LandingPage />
@@ -232,10 +289,15 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
+
+          </div>
           <Footer />
         </div>
+
       </Router>
-    </ThemeProvider>
+      </NavVisibilityContext.Provider>
+    </ThemeProvider >
+
   );
 }
 

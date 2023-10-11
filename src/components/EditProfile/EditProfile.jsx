@@ -60,7 +60,7 @@ const handleRestrictionChange = (event) => {
 
   return (
     <>
-    <Button variant='outlined' onClick={() => submitEditProfile()} >Edit Profile</Button>
+    <Button id="submit" variant='outlined' onClick={() => submitEditProfile()} >Edit Profile</Button>
     </>
   );
 

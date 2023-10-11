@@ -11,6 +11,7 @@ import group from './group.reducer';
 import activityItem from './activityItem.reducer'
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
+import updateActivity from './updateActivity.reducer';
 import groupMembers from './groupmembers.reducer';
 import selectedMember from './selectedMember.reducer';
 
@@ -35,6 +36,8 @@ const rootReducer = combineReducers({
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options\
   selectedMember, // contains data about selected group member
+  updateActivity, // sets and then updates the activity being updated
+
 
 });
 
