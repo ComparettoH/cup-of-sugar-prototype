@@ -67,9 +67,9 @@ function UserProfile() {
 
                 </section >
 
-            <footer>
-                <Button variant="outlined" onClick={() => linkEditProfile()}>Edit</Button>
-                <Button variant="outlined" onClick={() => handleGroupInfo()}>Group Info</Button>
+            <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Button id="submit" variant="contained" onClick={() => linkEditProfile()}>Edit</Button>
+                <Button id="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
             </footer>
         </Box>
         </>
