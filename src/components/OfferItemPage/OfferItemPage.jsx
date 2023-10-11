@@ -30,6 +30,15 @@ function OfferItemPage() {
         color: theme.palette.text.secondary,
     }));
 
+    const claimOffer = () => {
+        dispatch({
+            type: 'CLAIM_OFFER',
+            payload: activity.id
+        })
+        history.push('/activity')
+    }
+
+    console.log('testing', activity.id)
     return (
         <Box>
             <header>
@@ -65,7 +74,7 @@ function OfferItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button variant="outlined" onClick={() => claimOffer()}>Claim</Button>
             </footer>
         </Box>
     )

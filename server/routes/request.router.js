@@ -77,6 +77,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
   });
 
+//PUT to update when an offer has been claimed and at what time
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  const requestId = [req.params.id];
+
+  const sqlClaimOffer = `UPDATE requests
+  SET fulfilled_on = (CURRENT_TIMESTAMP),
+  fulfilled_by_user = $1
+  WHERE id = $2;`
+
+  pool.query(sqlClaimOffer, [Number(req.user.id), Number(requestId)])
+  .then(() => { res.sendStatus(200) })
+  .catch((err) => {
+    console.log('Error completing PUT/edit claim query for REQUEST', err)
+    res.sendStatus(500);
+  })
+})
+
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     console.log('in request post req.params:', req.params)
   

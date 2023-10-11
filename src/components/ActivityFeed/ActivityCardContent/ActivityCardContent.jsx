@@ -19,7 +19,7 @@ function OfferCardContent({ activity, activityView }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user)
-    console.log('user', user);
+    // console.log('user', user);
     // console.log('offersChecked', activityView);
 
     // navigates to clicked activity info page for clicked card

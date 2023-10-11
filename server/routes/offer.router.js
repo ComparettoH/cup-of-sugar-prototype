@@ -117,6 +117,23 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
   }
 });
 
+//PUT to update when an offer has been claimed and at what time
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  const offerId = [req.params.id];
+
+  const sqlClaimOffer = `UPDATE offers
+  SET claimed_on = (CURRENT_TIMESTAMP),
+  claimed_by_user = $1
+  WHERE id = $2;`
+
+  pool.query(sqlClaimOffer, [Number(req.user.id), Number(offerId)])
+  .then(() => { res.sendStatus(200) })
+  .catch((err) => {
+    console.log('Error completing PUT/edit claim query for OFFER', err)
+    res.sendStatus(500);
+  })
+})
+
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   console.log('in offer delete req.params:', req.params)
 
@@ -141,5 +158,6 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     connection.release()
   }
 });
+
 
 module.exports = router;

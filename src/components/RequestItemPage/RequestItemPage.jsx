@@ -24,6 +24,14 @@ function RequestItemPage() {
         dispatch({ type: 'FETCH_REQUEST_ITEM' });
     }, [dispatch]);
 
+    const fulfillRequest = () => {
+        dispatch({
+            type: 'FULFILL_REQUEST',
+            payload: activity.id
+        })
+        history.push('/activity')
+    }
+
     return (
         <Box>
             <header>
@@ -49,7 +57,7 @@ function RequestItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button variant="outlined" onClick={() => fulfillRequest()}>Fulfill</Button>
             </footer>
         </Box>
     );
