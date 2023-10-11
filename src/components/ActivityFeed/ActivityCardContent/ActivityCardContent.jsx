@@ -9,8 +9,6 @@ import {
     CardActionArea,
     Typography,
     CardMedia,
-    Box,
-    Button,
     CardActions
 } from '@mui/material';
 
@@ -19,8 +17,6 @@ function ActivityCardContent({ activity, activityView }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user)
-    // console.log('user', user);
-    // console.log('offersChecked', activityView);
 
     // navigates to clicked activity info page for clicked card
     const handleActivityNav = () => {
@@ -68,7 +64,7 @@ function ActivityCardContent({ activity, activityView }) {
                         </Typography>
                         <Typography variant="body1" color="info.main">
                             {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
-                    ${activity.item_name}. Expires on ${DateTimeFormatter(activity.expires_on)}`}
+                    ${activity.item_name}. Expires on ${DateFormatter(activity.expires_on)}`}
                         </Typography>
 
                     </CardContent>

@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 
-export function DateTimeFormatter() {
+export function DateTimeFormatter(dateTime) {
     return(
-        dayjs().format('MM/DD/YY [at] HH:mm')
+        dayjs(dateTime).format('MM/DD/YY [at] HH:mm')
     )
 }
 
-export function DateFormatter() {
+export function DateFormatter(date) {
     return(
-        dayjs().format('MM/DD/YY')
+        dayjs(date).format('MM/DD/YY')
     )
 }
