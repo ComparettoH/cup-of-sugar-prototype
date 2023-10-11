@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import TextField from '@mui/material/TextField';
+
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 function OfferFormPage1(){
-
-    const [itemHeadline, setItemHeadline] = useState('')
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [offerImage, setOfferImage] = useState('');
+    const [itemHeadline, setItemHeadline] = useState('')
+
     const handleOfferFormPage2 = () => {
         console.log('itemHeadline:', itemHeadline)
+        const itemNamePhoto = {
+            itemHeadline,
+            offerImage,
+        }
         // dispatch to offer reducer to store item headline 
-        dispatch({ type: 'SET_OFFER_ITEM_NAME', payload: itemHeadline})
+        dispatch({ type: 'CREATE_NEW_OFFER1', payload: itemNamePhoto })
         // navigate to page 2 of offer form for this item
         history.push(`/offerform2/${itemHeadline}`)
     }
@@ -33,6 +39,13 @@ function OfferFormPage1(){
                     sx={{ mb: 2 }}
                     />
                 </label>
+                <TextField
+                            onChange={e => setOfferImage(e.target.files[0])}
+                            type="file"
+                            accept="image/*"
+                            variant='filled'
+
+                        />
             </div>
             <div>
                 <h6>Upload an Image here:</h6>
@@ -40,11 +53,13 @@ function OfferFormPage1(){
 
         
         <div>
+
         <Button 
         id="submit" 
         variant="contained" 
         sx={{ mt: 2 }}
         onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
+
         </div>
         </form>
         </>

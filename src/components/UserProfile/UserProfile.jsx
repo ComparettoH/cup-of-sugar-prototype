@@ -38,8 +38,10 @@ function UserProfile() {
 
     }
 
-    const handleGroupInfo = () => {
+    function handleGroupInfo() {{
+        dispatch({ type: 'SET_GROUP_INFO', payload: profile})
         history.push(`/usergroup`)
+    }
     }
 
     return (

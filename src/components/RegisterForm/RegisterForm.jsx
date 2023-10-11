@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+
+import { useHistory } from 'react-router-dom';
+
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -9,6 +13,7 @@ function RegisterForm() {
   const [group, setGroup] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -21,6 +26,8 @@ function RegisterForm() {
         group: group,
       },
     });
+
+    history.push('/howitworks')
   }; // end registerUser
 
   return (

@@ -76,7 +76,6 @@ function UserFormPage({ setIsNavVisible }) {
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile
         })
-
         history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera
@@ -122,6 +121,7 @@ function UserFormPage({ setIsNavVisible }) {
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
+                        {/* lets user upload an image from their device */}
                         <TextField
                             onChange={e => setProfImage(e.target.files[0])}
                             type="file"
