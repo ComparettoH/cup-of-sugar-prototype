@@ -17,6 +17,8 @@ function* fetchOffers() {
     }
 
 }
+
+
 function* fetchOfferItem() {
     try {
         const config = {
@@ -61,15 +63,27 @@ function* addOffer(action) {
       catch (error) {
 
         console.log(`addOffer POST request failed`, error);
-
     }
 }
+
+
+function* claimOffer (action) {
+    console.log('claim offer SAGA', action.payload)
+    try {
+        yield axios.put(`/api/offer/${action.payload}`, action.payload)
+        yield put({ type: 'FETCH_OFFERS'})
+    }
+    catch (err) {
+        console.log('Error with claiming Offer', err)
+    }
+}
+
 
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);
     yield takeLatest('ADD_OFFER', addOffer);
-
+    yield takeLatest('CLAIM_OFFER', claimOffer);
 
 };
 
