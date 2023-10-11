@@ -66,4 +66,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
   });
 
+  router.put('/:id', rejectUnauthenticated, (req, res) =>{
+    
+  })
 module.exports = router;

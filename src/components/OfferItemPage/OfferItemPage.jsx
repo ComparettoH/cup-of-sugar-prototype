@@ -22,6 +22,11 @@ function OfferItemPage() {
         dispatch({ type: 'FETCH_OFFER_ITEM' });
     }, [dispatch]);
 
+    const fulfillItemRequest = (event) => {
+        console.log("in fulfillItemReq")
+        
+    }
+
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         // ...theme.typography.body2,
@@ -65,7 +70,9 @@ function OfferItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button id="submit" variant="contained">Fulfill</Button>
+                <Button id="submit"
+                    variant="contained"
+                    onClick={fulfillItemRequest}>Claim</Button>
             </footer>
         </Box>
     )
