@@ -20,19 +20,20 @@ import FormLabel from '@mui/material/FormLabel';
 // value setup. When making a new component be sure to replace the
 // component name TemplateFunction with the name for the new component.
 function EditProfile() {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const dispatch = useDispatch();
-  const editProfile = useSelector((store) => store.editProfile);
-  const profile = useSelector((store) => store.profile);
-  const allergy = useSelector((store) => store.allergy);
-  const restriction = useSelector((store) => store.restriction);
+    // Using hooks we're creating local state for a "heading" variable with
+    // a default value of 'Functional Component'
+    const dispatch = useDispatch();
+    const editProfile = useSelector((store) => store.editProfile);
+    const profile = useSelector((store) => store.profile);
+    const allergy = useSelector((store) => store.allergy);
+    const restriction = useSelector((store) => store.restriction);
+    const [selectedAllergy, setSelectedAllergy] = useState([]);
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_USER_PROFILE'})
-  }, []);
+    useEffect(() => {
+        dispatch({ type: 'FETCH_USER_PROFILE' })
+    }, []);
 
-     useEffect(() => {
+    useEffect(() => {
         getAllergyList();
     }, [])
 
@@ -48,51 +49,54 @@ function EditProfile() {
         dispatch({ type: 'FETCH_RESTRICTION' })
     }
 
-  const submitEditProfile = () => {
-    dispatch({ type: 'UPDATE_PROFILE', payload: editProfile })
+    const submitEditProfile = () => {
+        dispatch({ type: 'UPDATE_PROFILE', payload: editProfile })
 
-  }
+    }
 
-  const handleNameChange = (event) => {
-    event.preventDefault();
-    dispatch({
-        type: 'PROFILE_EDIT_ONCHANGE',
-        payload: { property: 'name', value: event.target.value }
-    });
-}
+    const handleNameChange = (event) => {
+        event.preventDefault();
+        dispatch({
+            type: 'PROFILE_EDIT_ONCHANGE',
+            payload: { property: 'name', value: event.target.value }
+        });
+    }
 
-const handleAboutChange = (event) => {
-    dispatch({
-        type: 'PROFILE_EDIT_ONCHANGE',
-        payload: { property: 'about', value: event.target.value }
-    });
-}
+    const handleAboutChange = (event) => {
+        dispatch({
+            type: 'PROFILE_EDIT_ONCHANGE',
+            payload: { property: 'about', value: event.target.value }
+        });
+    }
 
-const handleHomemadeChange = (event) => {
-    dispatch({
-        type: 'PROFILE_EDIT_ONCHANGE',
-        payload: { property: 'homemade_pref', value: event.target.value }
-    });
-}
+    const handleHomemadeChange = (event) => {
+        dispatch({
+            type: 'PROFILE_EDIT_ONCHANGE',
+            payload: { property: 'homemade_pref', value: event.target.value }
+        });
+    }
 
-const handleAllergyChange = (event) => {
-    dispatch({
-        type: 'PROFILE_EDIT_ONCHANGE',
-        payload: { property: 'allergy_type', value: event.target.value }
-    });
-}
-const handleRestrictionChange = (event) => {
-    dispatch({
-        type: 'PROFILE_EDIT_ONCHANGE',
-        payload: { property: 'restriction_type', value: event.target.value }
-    });
-}
+    const handleAllergyChange = (event) => {
+        dispatch({
+            type: 'PROFILE_EDIT_ONCHANGE',
+            payload: { property: 'allergy_type', value: event.target.value }
+        });
+    }
+    const handleRestrictionChange = (event) => {
+        dispatch({
+            type: 'PROFILE_EDIT_ONCHANGE',
+            payload: { property: 'restriction_type', value: event.target.value }
+        });
+    }
 
+    const handleBackButton = () => {
+        history.push(`/profile`)
 
+    }
 
-  return (
-    <>
-        <form className='formPanel' onSubmit={submitEditProfile}>
+    return (
+        <>
+            <form className='formPanel' onSubmit={submitEditProfile}>
                 <div>
                     <label htmlFor='name'>
                         Name
@@ -100,7 +104,7 @@ const handleRestrictionChange = (event) => {
                             type="text"
                             placeholder={profile[0]?.name}
                             value={editProfile.name}
-                            onChange={(event) => handleNameChange(event.target.value)}
+                            onChange={(event) => handleNameChange(event, 'name')}
                             fullWidth
                             sx={{ mb: 2 }}
                         />
@@ -115,7 +119,7 @@ const handleRestrictionChange = (event) => {
                             multiline rows={4}
                             placeholder={profile[0]?.about}
                             value={editProfile.about}
-                            onChange={(event) => handleAboutChange(event.target.value)}
+                            onChange={(event) => handleAboutChange(event, 'about')}
                             fullWidth
                             sx={{ mb: 2 }}
                         />
@@ -128,17 +132,17 @@ const handleRestrictionChange = (event) => {
                         <Select
                             id="allergies"
                             multiple
-                            value={editProfile.allergy_id}
-                            onChange={(event) => handleAllergyChange(event.target.value)}
+                            // value={editProfile}
+                            onChange={(event) => handleAllergyChange(event, 'allergy_type')}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                             sx={{ mb: 2 }}
                         >
-                            {allergy.map((option1) =>
+                            {/* {allergy.map((option1) =>
                                 <MenuItem key={option1.id} value={option1.id}
                                 >
                                     {option1.allergy_type}
                                 </MenuItem>
-                            )}
+                            )} */}
                             {/* Add more allergy options as needed */}
                         </Select>
                     </FormControl>
@@ -150,14 +154,14 @@ const handleRestrictionChange = (event) => {
                         <Select
                             id="dietaryRestriction"
                             multiple
-                            value={editProfile.user_restriction_id}
-                            onChange={(event) => handleRestrictionChange(event.target.value)}
+                            // value={editProfile}
+                            onChange={(event) => handleRestrictionChange(event, 'restriction_type')}
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                             sx={{ mb: 2 }}
                         >
-                             {restriction.map((option2, i) =>
-                            <MenuItem key= {i} value={option2.id}>{option2.restriction_type}</MenuItem>
-                            )}
+                            {/* {restriction.map((option2, i) =>
+                                <MenuItem key={i} value={option2.id}>{option2.restriction_type}</MenuItem>
+                            )} */}
                         </Select>
                     </FormControl>
                 </div>
@@ -168,7 +172,7 @@ const handleRestrictionChange = (event) => {
                             row
                             aria-labelledby="demo-radio-buttons-group-label"
                             value={editProfile.homemade_pref}
-                            onChange={homemadePrefChange}
+                            onChange={(event) => handleHomemadeChange(event, 'homemade_pref')}
                             sx={{ mb: 2 }}
                         >
                             <FormControlLabel value='true' control={<Radio />} label="Yes" />
@@ -185,8 +189,8 @@ const handleRestrictionChange = (event) => {
                     <Button id="submit" variant="contained" onClick={() => submitEditProfile()}>Save</Button>
                 </div>
             </form>
-    </>
-  );
+        </>
+    );
 
 }
 
