@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 
-function OfferCardContent({ activity, activityView }) {
+function ActivityCardContent({ activity, activityView }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user)
@@ -84,4 +84,5 @@ function OfferCardContent({ activity, activityView }) {
     );
 }
 
-export default OfferCardContent;
+export default ActivityCardContent;
+

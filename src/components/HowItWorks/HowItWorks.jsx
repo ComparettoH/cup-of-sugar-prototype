@@ -1,5 +1,5 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, {useEffect} from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 
 // material ui imports
@@ -16,9 +16,19 @@ import './HowItWorks.css'
 
 
 // This is a static page to show how the app works
-function HowItWorks() {
+function HowItWorks({setIsNavVisible}) {
+
+    useEffect(() => {
+        setIsNavVisible(false);
+    
+        return () => {
+          setIsNavVisible(true);
+        };
+      }, []);
 
     const history = useHistory();
+
+    
 
     // takes the user to the user form after registration
     const handleGetStarted = () => {
@@ -27,9 +37,6 @@ function HowItWorks() {
 
     return (
         <>
-
-        <Button variant="outlined" onClick={() => handleGetStarted()}>Get Started</Button>
-
             <Box className="how-it-works">
                 <img className="cup-of-sugar" src={CupIcon} height={100} width={100} />
                 <header>
@@ -51,7 +58,7 @@ function HowItWorks() {
                     <Typography variant="h6" align="center">See how your community is helping each other out!</Typography>
                 </section>
                 <footer>
-                    <Button onClick={() => handleGetStarted()}>Get Started</Button>
+                    <Button variant='contained' onClick={() => handleGetStarted()}>Get Started</Button>
                 </footer>
             </Box>
 

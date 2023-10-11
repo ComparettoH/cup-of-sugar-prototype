@@ -6,12 +6,12 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchOffers() {
     try {
         const config = {
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             withCredentials: true,
         };
         // gets all offers to be displayed in the activity feed
         const response = yield axios.get('api/offer', config);
-        yield put({ type: 'SET_OFFERS', payload: response.data});
+        yield put({ type: 'SET_OFFERS', payload: response.data });
     } catch (error) {
         console.log('fetchOffer GET request failed', error)
     }
@@ -29,6 +29,7 @@ function* fetchOfferItem() {
         console.log('fetchOfferItem get request failed', error)
     }
 }
+
 
 function* addOffer(action) {
     try {
@@ -58,10 +59,12 @@ function* addOffer(action) {
         yield put({ type: 'FETCH_OFFERS'});
       }
       catch (error) {
+
         console.log(`addOffer POST request failed`, error);
 
+    }
 }
-}
+
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);

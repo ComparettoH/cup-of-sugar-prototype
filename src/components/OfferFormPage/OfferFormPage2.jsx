@@ -9,8 +9,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import TextField from '@mui/material/TextField';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
-
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 
 
@@ -71,14 +71,16 @@ function OfferFormPage2() {
                 <div>
                     <label htmlFor="itemDescription">
                         Description
-                        <input
-
+                        <TextField
+                            id="itemDescription"
                             type='text'
+                            multiline rows={4}
                             placeholder="Provide some details about the item you'd like to share. 
                             You can add information about quantity, date of purchase, reason for sharing, etc."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -88,6 +90,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                     <label>
@@ -95,6 +98,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -107,6 +111,7 @@ function OfferFormPage2() {
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
                                 <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
@@ -121,35 +126,41 @@ function OfferFormPage2() {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="calendar">
-                        Best if used by
-                        <MobileDatePicker
-                            value={bestByDate}
-                            onChange={(date) => setBestByDate(date)} />
-                    </label>
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <label htmlFor="calendar">
+                            Best if used by
+                            <MobileDatePicker
+                                value={bestByDate}
+                                onChange={handleBestByDate}
+                                sx={{ mb: 2 }}
+                            />
+                        </label>
+                    </LocalizationProvider>
                 </div>
-                <div>
-                    <label htmlFor="calendar">
-                        Claim by
-                        <MobileDateTimePicker
-                            value={offerExpiresDate}
-                            onChange={(date) => setOfferExpiresDate(date)} />
-                    </label>
+                <div >
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <label htmlFor="calendar">
+                            Claim by
+                            <DateTimeField
+                                label='Date & Time'
+                                value={offerExpiresDate}
+                                onChange={handleOfferExpiresDate}
+                                sx={{ mb: 2 }}
+                            />
+                        </label>
+                    </LocalizationProvider>
+
                 </div>
 
-                <div>
-                    <Button onClick={() => handleBackButton()} variant="outlined">Back</Button>
-                    <Button type="submit" variant="contained">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                    <Button id="submit" variant="contained">
                         Submit Offer
                     </Button>
                 </div>
             </form>
 
-            <div>
-                <Button variant="outlined">
-                    Submit Offer
-                </Button>
-            </div>
 
         </>
     )

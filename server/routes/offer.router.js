@@ -142,4 +142,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   }
 });
 
+  router.put('/:id', rejectUnauthenticated, (req, res) =>{
+    
+  })
 module.exports = router;
