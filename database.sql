@@ -87,7 +87,7 @@ CREATE TABLE "dietary_restrictions" (
 CREATE TABLE "user_allergies" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
-    allergy_type varchar(80) NOT NULL,
+    allergy_id varchar(80) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES "user" (id)
 );
 
@@ -114,8 +114,8 @@ VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('
 
 
 --***NOTE These inserts will need to be updated to match current user database info on each individuals repository***
-INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath, role)
-VALUES (3, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8', 1);
+INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath)
+VALUES (3, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8');
 
 
 INSERT INTO "user_allergies" (user_id, allergy_id)

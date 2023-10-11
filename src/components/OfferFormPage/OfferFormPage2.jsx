@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dayjs from 'dayjs';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,10 +9,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import TextField from '@mui/material/TextField';
-import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 
 import Button from '@mui/material/Button';
@@ -31,13 +33,13 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
-    // const handleBestByDate = (date) => {
-    //     setBestByDate(date);
-    // };
+    const handleBestByDate = (date) => {
+        setBestByDate(date);
+    };
 
-    // const handleOfferExpiresDate = (date) => {
-    //     setOfferExpiresDate(date);
-    // };
+    const handleOfferExpiresDate = (date) => {
+        setOfferExpiresDate(date);
+    };
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)

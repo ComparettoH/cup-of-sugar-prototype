@@ -96,7 +96,7 @@ function UserFormPage({ setIsNavVisible }) {
 
     }
 
-    console.log('testing on clientside in UserForm', allergy, restriction)
+    //console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -209,7 +209,7 @@ function UserFormPage({ setIsNavVisible }) {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Submit
                     </Button>
                 </div>
