@@ -78,6 +78,7 @@ function ActivityFeed() {
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
                     {offersAndRequests.map((activity, index) => {
+
                         if (user.id === activity.user_id) {
                             return activity.claimed_on || activity.fulfilled_on ?
                                 (

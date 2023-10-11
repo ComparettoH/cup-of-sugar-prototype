@@ -85,4 +85,6 @@ export default function DeleteButton({ activity }) {
             </Modal>
         </div>
     )
+
 }
+

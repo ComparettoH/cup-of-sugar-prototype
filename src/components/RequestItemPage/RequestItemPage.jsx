@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 // material ui imports
+// material ui imports
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -24,10 +25,18 @@ function RequestItemPage() {
         dispatch({ type: 'FETCH_REQUEST_ITEM' });
     }, [dispatch]);
 
+    const fulfillRequest = () => {
+        dispatch({
+            type: 'FULFILL_REQUEST',
+            payload: activity.id
+        })
+        history.push('/activity')
+    }
+
     return (
+        <>
         <Box>
             <header>
-
             </header>
             <section className='request-item'>
                 <Grid container spacing={1}>
@@ -49,9 +58,10 @@ function RequestItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button variant="outlined" onClick={() => fulfillRequest()}>Fulfill</Button>
             </footer>
         </Box>
+        </>
     );
 }
 

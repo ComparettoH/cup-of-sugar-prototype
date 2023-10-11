@@ -61,6 +61,15 @@ function* updateRequest(action) {
         // yield put({ type: 'FETCH_REQUESTS' });
     } catch (error) {
         console.log('updateRequest put request failed', error)
+
+function* claimRequest (action) {
+    console.log('claim offer SAGA', action.payload)
+    try {
+        yield axios.put(`/api/request/${action.payload}`, action.payload)
+        yield put({ type: 'FETCH_REQUESTS'})
+    }
+    catch (err) {
+        console.log('Error with claiming Request', err)
     }
 }
 
@@ -69,7 +78,7 @@ function* requestSaga() {
     yield takeLatest('ADD_REQUEST', addRequest);
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
     yield takeLatest('UPDATE_REQUEST', updateRequest);
-
+    yield takeLatest('FULFILL_REQUEST', claimRequest);
 };
 
 export default requestSaga;

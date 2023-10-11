@@ -81,3 +81,4 @@ function ActivityCardContent({ activity, activityView }) {
 }
 
 export default ActivityCardContent;
+
