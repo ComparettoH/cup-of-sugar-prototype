@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import e from 'express';
+// import GroupMemberModal from '../GroupMemberModal/GroupMemberModal';
 
 function UserViewGroupPage() {
 
@@ -34,13 +34,20 @@ function UserViewGroupPage() {
         width: 400,
         bgcolor: 'background.paper',
         border: '2px solid #000',
-        boxShadow: '0px 0px 24px 0px rgba(0,0,0,0.75)',
+        boxShadow: 24,
         p: 4,
     };
 
+    console.log('groupMembers:', groupMembers)
+
+
     const handleNeighborSelection = (member) => {
+        console.log('member:', member)
         setSelectedNeighbor(member);
         handleOpen();
+
+        dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
+
     }
 
     useEffect(() => {
@@ -53,16 +60,6 @@ function UserViewGroupPage() {
 
     console.log('testing group info data', group, groupMembers)
 
-    const modalContent = (
-        <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-                Your neighbor: {selectedNeighbor}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Neighbor info: get here
-            </Typography>
-        </Box>
-    );
 
     return (
         <>
@@ -87,30 +84,45 @@ function UserViewGroupPage() {
                             value={selectedNeighbor}
                             input={<OutlinedInput label="Select from neighbors:" />}
                         >
-                            {groupMembers.map((member) =>
+                            {Array.isArray(groupMembers) && groupMembers.map((member) =>
                                 <MenuItem
+
                                     key={member.id}
                                     value={member.id}
                                     onClick={() => { handleNeighborSelection(member) }}
                                 >
                                     {member.name}
+
                                 </MenuItem>
+
                             )}
+
                         </Select>
+
+                        {/* {selectedNeighbor && <GroupMemberModal member={selectedNeighbor} />} */}
                     </FormControl>
+                    <Modal
+
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                {/* {groupMember} */}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                            </Typography>
+                        </Box>
+                    </Modal>
                 </div>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                    {modalContent}
-                </Modal>
             </form>
 
         </>
     );
+
 }
 
 export default UserViewGroupPage;
