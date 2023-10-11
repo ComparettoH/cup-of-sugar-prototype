@@ -49,7 +49,7 @@ function UserProfile() {
         <Box>
             <header>
                 <Typography variant="h3">Cup of Sugar</Typography>
-                <img src={profile[0].imgpath} alt="user's profile photo"/>
+                <img src={profile[0]?.imgpath} alt="user's profile photo"/>
             </header>
 
                 <section className="user-profile">
