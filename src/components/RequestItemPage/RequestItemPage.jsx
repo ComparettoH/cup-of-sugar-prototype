@@ -61,6 +61,7 @@ function RequestItemPage() {
                 <Button variant="outlined" onClick={() => fulfillRequest()}>Fulfill</Button>
             </footer>
         </Box>
+        </>
     );
 }
 
