@@ -11,6 +11,7 @@ import group from './group.reducer';
 import activityItem from './activityItem.reducer'
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
+import updateActivity from './updateActivity.reducer';
 import groupMembers from './groupmembers.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   activityItem, // contains current activity item when user clicks on a card in the activity feed.
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options
+  updateActivity, // sets and then updates the activity being updated
 
 });
 

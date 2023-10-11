@@ -160,8 +160,6 @@ function OfferFormPage2() {
                     </Button>
                 </div>
             </form>
-
-
         </>
     )
 }

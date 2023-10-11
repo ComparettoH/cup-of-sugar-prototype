@@ -32,6 +32,8 @@ import UserViewGroupPage from '../UserViewGroupPage/UserViewGroupPage';
 import UserProfile from '../UserProfile/UserProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
+import EditOfferItemPage from '../OfferItemPage/EditOfferItemPage';
+import EditRequestItemPage from '../RequestItemPage/EditRequestItemPage';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
@@ -201,6 +203,22 @@ function App() {
               path="/offeritem"
             >
               <OfferItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/updateoffer"
+          >
+              <EditOfferItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/updaterequest"
+          >
+              <EditRequestItemPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -265,6 +283,7 @@ function App() {
       </Router>
       </NavVisibilityContext.Provider>
     </ThemeProvider >
+
   );
 }
 
