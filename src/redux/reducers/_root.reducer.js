@@ -9,6 +9,7 @@ import offers from './offer.reducer';
 import offerItem from './offeritem.reducer';
 import group from './group.reducer';
 import activityItem from './activityItem.reducer'
+import adminInvite from './admininvite.reducer';
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
 import groupMembers from './groupmembers.reducer';
@@ -33,7 +34,7 @@ const rootReducer = combineReducers({
   activityItem, // contains current activity item when user clicks on a card in the activity feed.
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options
-
+  adminInvite,
 });
 
 export default rootReducer;

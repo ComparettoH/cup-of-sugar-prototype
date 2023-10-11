@@ -15,6 +15,17 @@ function AddMemberForm() {
 
     const adminInvite = (event) => {
         event.preventDefault();
+
+        let userInvite = {
+            user_email: userEmail,
+            subject: subjectLine,
+            message: adminMessage,
+        }
+        //dispatch to saga
+        dispatch({
+            type: 'SEND_INVTIE', payload: userInvite
+        })
+
         console.log("sending admin invite")
     }
 

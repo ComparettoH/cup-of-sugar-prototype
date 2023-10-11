@@ -9,6 +9,7 @@ import groupSaga from './group.saga';
 import allergySaga from './allergy.saga';
 import restrictionSaga from './restriction.saga';
 import deleteActivitySaga from './deleteActivitySaga';
+import adminSaga from './admin.saga';
 
 
 // rootSaga is the primary saga.
@@ -30,5 +31,6 @@ export default function* rootSaga() {
     allergySaga(),
     restrictionSaga(),
     deleteActivitySaga(),
+    adminSaga(),
   ]);
 }
