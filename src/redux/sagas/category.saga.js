@@ -4,8 +4,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 // This is a worker saga; will be fired upon 'FETCH_ALLERGY' actions
 function* fetchCategory() {
   try {
-    const categoryResponse = yield axios.get('/api/allergy');
-    console.log('in allergySaga test data state', categoryResponse)
+    const categoryResponse = yield axios.get('/api/category');
+    console.log('in categorySaga test data state', categoryResponse)
     yield put({ type: 'SET_CATEGORY', payload: categoryResponse.data });
   }
   catch (error) {
