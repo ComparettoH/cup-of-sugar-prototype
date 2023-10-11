@@ -12,6 +12,8 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import TextField from '@mui/material/TextField';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 
 import Button from '@mui/material/Button';
@@ -31,13 +33,13 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
-    // const handleBestByDate = (date) => {
-    //     setBestByDate(date);
-    // };
+    const handleBestByDate = (date) => {
+        setBestByDate(date);
+    };
 
-    // const handleOfferExpiresDate = (date) => {
-    //     setOfferExpiresDate(date);
-    // };
+    const handleOfferExpiresDate = (date) => {
+        setOfferExpiresDate(date);
+    };
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)

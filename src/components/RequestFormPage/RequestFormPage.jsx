@@ -76,6 +76,7 @@ function RequestFormPage() {
                             value={requestedItem}
                             onChange={(event) => setRequestedItem(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -88,6 +89,7 @@ function RequestFormPage() {
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
                                 <MenuItem value="produce">Produce</MenuItem>
                                 <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
@@ -112,6 +114,7 @@ function RequestFormPage() {
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -121,16 +124,18 @@ function RequestFormPage() {
                             I need this by
                             <MobileDatePicker
                                 value={selectedDate}
-                                onChange={handleDateChange} />
+                                onChange={handleDateChange}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                     </LocalizationProvider>
                 </div>
 
 
-            
-            <Button id="submit" variant="contained">
-                Request
-            </Button>
+
+                <Button id="submit" variant="contained">
+                    Request
+                </Button>
             </form>
 
         </>)
