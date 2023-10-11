@@ -12,6 +12,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// TODO: should this be an async post request? first getting group id and then inserting username, password, and group id?
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted

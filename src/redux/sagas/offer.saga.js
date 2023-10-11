@@ -17,8 +17,6 @@ function* fetchOffers() {
     }
 
 }
-
-
 function* fetchOfferItem() {
     try {
         const config = {
@@ -56,7 +54,6 @@ function* addOffer(action) {
             headers: headers,
             data: offerForm
         })
-
         yield put({ type: 'FETCH_OFFERS' });
     }
     catch (error) {
@@ -74,19 +71,15 @@ function* updateOffer(action) {
             url: `api/offer/${action.payload.id}`,
             data: updateOffer
         })
-
         // yield put({ type: 'FETCH_OFFERS' });
     } catch (error) {
         console.log('fetchOfferItem get request failed', error)
     }
 }
 
-
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
-
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);
-
     yield takeLatest('ADD_OFFER', addOffer);
 
     yield takeLatest('UPDATE_OFFER', updateOffer)
