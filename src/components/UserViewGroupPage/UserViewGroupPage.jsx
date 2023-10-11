@@ -115,6 +115,12 @@ function UserViewGroupPage() {
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
                             </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Allergies: {selectedMember.allergy_type}
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Dietary Restrictions: {selectedMember.restriction_type}
+                            </Typography>
                         </Box>
                     </Modal>
                 </div>

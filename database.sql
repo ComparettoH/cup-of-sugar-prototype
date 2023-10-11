@@ -134,22 +134,3 @@ SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type
         ON user_profile.user_id = dietary_restrictions.user_id
         WHERE user_profile.user_id = 2 ;
        
-
-
-
-usergroupview modal testing:
-   <Select
-                            id="neighbor"
-                            // value={selectedNeighbor}
-                            input={<OutlinedInput label="Select from neighbors:" />}
-                        >
-                          // {groupMembers.map((member) =>
-//     <MenuItem
-//         key={member.id}
-//         value={member.id}
-//         onClick={() => { handleNeighborSelection(event) }}
-//     >
-//         {member.name}
-//     </MenuItem>
-                            
-                        </Select>
