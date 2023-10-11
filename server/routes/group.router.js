@@ -25,7 +25,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/members', rejectUnauthenticated, (req, res) => {
   const userGroupID = req.user.group_id
   const groupQueryText = 
-  `SELECT "user".id, user_profile.name FROM "user_profile"
+  `SELECT "user".id, user_profile.name, user_profile.about, user_profile.homemade_pref
+  FROM "user_profile"
   JOIN "user" ON "user".id = "user_profile".user_id
   WHERE "user".group_id = $1 ORDER BY user_profile.name DESC;`
   pool.query(groupQueryText, [userGroupID])

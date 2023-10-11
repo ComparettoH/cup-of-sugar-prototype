@@ -21,6 +21,8 @@ function UserViewGroupPage() {
     const history = useHistory();
     const group = useSelector((store) => store.group);
     const groupMembers = useSelector((store) => store.groupMembers)
+    const selectedMember = useSelector((store) => store.selectedMember)
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -98,8 +100,6 @@ function UserViewGroupPage() {
                             )}
 
                         </Select>
-
-                        {/* {selectedNeighbor && <GroupMemberModal member={selectedNeighbor} />} */}
                     </FormControl>
                     <Modal
 
@@ -110,10 +110,10 @@ function UserViewGroupPage() {
                     >
                         <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
-                                {/* {groupMember} */}
+                                {selectedMember.name}
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                                {selectedMember.about}
                             </Typography>
                         </Box>
                     </Modal>
