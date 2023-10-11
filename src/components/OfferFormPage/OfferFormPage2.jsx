@@ -145,13 +145,6 @@ function OfferFormPage2() {
                     </Button>
                 </div>
             </form>
-
-            <div>
-                <Button variant="outlined">
-                    Submit Offer
-                </Button>
-            </div>
-
         </>
     )
 }

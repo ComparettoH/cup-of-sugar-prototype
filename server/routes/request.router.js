@@ -52,7 +52,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         requests.category_id, 
         requests.item_name, 
         requests.description,  
-        requests.imgpath, 
         requests.requested_on, 
         requests.expires_on, 
         requests.fulfilled_on, 
