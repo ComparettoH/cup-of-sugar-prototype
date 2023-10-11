@@ -20,12 +20,11 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import dayjs from "dayjs";
 
-function EditOfferItemPage() {
+function EditRequestItemPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const updateOffer = useSelector((store) => store.updateActivity)
-console.log('update offer in edit offer', updateOffer)
+    const updateRequest = useSelector((store) => store.updateActivity)
 
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -54,30 +53,14 @@ console.log('update offer in edit offer', updateOffer)
             payload: { property: 'description', value: e.target.value }
         });
     };
-    const handlePerishableChange = (e) => {
-        dispatch({
-            type: 'EDIT_ACTIVITY_ONCHANGE',
-            payload: { property: 'perishable', value: e.target.value }
-        });
-    }
-    const handleHomemadeChange = (e) => {
-        dispatch({
-            type: 'EDIT_ACTIVITY_ONCHANGE',
-            payload: { property: 'homemade', value: e.target.value }
-        });
-    }
+
     const handleCategoryChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'category_id', value: e.target.value }
         });
     }
-    const handleUpdateBestBy = (e) => {
-        dispatch({
-            type: 'EDIT_ACTIVITY_ONCHANGE',
-            payload: { property: 'best_by', value: e.target.value }
-        });
-    }
+
     const handleUpdateClaimBy = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
@@ -88,14 +71,15 @@ console.log('update offer in edit offer', updateOffer)
     const handleSaveUpdate = (e) => {
 
         dispatch({
-            type: 'UPDATE_OFFER',
-            payload: updateOffer
+            type: 'UPDATE_REQUEST',
+            payload: updateRequest
         });
         history.push('/activity')
     }
 
     return (
         <Box >
+            <Item>
         <header>
         </header>
         
@@ -104,7 +88,7 @@ console.log('update offer in edit offer', updateOffer)
                     <TextField
                     type='text'
                     placeholder='What item are you sharing?'
-                    value={updateOffer.item_name}
+                    value={updateRequest.item_name}
                     onChange={(event)=> handleHeadlineChange(event)}
                     sx={{ width: '100%' }}
                     />
@@ -126,25 +110,9 @@ console.log('update offer in edit offer', updateOffer)
                             type='text'
                             placeholder="Provide some details about the item you'd like to share. 
                             You can add information about quantity, date of purchase, reason for sharing, etc."
-                            value={updateOffer.description}
+                            value={updateRequest.description}
                             onChange={(event) => handleDescriptionChange(event)}
                             sx={{ width: '100%' }}
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Perishable
-                        <Checkbox
-                            checked={updateOffer.perishable}
-                            onChange={(event) => handlePerishableChange(event)}
-                        />
-                    </label>
-                    <label>
-                        Homemade Item
-                        <Checkbox
-                            checked={updateOffer.homemade}
-                            onChange={(event) => handleHomemadeChange(event)}
                         />
                     </label>
                 </div>
@@ -154,7 +122,7 @@ console.log('update offer in edit offer', updateOffer)
                         <FormControl fullWidth={true}>
                             <Select
                                 id="itemCategory"
-                                value={updateOffer.category_id}
+                                value={updateRequest.category_id}
                                 onChange={(event) => handleCategoryChange(event)}
                                 input={<OutlinedInput label="Select from categories:" />}
                             >
@@ -171,18 +139,10 @@ console.log('update offer in edit offer', updateOffer)
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="calendar"> 
-                        Best if used by
-                        <MobileDatePicker
-                            value={dayjs(updateOffer.best_by)}
-                            onChange={(date) => handleUpdateBestBy(date)} />
-                    </label>
-                </div>
-                <div>
                     <label htmlFor="calendar">
                         Claim by
                         <MobileDateTimePicker
-                            value={dayjs(updateOffer.claim_by)}
+                            value={dayjs(updateRequest.claim_by)}
                             onChange={(date) => handleUpdateClaimBy(date)} />
                     </label>
                 </div>
@@ -193,8 +153,9 @@ console.log('update offer in edit offer', updateOffer)
                     </Button>
                 </div>
             {/* </div> */}
+            </Item>
     </Box>
     )
 }
 
-export default EditOfferItemPage;
+export default EditRequestItemPage;

@@ -12,7 +12,10 @@ export default function UpdateActivityButton({ activity }) {
     const handleUpdate = () => {
         console.log('activity in button', activity)
         dispatch({ type: 'SET_UPDATE_ACTIVITY', payload: activity })
+        activity.offered_on ?
         history.push('/updateoffer')
+        :
+        history.push('/updaterequest')
     }
 
     return (

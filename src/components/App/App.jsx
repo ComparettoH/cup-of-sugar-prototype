@@ -32,6 +32,7 @@ import UserProfile from '../UserProfile/UserProfile';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import EditProfile from '../EditProfile/EditProfile';
 import EditOfferItemPage from '../OfferItemPage/EditOfferItemPage';
+import EditRequestItemPage from '../RequestItemPage/EditRequestItemPage';
 
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
@@ -187,6 +188,14 @@ function App() {
             path="/updateoffer"
           >
               <EditOfferItemPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // offer item view
+            exact
+            path="/updaterequest"
+          >
+              <EditRequestItemPage />
           </ProtectedRoute>
 
           <ProtectedRoute

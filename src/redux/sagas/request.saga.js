@@ -44,11 +44,28 @@ function* fetchRequestItem() {
 
 }
 
+function* updateRequest(action) {
+    
+    try {
+        // PUTS the updated request from updateActivity reducer to the DB
+        const updateRequest = action.payload
+        yield axios({
+            method: 'PUT',
+            url: `api/request/${action.payload.id}`,
+            data: updateRequest
+        })
+
+        // yield put({ type: 'FETCH_REQUESTS' });
+    } catch (error) {
+        console.log('updateRequest put request failed', error)
+    }
+}
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);
     yield takeLatest('ADD_REQUEST', addRequest);
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
+    yield takeLatest('UPDATE_REQUEST', updateRequest);
 
 };
 

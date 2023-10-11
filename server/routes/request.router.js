@@ -76,6 +76,60 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
   });
 
+  router.put("/:id", rejectUnauthenticated, async (req, res) => {
+    console.log('req.body', req.body)
+      const activityId = req.params.id;
+      const imgPath = req.body.imgPath;
+      const categoryType = req.body.category_type;
+      const itemName = req.body.item_name;
+      const itemDescription = req.body.description;
+      const requestDate = req.body.requested_on;
+      const bestByDate = req.body.best_by;
+      const expiryDate = req.body.expires_on;
+    
+      const connection = await pool.connect()
+    
+      try {
+        await connection.query('BEGIN');
+    
+        const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
+        const result = await connection.query(addCategory, [categoryType]);
+    
+        const categoryId = result.rows[0].id;
+    
+        const sqlUpdate = `
+          UPDATE requests
+          SET 
+            item_name = $2, 
+            description = $3, 
+            category_id = $4, 
+            imgPath = $5, 
+            requested_on = $6, 
+            expires_on = $7
+          WHERE id = $1
+          ;`
+        await connection.query(sqlUpdate, [
+          activityId,
+          itemName,
+          itemDescription,
+          categoryId,
+          imgPath,
+          requestDate,
+          bestByDate,
+          expiryDate
+        ])
+        await connection.query('COMMIT');
+        res.sendStatus(200);
+      } catch (error) {
+        await connection.query('ROLLBACK');
+        console.log(`Transaction Error - Rolling back new account`, error);
+        res.sendStatus(500);
+      } finally {
+        connection.release()
+    
+      }
+    });
+
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     console.log('in request post req.params:', req.params)
   
