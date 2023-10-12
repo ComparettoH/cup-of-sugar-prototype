@@ -26,6 +26,7 @@ function RequestFormPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const category = useSelector((store) => store.category)
 
     const [requestedItem, setRequestedItem] = useState('')
     const [itemDescription, setItemDescription] = useState('')
@@ -35,6 +36,14 @@ function RequestFormPage() {
     // const handleItemCategorySelection = (event) => {
     //     setSelectedCategory(event.target.value)
     // }
+
+    useEffect(() => {
+        getCategoryList();
+    }, [])
+
+    const getCategoryList = () => {
+        dispatch({ type: 'FETCH_CATEGORY' })
+    }
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -79,7 +88,7 @@ function RequestFormPage() {
                     </label>
                 </div>
                 <div>
-                    <label htmlFor="categoryDropdown">
+                <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
@@ -87,15 +96,11 @@ function RequestFormPage() {
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>
@@ -127,7 +132,7 @@ function RequestFormPage() {
 
 
             
-            <Button id="submit" variant="contained">
+            <Button type="submit" variant="contained">
                 Request
             </Button>
             </form>
