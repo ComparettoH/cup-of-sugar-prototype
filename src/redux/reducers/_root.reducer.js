@@ -11,6 +11,8 @@ import group from './group.reducer';
 import activityItem from './activityItem.reducer'
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
+import updateActivity from './updateActivity.reducer';
+import groupMembers from './groupmembers.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -28,9 +30,11 @@ const rootReducer = combineReducers({
   offers, // contains all offers for a specific group
   offerItem, // contains specific offer item
   group, // contains all group info & members of group
+  groupMembers, // contains all members in a group, member data sent is id and name
   activityItem, // contains current activity item when user clicks on a card in the activity feed.
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options
+  updateActivity, // sets and then updates the activity being updated
 
 });
 

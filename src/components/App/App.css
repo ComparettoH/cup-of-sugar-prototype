@@ -8,6 +8,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin-top: 100px;
   background-color: #FFEBC8;
+  margin-bottom: 100px;
 }
 
 img {
@@ -38,6 +39,7 @@ Button
   font-size: 1.1rem;
   outline: 0;
   cursor: pointer;
+  z-index: 1;
 }
 
 .btn_sizeMin {
@@ -110,4 +112,13 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.main-content{
+  padding-bottom: 80px;
+  height: calc(100vh - 80px);
+}
+
+.submit{
+  z-index: 1;
 }

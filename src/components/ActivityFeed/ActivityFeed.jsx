@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
+import ActivityUpdateButton from '../ActivityUpdateButton/ActivityUpdateButton';
 import { DateTimeFormatter, DateFormatter } from '../../utils/DateTimeFormatter/DateTimeFormatter';
 // material ui imports
-import { Switch, Card, Grid, Box, Typography, List, ListItem, IconButton, ListItemText, FormGroup, FormControlLabel } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import {
+    Card,
+    Switch,
+    Grid,
+    Box,
+    Typography,
+    List,
+    ListItem,
+    ListItemText,
+    FormGroup,
+    FormControlLabel
+} from '@mui/material';
 
 // displays user activity and all offers, requests, and shares
 function ActivityFeed() {
@@ -28,7 +39,7 @@ function ActivityFeed() {
     // declare and assign an array of all the offers and requests, and then sorts them by created date
     const offersAndRequests = offers.concat(requests);
     offersAndRequests.sort((a, b) => {
-        return new Date(a.offered_on || a.requested_on) - new Date(b.offered_on || b.requested_on);
+        return new Date(a.expires_on) - new Date(b.expires_on);
     });
 
     //   sets toggle switch state
@@ -68,6 +79,7 @@ function ActivityFeed() {
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
                     {offersAndRequests.map((activity, index) => {
+
                         if (user.id === activity.user_id) {
                             return activity.claimed_on || activity.fulfilled_on ?
                                 (
@@ -87,9 +99,7 @@ function ActivityFeed() {
                                     <ListItem
                                         key={index}
                                         secondaryAction={
-                                            <IconButton edge="end" aria-label="delete">
-                                                <EditIcon />
-                                            </IconButton>
+                                            <ActivityUpdateButton activity={activity} />
                                         }
                                     >
                                         <ListItemText

@@ -9,7 +9,7 @@ function* fetchAllergy() {
     yield put({ type: 'SET_ALLERGY', payload: allergyResponse.data });
   }
   catch (error) {
-    console.log('User gender GET request failed', error);
+    console.log('User allergy GET request failed', error);
   }
 }
 

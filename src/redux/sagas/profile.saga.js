@@ -44,9 +44,27 @@ function* updateProfile (action) {
 // Creates new user profile preferences and information to user_profile table in database
 function* setUserInfo (action) {
     try {
-      const newUserInfo = yield axios.post('/api/profile', action.payload);
-      console.log('in user_profile SAGA', newUserInfo)
-      yield put({ type: 'CREATE_USER_PROFILE', payload: newUserInfo.data});
+        const headers = {
+            'content-type': 'multipart/form-data'
+        }
+        const profileForm = new FormData();
+// appends profile information to the profile form so that it can be posted to db as a multipart form
+        profileForm.append('image', action.payload.imgpath);
+        profileForm.append('name', action.payload.name);
+        profileForm.append('homemade_pref', action.payload.homemade_pref);
+        profileForm.append('about', action.payload.about);
+        profileForm.append('allergy_type', action.payload.allergy_type);
+        profileForm.append('restriction_type', action.payload.restriction_type)
+
+// Posts profile info to db
+      const newUserInfo = yield axios({
+        method: 'POST',
+        url: '/api/profile', 
+        headers: headers,
+        data: profileForm
+    })
+
+      yield put({ type: 'SET_USER_PROFILE', payload: newUserInfo.data});
     }
     catch (error) {
       console.log(`User's profile information POST request failed`, error);

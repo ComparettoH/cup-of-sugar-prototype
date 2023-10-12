@@ -18,14 +18,14 @@ import TextField from '@mui/material/TextField';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
 
 
 
 function RequestFormPage() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [requestedItem, setRequestedItem] = useState('')
     const [itemDescription, setItemDescription] = useState('')
@@ -56,7 +56,8 @@ function RequestFormPage() {
         dispatch({
             type: 'ADD_REQUEST', payload: newRequest
         })
-
+        // sends user to Activity Feed to confirm request post
+        history.push('/activity')
     }
 
     return (
@@ -68,12 +69,12 @@ function RequestFormPage() {
                 <div>
                     <label htmlFor="headline">
                         Headline
-                        <input
+                        <TextField
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
                             onChange={(event) => setRequestedItem(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
                         />
                     </label>
                 </div>
@@ -102,12 +103,14 @@ function RequestFormPage() {
                 <div>
                     <label htmlFor="itemDescription">
                         Description
-                        <input
+                        <TextField
+                            id="itemDescription"
                             type='text'
+                            multiline rows={4}
                             placeholder="How much do you need? What do you need it for? Provide some details."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
                         />
                     </label>
                 </div>
@@ -115,7 +118,7 @@ function RequestFormPage() {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             I need this by
-                            <MobileDatePicker
+                            <MobileDateTimePicker
                                 value={selectedDate}
                                 onChange={handleDateChange} />
                         </label>
@@ -124,7 +127,7 @@ function RequestFormPage() {
 
 
             
-            <Button type="submit" variant="contained">
+            <Button id="submit" variant="contained">
                 Request
             </Button>
             </form>
