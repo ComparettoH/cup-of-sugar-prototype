@@ -85,7 +85,7 @@ function UserFormPage({ setIsNavVisible }) {
 
         console.log('testing newProfile', newProfile)
         dispatch({
-            type: 'ADD_USER_PROFILE', payload: newProfile
+            type: 'ADD_USER_PROFILE', payload: newProfile,
         })
         successAlert();
         history.push('/profile')
