@@ -8,7 +8,7 @@ import requestSaga from './request.saga';
 import groupSaga from './group.saga';
 import allergySaga from './allergy.saga';
 import restrictionSaga from './restriction.saga';
-import deleteActivitySaga from './deleteActivitySaga';
+import deleteActivitySaga from './deleteActivity.saga';
 import adminSaga from './admin.saga';
 import categorySaga from './category.saga';
 
