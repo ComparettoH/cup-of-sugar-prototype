@@ -133,4 +133,3 @@ SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type
         JOIN dietary_restrictions 
         ON user_profile.user_id = dietary_restrictions.user_id
         WHERE user_profile.user_id = 2 ;
-       

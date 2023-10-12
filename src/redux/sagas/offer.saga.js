@@ -40,7 +40,7 @@ function* addOffer(action) {
             'content-type': 'multipart/form-data'
         }
         const offerForm = new FormData();
-// appends offer information to the profile form so that it can be posted to db as a multipart form
+        // appends offer information to the profile form so that it can be posted to db as a multipart form
         offerForm.append('image', action.payload.imgpath);
         offerForm.append('item_name', action.payload.item_name);
         offerForm.append('homemade', action.payload.homemade);
@@ -51,20 +51,36 @@ function* addOffer(action) {
         offerForm.append('best_by', action.payload.best_by);
         offerForm.append('expires_on', action.payload.expires_on);
 
-        const newOffer = yield axios({
+       yield axios({
             method: 'POST',
-            url: '/api/offer', 
+            url: '/api/offer',
             headers: headers,
             data: offerForm
         })
-
-        yield put({ type: 'FETCH_OFFERS'});
-      }
-      catch (error) {
+        yield put({ type: 'FETCH_OFFERS' });
+    }
+    catch (error) {
 
         console.log(`addOffer POST request failed`, error);
     }
 }
+
+function* updateOffer(action) {
+    
+    try {
+
+        const updateOffer = action.payload
+        yield axios({
+            method: 'PUT',
+            url: `api/offer/${action.payload.id}`,
+            data: updateOffer
+        })
+        // yield put({ type: 'FETCH_OFFERS' });
+    } catch (error) {
+        console.log('fetchOfferItem get request failed', error)
+    }
+}
+
 
 
 function* claimOffer (action) {
@@ -78,13 +94,12 @@ function* claimOffer (action) {
     }
 }
 
-
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);
     yield takeLatest('ADD_OFFER', addOffer);
+    yield takeLatest('UPDATE_OFFER', updateOffer)
     yield takeLatest('CLAIM_OFFER', claimOffer);
-
 };
 
 export default offerSaga

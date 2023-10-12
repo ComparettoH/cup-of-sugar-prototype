@@ -12,7 +12,11 @@ import activityItem from './activityItem.reducer'
 import adminInvite from './admininvite.reducer';
 import allergy from './allergy.reducer';
 import restriction from './restriction.reducer';
+import updateActivity from './updateActivity.reducer';
 import groupMembers from './groupmembers.reducer';
+import category from './category.reducer';
+import selectedMember from './selectedMember.reducer';
+
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -35,6 +39,12 @@ const rootReducer = combineReducers({
   allergy, // contains all allergy selection options
   restriction, // contains all restriction selection options
   adminInvite,
+  category, // contains all category selection options
+  restriction, // contains all restriction selection options\
+  selectedMember, // contains data about selected group member
+  updateActivity, // sets and then updates the activity being updated
+
+  
 });
 
 export default rootReducer;
