@@ -123,7 +123,7 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
 console.log('req.body', req.body)
   const activityId = req.params.id;
   const imgPath = req.body.imgPath;
-  const categoryType = req.body.category_id;
+  const categoryId = req.body.category_id;
   const itemName = req.body.item_name;
   const itemDescription = req.body.description;
   const perishableItem = req.body.perishable;
@@ -136,11 +136,6 @@ console.log('req.body', req.body)
 
   try {
     await connection.query('BEGIN');
-
-    const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
-    const result = await connection.query(addCategory, [categoryType]);
-console.log('result in offer put', result)
-    const categoryId = result.rows[0].id;
 
     const sqlUpdate = `
       UPDATE offers

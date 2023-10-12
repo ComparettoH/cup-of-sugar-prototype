@@ -131,9 +131,7 @@ function OfferFormPage2() {
                                 {category.map((option1) =>
                             <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
                             )}
-                                {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+
                             </Select>
                         </FormControl>
                     </label>

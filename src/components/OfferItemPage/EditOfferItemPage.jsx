@@ -165,8 +165,8 @@ const getCategoryList = () => {
                         <FormControl fullWidth={true}>
                         <Select
                                 id="itemCategory"
-                                value={selectedCategory}
-                                onChange={(event) => setSelectedCategory(event.target.value)}
+                                value={updateOffer.category_id}
+                                onChange={(event) => handleCategoryChange(event)}
                                 input={<OutlinedInput label="Select from categories:" />}
                                 sx={{ mb: 2 }}
                             >
