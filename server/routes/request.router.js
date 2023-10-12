@@ -52,7 +52,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         requests.category_id, 
         requests.item_name, 
         requests.description,  
-        requests.imgpath, 
         requests.requested_on, 
         requests.expires_on, 
         requests.fulfilled_on, 
@@ -77,22 +76,56 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
   });
 
-//PUT to update when an offer has been claimed and at what time
-router.put('/:id', rejectUnauthenticated, (req, res) => {
-  const requestId = [req.params.id];
-
-  const sqlClaimOffer = `UPDATE requests
-  SET fulfilled_on = (CURRENT_TIMESTAMP),
-  fulfilled_by_user = $1
-  WHERE id = $2;`
-
-  pool.query(sqlClaimOffer, [Number(req.user.id), Number(requestId)])
-  .then(() => { res.sendStatus(200) })
-  .catch((err) => {
-    console.log('Error completing PUT/edit claim query for REQUEST', err)
-    res.sendStatus(500);
-  })
-})
+  router.put("/:id", rejectUnauthenticated, async (req, res) => {
+    console.log('req.body', req.body)
+      const activityId = req.params.id;
+      const imgPath = req.body.imgPath;
+      const categoryId = req.body.category_id;
+      const itemName = req.body.item_name;
+      const itemDescription = req.body.description;
+      const requestDate = req.body.requested_on;
+      const bestByDate = req.body.best_by;
+      const expiryDate = req.body.expires_on;
+    
+      const connection = await pool.connect()
+    
+      try {
+        await connection.query('BEGIN');
+    
+        // const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
+        // const result = await connection.query(addCategory, [categoryType]);
+    
+        // const categoryId = result.rows[0].id;
+    
+        const sqlUpdate = `
+          UPDATE requests
+          SET 
+            item_name = $2, 
+            description = $3, 
+            category_id = $4, 
+            requested_on = $5, 
+            expires_on = $6
+          WHERE id = $1
+          ;`
+        await connection.query(sqlUpdate, [
+          activityId,
+          itemName,
+          itemDescription,
+          categoryId,
+          requestDate,
+          expiryDate
+        ])
+        await connection.query('COMMIT');
+        res.sendStatus(200);
+      } catch (error) {
+        await connection.query('ROLLBACK');
+        console.log(`Transaction Error - Rolling back new account`, error);
+        res.sendStatus(500);
+      } finally {
+        connection.release()
+    
+      }
+    });
 
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     console.log('in request post req.params:', req.params)

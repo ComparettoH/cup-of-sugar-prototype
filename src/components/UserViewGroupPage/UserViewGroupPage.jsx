@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+// import GroupMemberModal from '../GroupMemberModal/GroupMemberModal';
 
 function UserViewGroupPage() {
 
@@ -21,52 +22,41 @@ function UserViewGroupPage() {
     const history = useHistory();
     const store = useReduxStore();
     const group = useSelector((store) => store.group);
+    const user = useSelector((store) => store.user);
     const groupMembers = useSelector((store) => store.groupMembers)
+    const selectedMember = useSelector((store) => store.selectedMember)
 
-    const [selectedNeighbor, setSelectedNeighbor] = useState('');
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [selectedNeighbor, setSelectedNeighbor] = useState(null);
 
     const style = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 250,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
     };
 
-    const handleNeighborSelection = (event) => {
-        setSelectedNeighbor(event.target.value);
+    console.log('groupMembers:', groupMembers)
 
-        const [open, setOpen] = React.useState(false);
-        const handleOpen = () => setOpen(true);
-        const handleClose = () => setOpen(false);
 
+    const handleNeighborSelection = (member) => {
+        console.log('member:', member)
+        setSelectedNeighbor(member);
         handleOpen();
 
-        const modalContent = (
-            <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Your neighbor:
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Neighbor info: get here
-                </Typography>
-                <Button onClick={handleClose}>Close Modal</Button>
-            </Box>
-        );
+        dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
 
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            {modalContent}
-        </Modal>
+    }
 
+    function removeDuplicates(array) {
+        return [...new Set(array)];
     }
 
     useEffect(() => {
@@ -79,47 +69,90 @@ function UserViewGroupPage() {
 
     console.log('testing group info data', group, groupMembers)
 
+   const navAddMember = () => {
+    history.push('/adminaddmember')
+   }
     return (
         <>
             <div>
-                <h2>{group[0].group_name}</h2>
+                <h2>{group[0]?.group_name}</h2>
                 {/* Group name renders here */}
             </div>
             <div>
-                <h4>Sharing location is: 
-                <br></br>
-                    {group[0].share_location}
+                <h4>Your sharing location is:
+                    <br></br>
+                    {group[0]?.share_location}
                 </h4>
                 {/* Sharing location name renders here */}
             </div>
             <form className='formPanel'>
                 <div>
-                    <h4>Meet your neighbors who are a part of :</h4>
+                    <h4>Meet your neighbors who are a part of {group[0]?.group_name}:</h4>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="neighbor">Select from neighbors:</InputLabel>
                         <Select
                             id="neighbor"
                             value={selectedNeighbor}
-                            onChange={(event) => {
-                                handleNeighborSelection(event)
-                            }
-                            }
                             input={<OutlinedInput label="Select from neighbors:" />}
                         >
+                            {Array.isArray(groupMembers) && groupMembers.map((member) =>
+                                <MenuItem
 
-                          {groupMembers.map((member) =>
-                                <MenuItem key={member.id} value={member.id}
+                                    key={member.id}
+                                    value={member.id}
+                                    onClick={() => { handleNeighborSelection(member) }}
                                 >
                                     {member.name}
-                                </MenuItem>
-                            )}    
-                    </Select>
-                </FormControl>
-            </div>
 
+                                </MenuItem>
+
+                            )}
+
+                        </Select>
+            
+                    </FormControl>
+                    <Modal
+
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                {selectedMember.name}
+                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
+                            </Typography>
+
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                {selectedMember.about}
+                            </Typography>
+
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Allergies: {selectedMember && selectedMember.allergy_type
+                                    ? removeDuplicates(selectedMember.allergy_type).join(', ')
+                                    : 'No allergies'}                            
+                            </Typography>
+
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                Dietary Restrictions: {selectedMember && selectedMember.restriction_type
+                                    ? removeDuplicates(selectedMember.restriction_type).join(', ')
+                                    : 'No restrictions'}                            
+                            </Typography>
+                        </Box>
+                    </Modal>
+                </div>
             </form>
+
+            {user.role > 0 &&
+                <Button onClick={() => navAddMember()}>
+                Add New Member
+            </Button>
+            }
+
         </>
     );
+
 }
 
 export default UserViewGroupPage;

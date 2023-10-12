@@ -15,7 +15,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField'
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 
 function UserFormPage({ setIsNavVisible }) {
@@ -51,6 +53,15 @@ function UserFormPage({ setIsNavVisible }) {
         getRestrictionList();
     }, [])
 
+    const successAlert = () => {
+        return (
+            <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            This is a success alert — <strong>check it out!</strong>
+          </Alert>
+        )
+    }
+
     const getAllergyList = () => {
         dispatch({ type: 'FETCH_ALLERGY' })
     }
@@ -74,8 +85,9 @@ function UserFormPage({ setIsNavVisible }) {
 
         console.log('testing newProfile', newProfile)
         dispatch({
-            type: 'ADD_USER_PROFILE', payload: newProfile
+            type: 'ADD_USER_PROFILE', payload: newProfile,
         })
+        successAlert();
         history.push('/profile')
     }
     //function that will upload photo to input field or activate in-app camera

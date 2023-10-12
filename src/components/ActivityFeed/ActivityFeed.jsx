@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
+import ActivityUpdateButton from './ActivityCardContent/ActivityUpdateButton/ActivityUpdateButton';
 import { DateTimeFormatter, DateFormatter } from '../../utils/DateTimeFormatter/DateTimeFormatter';
 // material ui imports
 import {
-    Switch,
     Card,
+    Switch,
     Grid,
     Box,
     Typography,
     List,
     ListItem,
-    IconButton,
     ListItemText,
     FormGroup,
     FormControlLabel
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 
 // displays user activity and all offers, requests, and shares
 function ActivityFeed() {
@@ -80,7 +79,7 @@ function ActivityFeed() {
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
                     {offersAndRequests.map((activity, index) => {
-                        // console.log('activity in initial map:', activity)
+
                         if (user.id === activity.user_id) {
                             return activity.claimed_on || activity.fulfilled_on ?
                                 (
@@ -100,9 +99,7 @@ function ActivityFeed() {
                                     <ListItem
                                         key={index}
                                         secondaryAction={
-                                            <IconButton edge="end" aria-label="delete">
-                                                <EditIcon />
-                                            </IconButton>
+                                            <ActivityUpdateButton activity={activity} />
                                         }
                                     >
                                         <ListItemText
@@ -126,19 +123,27 @@ function ActivityFeed() {
                 {offersAndRequests.map((activity, index) => {
                     // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
                     // if (user.id !== activity.user_id) {
-
                     return (
-                        <Grid item key={index} xs={12} sm={6} md={6} >
+                        // checks to see if activity should be displayed based on toggle switches
+                        (activity.requested_on && activityView.requests)
+                        ||
+                        (activity.offered_on && activityView.offers)
+                        ||
+                        ((activity.fulfilled_on || activity.claimed_on) && activityView.shares)
+                    ) 
+&&
+                    (
+                        <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            {/* <Card sx={{ width: '100%' }} > */}
+                            <Card sx={{ width: '100%' }} >
                                 <ActivityCardContent
                                     activity={activity}
                                     activityView={activityView}
                                 />
-                            {/* </Card> */}
+                            </Card>
                         </Grid>
                     );
-                    // } 
+                    
                 })
                 }
             </Grid>

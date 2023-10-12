@@ -9,24 +9,43 @@ function AddMemberForm() {
 
     const history = useHistory();
     const dispatch = useDispatch();
+    const group = useSelector((store) => store.group)
     const [userEmail, setUserEmail] = useState('');
-    const [subjectLine, setSubjectLine] = useState('');
-    const [adminMessage, setAdminMessage] = useState('');
+    const [subjectLine, setSubjectLine] = useState('Welcome to Cup of Sugar!');
+    const [emailText, setEmailText] = useState(`Welcome to Cup of Sugar! 
+    Cup of Sugar is a handy dandy app that will let you share food with your neighbors, 
+    reducing food waste and building community, all at the same time!
+    
+    All you have to do is click on this link, make a username and password and enter in our group join code: ${group.name} `);
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_GROUP_INFO'})
+    }, [])
 
     const adminInvite = (event) => {
         event.preventDefault();
+        const userInvite = {
+            user_email: userEmail,
+            subject: subjectLine,
+            message: emailText,
+        }
+        //dispatch to admin.saga
+        dispatch({
+            type: 'SEND_INVITE', payload: userInvite
+        })
         console.log("sending admin invite")
     }
+    
 
     return (
         <>
             <form className='formPanel' onSubmit={adminInvite}>
                 <div>
                     <label htmlFor='userEmail'>
-                        Email:
+                        Email Address:
                         <TextField
                             type="text"
-                            placeholder="Please enter admin email here"
+                            placeholder="Who would you like to invite to join Cup of Sugar?"
                             value={userEmail}
                             onChange={(event) => setUserEmail(event.target.value)}
                             fullWidth
@@ -55,15 +74,15 @@ function AddMemberForm() {
                             type="text"
                             multiline rows={4}
                             placeholder="Post invite information here"
-                            value={adminMessage}
-                            onChange={(event) => setAdminMessage(event.target.value)}
+                            value={emailText}
+                            onChange={(event) => setEmailText(event.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
                 <div>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Send Invite
                     </Button>
                 </div>

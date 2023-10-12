@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 
 function OfferFormPage1(){
+
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -40,6 +41,9 @@ function OfferFormPage1(){
                     sx={{ mb: 2 }}
                     />
                 </label>
+                <div>
+                <h6>Upload an Image here:</h6>
+            </div>
                 <TextField
                             onChange={e => setOfferImage(e.target.files[0])}
                             type="file"
@@ -48,11 +52,6 @@ function OfferFormPage1(){
 
                         />
             </div>
-            <div>
-                <h6>Upload an Image here:</h6>
-            </div>
-
-        
         <div>
 
         <Button 

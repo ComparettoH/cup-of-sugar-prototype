@@ -15,6 +15,8 @@ const requestRouter = require('./routes/request.router')
 const groupRouter = require('./routes/group.router')
 const allergyRouter = require('./routes/allergy.router')
 const restrictionRouter = require('./routes/restriction.router')
+const categoryRouter = require('./routes/category.router')
+const adminRouter = require('./routes/admin.router')
 
 
 // Body parser middleware
@@ -36,6 +38,8 @@ app.use('/api/request', requestRouter);
 app.use('/api/group', groupRouter);
 app.use('/api/allergy', allergyRouter)
 app.use('/api/restriction', restrictionRouter)
+app.use('/api/category', categoryRouter)
+app.use('/api/admin', adminRouter)
 
 // Serve static files
 app.use(express.static('build'));

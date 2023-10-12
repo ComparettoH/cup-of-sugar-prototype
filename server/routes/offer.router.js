@@ -8,6 +8,7 @@ const router = express.Router();
 
 // GET for ALL of group's offer posts for activity feed
 router.get('/', rejectUnauthenticated, (req, res) => {
+
   if (req.isAuthenticated()) {
     const queryText = `
       SELECT 
@@ -29,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       FROM "offers"
       JOIN "user_profile"
       ON offers."user_id" = user_profile."user_id"
-      WHERE group_id = $1;
+      WHERE group_id = $1
       `
 
     pool.query(queryText, [req.user.group_id])
@@ -71,6 +72,7 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
     const result = await connection.query(addCategory, [categoryType]);
 
     const categoryId = result.rows[0].id;
+
     // use the newly returned category id to add the new offer
     const addNewOffer = `
       INSERT INTO offers
@@ -117,22 +119,61 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
   }
 });
 
-//PUT to update when an offer has been claimed and at what time
-router.put('/:id', rejectUnauthenticated, (req, res) => {
-  const offerId = [req.params.id];
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
+console.log('req.body', req.body)
+  const activityId = req.params.id;
+  const imgPath = req.body.imgPath;
+  const categoryId = req.body.category_id;
+  const itemName = req.body.item_name;
+  const itemDescription = req.body.description;
+  const perishableItem = req.body.perishable;
+  const homemadeItem = req.body.homemade;
+  const offerDate = req.body.offered_on;
+  const bestByDate = req.body.best_by;
+  const expiryDate = req.body.expires_on;
 
-  const sqlClaimOffer = `UPDATE offers
-  SET claimed_on = (CURRENT_TIMESTAMP),
-  claimed_by_user = $1
-  WHERE id = $2;`
+  const connection = await pool.connect()
 
-  pool.query(sqlClaimOffer, [Number(req.user.id), Number(offerId)])
-  .then(() => { res.sendStatus(200) })
-  .catch((err) => {
-    console.log('Error completing PUT/edit claim query for OFFER', err)
+  try {
+    await connection.query('BEGIN');
+
+    const sqlUpdate = `
+      UPDATE offers
+      SET 
+        item_name = $2, 
+        description = $3, 
+        category_id = $4, 
+        imgPath = $5, 
+        perishable = $6, 
+        homemade = $7, 
+        offered_on = $8, 
+        best_by = $9, 
+        expires_on = $10
+      WHERE id = $1
+      ;`
+    await connection.query(sqlUpdate, [
+      activityId,
+      itemName,
+      itemDescription,
+      categoryId,
+      imgPath,
+      perishableItem,
+      homemadeItem,
+      offerDate,
+      bestByDate,
+      expiryDate
+    ])
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query('ROLLBACK');
+    console.log(`Transaction Error - Rolling back new account`, error);
     res.sendStatus(500);
-  })
-})
+  } finally {
+    connection.release()
+
+  }
+});
 
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   console.log('in offer delete req.params:', req.params)
@@ -147,7 +188,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
       WHERE id = $1 
       ;`
     await connection.query(sqlDeleteOffer, offerId);
-    
+
     await connection.query('COMMIT');
     res.sendStatus(200);
   } catch (error) {
