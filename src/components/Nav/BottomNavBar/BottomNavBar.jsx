@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
@@ -9,11 +8,7 @@ import { zIndex } from '@mui/material/styles/zIndex';
 import './BottomNavBar.css';
 
 function BottomNavBar({value, setValue}) {
-    // const location = useLocation();
 
-    // const value = location.pathname.includes('requestform') ? 0 :
-    //               location.pathname.includes('activity') ? 1 :
-    //               location.pathname.includes('offerform1') ? 2 : -1;
     return (
         <div style={{ position: 'relative', zIndex: 1 }}>
             <Paper sx={{

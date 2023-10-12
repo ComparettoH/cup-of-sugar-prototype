@@ -19,6 +19,8 @@ import Button from '@mui/material/Button';
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
     const imgpath = useSelector((store) => store.offers.offerImage)
+    const category = useSelector((store) => store.category)
+
     // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
@@ -30,6 +32,9 @@ function OfferFormPage2() {
     const [selectedCategory, setSelectedCategory] = useState('')
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
+
+    
+
 
     const handleBestByDate = (date) => {
         setBestByDate(date);
@@ -106,21 +111,16 @@ function OfferFormPage2() {
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                            <Select
+                        <Select
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
                                 sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>

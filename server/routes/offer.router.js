@@ -137,9 +137,9 @@ console.log('req.body', req.body)
   try {
     await connection.query('BEGIN');
 
-    const addCategory = `SELECT category_id FROM categories;`
+    const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
     const result = await connection.query(addCategory, [categoryType]);
-
+console.log('result in offer put', result)
     const categoryId = result.rows[0].id;
 
     const sqlUpdate = `
