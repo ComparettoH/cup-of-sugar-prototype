@@ -73,10 +73,10 @@ function OfferFormPage2() {
         console.log('newoffer:', newOffer)
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
-        .then(() => {
-            // navigate to activity feed after the action has completed
-            history.push('/activity')
-        })
+
+        // navigate to activity feed after the action has completed
+        history.push('/activity')
+
     }
 
     console.log('testing category get', category)
@@ -104,7 +104,7 @@ function OfferFormPage2() {
                         Perishable
                         <Checkbox
                             checked={persihableItem}
-                            onChange={(event) => setPerishableItem(event.target.checked)}                            
+                            onChange={(event) => setPerishableItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
                     </label>
@@ -129,8 +129,8 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
                             </Select>
                         </FormControl>
                     </label>
