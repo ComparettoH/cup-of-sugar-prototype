@@ -104,7 +104,7 @@ function OfferFormPage2() {
                         Perishable
                         <Checkbox
                             checked={persihableItem}
-                            onChange={(event) => setPerishableItem(event.target.value)}
+                            onChange={(event) => setPerishableItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
                     </label>
@@ -112,7 +112,7 @@ function OfferFormPage2() {
                         Homemade Item
                         <Checkbox
                             checked={homemadeItem}
-                            onChange={(event) => setHomemadeItem(event.target.value)}
+                            onChange={(event) => setHomemadeItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
                     </label>

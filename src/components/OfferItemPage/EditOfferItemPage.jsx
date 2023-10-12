@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { DateFormatter } from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Grid from "@mui/material/Unstable_Grid2";
 import {TextField} from "@mui/material";
 import {Checkbox} from "@mui/material";
 import {FormControl} from "@mui/material";
@@ -84,9 +83,10 @@ const getCategoryList = () => {
         });
     }
     const handleUpdateBestBy = (e) => {
+        console.log('in update best by:', e)
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
-            payload: { property: 'best_by', value: e.target.value }
+            payload: { property: 'best_by', value: DateFormatter(e.target.value) }
         });
     }
     const handleUpdateClaimBy = (e) => {
