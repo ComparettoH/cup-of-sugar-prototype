@@ -82,7 +82,7 @@ function AddMemberForm() {
                     </label>
                 </div>
                 <div>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Send Invite
                     </Button>
                 </div>
