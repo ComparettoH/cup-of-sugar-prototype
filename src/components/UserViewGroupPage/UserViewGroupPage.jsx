@@ -112,7 +112,8 @@ function UserViewGroupPage() {
                     >
                         <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
-                                {selectedMember.name}
+                                {selectedMember.name} 
+                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo"/>
                             </Typography>
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
