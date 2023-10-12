@@ -73,6 +73,7 @@ function App() {
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', marginBottom: '20px' }}>
             <div style={{ flex: '1 0 auto' }}>
         {location.pathname !== '/howitworks' && location.pathname !== '/userform' && <Nav />}
+
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -86,6 +87,7 @@ function App() {
               <AboutPage />
             </Route>
 
+
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
@@ -96,17 +98,21 @@ function App() {
 
             {/* For protected routes, the view could show one of several things on the same route.
 
+
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
+
             {/* <ProtectedRoute
+
               // logged in shows UserPage else shows LoginPage
               exact
               path="/user"
             >
-              <UserPage /> */}
-            {/* </ProtectedRoute> */}
+
+              <UserPage /> 
+            </ProtectedRoute>  */}
 
             <ProtectedRoute
               // admin page to add members
@@ -114,6 +120,7 @@ function App() {
               path="/adminaddmember"
               >
               <AddMemberForm />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -128,6 +135,7 @@ function App() {
             <ProtectedRoute
               // logged in shows UserProfile else shows LoginPage
               exact
+
               path="/profile" 
             >
               <UserProfile />
@@ -203,6 +211,7 @@ function App() {
               path="/offeritem"
             >
               <OfferItemPage />
+
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -219,6 +228,7 @@ function App() {
             path="/updaterequest"
           >
               <EditRequestItemPage />
+
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -236,6 +246,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /user page
+
                 <Redirect to="/activity" />
                 :
                 // Otherwise, show the login page
@@ -250,6 +261,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
+
                 <Redirect to="/howitworks" />
                 :
                 // Otherwise, show the registration page
@@ -264,6 +276,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect them to the /user page
+
                 <Redirect to="/activity" />
                 :
                 // Otherwise, show the Landing page
@@ -276,6 +289,7 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
+
           </div>
           <Footer />
         </div>
