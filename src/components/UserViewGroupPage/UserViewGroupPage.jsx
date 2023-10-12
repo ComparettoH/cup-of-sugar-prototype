@@ -22,6 +22,7 @@ function UserViewGroupPage() {
     const history = useHistory();
     const store = useReduxStore();
     const group = useSelector((store) => store.group);
+    const user = useSelector((store) => store.user);
     const groupMembers = useSelector((store) => store.groupMembers)
     const selectedMember = useSelector((store) => store.selectedMember)
 
@@ -68,7 +69,9 @@ function UserViewGroupPage() {
 
     console.log('testing group info data', group, groupMembers)
 
-
+   const navAddMember = () => {
+    history.push('/adminaddmember')
+   }
     return (
         <>
             <div>
@@ -106,6 +109,7 @@ function UserViewGroupPage() {
                             )}
 
                         </Select>
+            
                     </FormControl>
                     <Modal
 
@@ -139,6 +143,12 @@ function UserViewGroupPage() {
                     </Modal>
                 </div>
             </form>
+
+            {user.role > 0 &&
+                <Button onClick={() => navAddMember()}>
+                Add New Member
+            </Button>
+            }
 
         </>
     );

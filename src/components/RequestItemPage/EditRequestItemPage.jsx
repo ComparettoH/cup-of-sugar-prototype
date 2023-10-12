@@ -24,7 +24,18 @@ function EditRequestItemPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const updateRequest = useSelector((store) => store.updateActivity)
+    const updateRequest = useSelector((store) => store.updateActivity);
+    const category = useSelector((store) => store.category)
+
+const [selectedCategory, setSelectedCategory] = useState('')
+
+useEffect(() => {
+    getCategoryList();
+}, [])
+
+const getCategoryList = () => {
+    dispatch({ type: 'FETCH_CATEGORY' })
+}
 
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -120,20 +131,16 @@ function EditRequestItemPage() {
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                            <Select
+                        <Select
                                 id="itemCategory"
                                 value={updateRequest.category_id}
                                 onChange={(event) => handleCategoryChange(event)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>

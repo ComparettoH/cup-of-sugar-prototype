@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // material ui imports
@@ -16,10 +16,13 @@ function TopNavBar() {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const store = useSelector((store) => store);
+    const profile = useSelector((store) => store.profile);
     const [heading, setHeading] = useState('Functional Component');
     const [anchorEl, setAnchorEl] = useState(null);
 
+    useEffect(() => {
+        dispatch({ type: 'FETCH_USER_PROFILE' });
+    }, [dispatch]);
     // // navigates to the profile page
     // const navProfile = () => {
     //     history.push('/profile')
@@ -74,6 +77,7 @@ function TopNavBar() {
                     open={Boolean(anchorEl)}
                     onClose={handleMenuClose}
                 >
+                    <MenuItem >Hi, {profile[0]?.name}!</MenuItem>
                     <MenuItem onClick={navProfile}>Profile</MenuItem>
                     <MenuItem onClick={navHowItWorks}>How It Works</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>

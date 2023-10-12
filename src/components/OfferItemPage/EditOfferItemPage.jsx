@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { DateFormatter } from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Grid from "@mui/material/Unstable_Grid2";
 import {TextField} from "@mui/material";
 import {Checkbox} from "@mui/material";
 import {FormControl} from "@mui/material";
@@ -25,7 +24,18 @@ function EditOfferItemPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const updateOffer = useSelector((store) => store.updateActivity)
+    const category = useSelector((store) => store.category)
+
 console.log('update offer in edit offer', updateOffer)
+const [selectedCategory, setSelectedCategory] = useState('')
+
+useEffect(() => {
+    getCategoryList();
+}, [])
+
+const getCategoryList = () => {
+    dispatch({ type: 'FETCH_CATEGORY' })
+}
 
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -73,9 +83,10 @@ console.log('update offer in edit offer', updateOffer)
         });
     }
     const handleUpdateBestBy = (e) => {
+        console.log('in update best by:', e)
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
-            payload: { property: 'best_by', value: e.target.value }
+            payload: { property: 'best_by', value: DateFormatter(e.target.value) }
         });
     }
     const handleUpdateClaimBy = (e) => {
@@ -152,20 +163,16 @@ console.log('update offer in edit offer', updateOffer)
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                            <Select
+                        <Select
                                 id="itemCategory"
                                 value={updateOffer.category_id}
                                 onChange={(event) => handleCategoryChange(event)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>
