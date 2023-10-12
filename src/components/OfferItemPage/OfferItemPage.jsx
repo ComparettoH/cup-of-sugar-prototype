@@ -62,13 +62,13 @@ function OfferItemPage() {
                     <Grid xs={12}>
                             <Typography variant="h6">This offer expires on: {activity.expires_on}</Typography>
                     </Grid>
-                    <Button variant="outlined">Fulfill</Button>
+                    
                     </Item>
                 </Grid>
 
             </section>
             <footer>
-                <Button variant="outlined" onClick={() => claimOffer()}>Claim</Button>
+                <Button variant="contained" onClick={() => claimOffer()}>Claim</Button>
             </footer>
         </Box>
     )
