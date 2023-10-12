@@ -104,15 +104,15 @@ function App() {
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
 
-            <ProtectedRoute
+            {/* <ProtectedRoute
 
               // logged in shows UserPage else shows LoginPage
               exact
               path="/user"
             >
 
-              <UserPage /> */
-            </ProtectedRoute>
+              <UserPage /> 
+            </ProtectedRoute>  */}
 
             <ProtectedRoute
               // admin page to add members

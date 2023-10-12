@@ -209,7 +209,7 @@ function UserFormPage({ setIsNavVisible }) {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Submit
                     </Button>
                 </div>
