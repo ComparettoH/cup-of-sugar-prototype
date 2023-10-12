@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
-import ActivityUpdateButton from '../ActivityUpdateButton/ActivityUpdateButton';
+import ActivityUpdateButton from './ActivityCardContent/ActivityUpdateButton/ActivityUpdateButton';
 import { DateTimeFormatter, DateFormatter } from '../../utils/DateTimeFormatter/DateTimeFormatter';
 // material ui imports
 import {
