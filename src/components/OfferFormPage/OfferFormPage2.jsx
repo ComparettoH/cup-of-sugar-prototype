@@ -164,8 +164,8 @@ function OfferFormPage2() {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
-                    <Button id="submit" variant="contained">
+                    <Button type="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                    <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>
                 </div>
