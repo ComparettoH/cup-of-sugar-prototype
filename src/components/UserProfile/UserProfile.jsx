@@ -27,7 +27,7 @@ function UserProfile() {
     }, [dispatch]);
 
 
-        // will this send user to original user profile form or new page EditProfile?
+    // will this send user to original user profile form or new page EditProfile?
     const linkEditProfile = () => {
         // dispatch to 'SET_EDIT_PROFILE' with payload goes here
         // This will need an edit_profile reducer
@@ -38,19 +38,24 @@ function UserProfile() {
 
     }
 
-    function handleGroupInfo() {{
-        dispatch({ type: 'SET_GROUP_INFO', payload: profile})
-        history.push(`/usergroup`)
+    function handleGroupInfo() {
+        {
+            dispatch({ type: 'SET_GROUP_INFO', payload: profile })
+            history.push(`/usergroup`)
+        }
     }
+
+    function removeDuplicates(array) {
+        return [...new Set(array)];
     }
 
     return (
         <>
-        <Box>
-            <header>
-                <Typography variant="h3">Cup of Sugar</Typography>
-                <img src={profile[0]?.imgpath} alt="user's profile photo"/>
-            </header>
+            <Box>
+                <header>
+                    <Typography variant="h3">Cup of Sugar</Typography>
+                    <img src={profile[0]?.imgpath} alt="user's profile photo" />
+                </header>
 
                 <section className="user-profile">
 
@@ -60,18 +65,20 @@ function UserProfile() {
                     <Typography variant="h6">{profile[0]?.about}</Typography>
 
                     <Typography variant="h5">My Allergies</Typography>
-                    <Typography variant="h6">{profile[0]?.allergy_type}</Typography>
+                    <Typography variant="h6">{profile[0]?.allergy_type ? removeDuplicates(
+                        profile[0]?.allergy_type).join(', ') : 'None'}</Typography>
 
                     <Typography variant="h5">My Dietary Restrictions</Typography>
-                    <Typography variant="h6">{profile[0]?.restriction_type}</Typography>
+                    <Typography variant="h6">{profile[0]?.restriction_type ? removeDuplicates(
+                        profile[0]?.restriction_type).join(', ') : 'None'}</Typography>
 
                 </section >
 
-            <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Button id="submit" variant="contained" onClick={() => linkEditProfile()}>Edit</Button>
-                <Button id="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
-            </footer>
-        </Box>
+                <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Button type="submit" variant="contained" onClick={() => linkEditProfile()}>Edit</Button>
+                    <Button type="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
+                </footer>
+            </Box>
         </>
     )
 
