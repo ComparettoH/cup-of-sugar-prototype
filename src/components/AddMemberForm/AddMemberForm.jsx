@@ -21,7 +21,7 @@ function AddMemberForm() {
             subject: subjectLine,
             message: adminMessage,
         }
-        //dispatch to saga
+        //dispatch to admin.saga
         dispatch({
             type: 'SEND_INVTIE', payload: userInvite
         })

@@ -63,8 +63,10 @@ function OfferFormPage2() {
         console.log('newoffer:', newOffer)
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
-        // navigate to activity feed
-        history.push('/activity')
+        .then(() => {
+            // navigate to activity feed after the action has completed
+            history.push('/activity')
+        })
     }
 
     return (
@@ -91,7 +93,7 @@ function OfferFormPage2() {
                         Perishable
                         <Checkbox
                             checked={persihableItem}
-                            onChange={(event) => setPerishableItem(event.target.value)}
+                            onChange={(event) => setPerishableItem(event.target.checked)}                            
                             sx={{ mb: 2 }}
                         />
                     </label>
@@ -99,7 +101,7 @@ function OfferFormPage2() {
                         Homemade Item
                         <Checkbox
                             checked={homemadeItem}
-                            onChange={(event) => setHomemadeItem(event.target.value)}
+                            onChange={(event) => setHomemadeItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
                     </label>
