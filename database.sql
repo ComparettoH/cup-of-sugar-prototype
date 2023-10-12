@@ -43,13 +43,14 @@ CREATE TABLE "requests" (
     category_id integer NOT NULL,
     item_name varchar(80) NOT NULL,
     description text NOT NULL,
+    imgpath varchar(100),
     requested_on date NOT NULL,
     expires_on timestamp NOT NULL,
     fulfilled_on timestamp,
     fulfilled_by_user integer,
     FOREIGN KEY (user_id) REFERENCES "user" (id),
     FOREIGN KEY (group_id) REFERENCES "group" (id),
-    FOREIGN KEY (category_id) REFERENCES categories (id),
+    FOREIGN KEY (category_id) REFERENCES "categories" (id),
     FOREIGN KEY (fulfilled_by_user) REFERENCES "user" (id)
 );
 
@@ -87,8 +88,9 @@ CREATE TABLE "dietary_restrictions" (
 CREATE TABLE "user_allergies" (
     id SERIAL PRIMARY KEY,
     user_id integer NOT NULL,
-    allergy_type varchar(80) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES "user" (id)
+    allergy_id integer NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES "user" (id),
+    FOREIGN KEY (allergy_id) REFERENCES "allergies" (id)
 );
 
 CREATE TABLE "user_dietary_restrictions" (
@@ -102,7 +104,7 @@ CREATE TABLE "user_dietary_restrictions" (
 
 INSERT INTO "group" (group_name, share_location)
 VALUES ('Cup of Sugar Team', 'Prime Commons'), 
-('Elm Apartments', 'Rec Room');
+('Elm Apartments', 'Rec Room in Building 208'), ('Huxley Apartments', 'Reception Front Desk'), ('The Laker', 'Commons Area on 3rd floor');
 
 
 INSERT INTO "allergies" (allergy_type)
@@ -110,7 +112,14 @@ VALUES ('None'), ('Nuts'), ('Dairy'), ('Gluten'), ('Shellfish'), ('Soy'), ('Eggs
 
 
 INSERT INTO "dietary_restrictions" (restriction_type)
-VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('Kosher'), ('Other');
+VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('Kosher'), ('Other'), ('None');
+
+
+INSERT INTO "categories" (category_type)
+VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
+
+
+
 
 
 --***NOTE These inserts will need to be updated to match current user database info on each individuals repository***
@@ -133,4 +142,4 @@ SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type
         JOIN dietary_restrictions 
         ON user_profile.user_id = dietary_restrictions.user_id
         WHERE user_profile.user_id = 2 ;
-        WHERE user_profile.user_id = 2 ;
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,6 +12,8 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import TextField from '@mui/material/TextField';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 import Button from '@mui/material/Button';
@@ -19,6 +21,7 @@ import Button from '@mui/material/Button';
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
     const imgpath = useSelector((store) => store.offers.offerImage)
+    const category = useSelector((store) => store.category)
     // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
@@ -38,6 +41,14 @@ function OfferFormPage2() {
     const handleOfferExpiresDate = (date) => {
         setOfferExpiresDate(date);
     };
+
+    useEffect(() => {
+        getCategoryList();
+    }, [])
+
+    const getCategoryList = () => {
+        dispatch({ type: 'FETCH_CATEGORY' })
+    }
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)
@@ -65,6 +76,7 @@ function OfferFormPage2() {
         history.push('/activity')
     }
 
+    console.log('testing category get', category)
     return (
         <>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
@@ -113,14 +125,9 @@ function OfferFormPage2() {
                                 input={<OutlinedInput label="Select from categories:" />}
                                 sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>
@@ -155,7 +162,7 @@ function OfferFormPage2() {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
-                    <Button id="submit" variant="contained">
+                    <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>
                 </div>

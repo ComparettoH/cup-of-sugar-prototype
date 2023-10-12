@@ -15,7 +15,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField'
+import TextField from '@mui/material/TextField';
 
 
 function UserFormPage({ setIsNavVisible }) {
@@ -209,7 +209,7 @@ function UserFormPage({ setIsNavVisible }) {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Submit
                     </Button>
                 </div>
