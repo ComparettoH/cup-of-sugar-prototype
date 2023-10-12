@@ -31,13 +31,13 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
-    // const handleBestByDate = (date) => {
-    //     setBestByDate(date);
-    // };
+    const handleBestByDate = (date) => {
+        setBestByDate(date);
+    };
 
-    // const handleOfferExpiresDate = (date) => {
-    //     setOfferExpiresDate(date);
-    // };
+    const handleOfferExpiresDate = (date) => {
+        setOfferExpiresDate(date);
+    };
 
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)
@@ -127,7 +127,7 @@ function OfferFormPage2() {
                 </div>
                 <div>
 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    
                         <label htmlFor="calendar">
                             Best if used by
                             <MobileDatePicker
@@ -136,10 +136,10 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             />
                         </label>
-                    </LocalizationProvider>
+                   
                 </div>
                 <div >
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    
                         <label htmlFor="calendar">
                             Claim by
                             <DateTimeField
@@ -149,7 +149,7 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             />
                         </label>
-                    </LocalizationProvider>
+                   
 
                 </div>
 

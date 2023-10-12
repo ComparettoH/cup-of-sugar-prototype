@@ -66,7 +66,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-
+<LocalizationProvider dateAdapter={AdapterDayjs}>
       <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
       <Router>
         
@@ -282,6 +282,7 @@ function App() {
 
       </Router>
       </NavVisibilityContext.Provider>
+      </LocalizationProvider>
     </ThemeProvider >
 
   );
