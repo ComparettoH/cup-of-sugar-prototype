@@ -35,7 +35,7 @@ function UserViewGroupPage() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 250,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -115,14 +115,17 @@ function UserViewGroupPage() {
                                 {selectedMember.name} 
                                 <img src={selectedMember.imgpath} alt="Neighbor's profile photo"/>
                             </Typography>
+                            
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
                             </Typography>
+                           
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Allergies: {selectedMember.allergy_type}
+                            Allergies: {selectedMember && selectedMember.allergy_type ? selectedMember.allergy_type.join(', ') : 'No allergies'}
                             </Typography>
+                           
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Dietary Restrictions: {selectedMember.restriction_type}
+                            Dietary Restrictions: {selectedMember && selectedMember.restriction_type ? selectedMember.restriction_type.join(', ') : 'No restrictions'}
                             </Typography>
                         </Box>
                     </Modal>
