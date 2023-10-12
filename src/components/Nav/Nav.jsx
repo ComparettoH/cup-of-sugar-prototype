@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { NavVisibilityContext } from './NavVisibilityContext';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import { createContext, useState } from 'react'
+import { useState } from 'react'
 import BottomNavBar from './BottomNavBar/BottomNavBar';
 import TopNavBar from './TopNavBar/TopNavBar';
-import zIndex from '@mui/material/styles/zIndex';
-import { useContext } from 'react';
-import { NavVisibilityContext } from './NavVisibilityContext';
+
 
 
 function Nav() {
@@ -49,15 +49,16 @@ function Nav() {
             </Link>
 
             <LogOutButton className="navLink" /> */}
-            
-              <BottomNavBar id='bottomNav' value={value} setValue={setValue} />
-         
+
+            <BottomNavBar id='bottomNav' value={value} setValue={setValue} />
+
           </div>
         )}
       </div>
     </div>
   );
 };
+
 
 export default Nav;
 

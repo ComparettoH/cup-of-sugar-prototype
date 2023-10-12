@@ -7,7 +7,7 @@ import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
 import { zIndex } from '@mui/material/styles/zIndex';
 import './BottomNavBar.css';
 
-function BottomNavBar({ value, setValue }) {
+function BottomNavBar({value, setValue}) {
 
     return (
         <div style={{ position: 'relative', zIndex: 1 }}>
@@ -32,7 +32,8 @@ function BottomNavBar({ value, setValue }) {
                     }}
                     onChange={(event, newValue) => {
                         setValue(newValue);
-                    }}>
+                    } }
+                    >
                     <BottomNavigationAction
                         label='Request'
                         icon={<TurnSlightLeftIcon />}

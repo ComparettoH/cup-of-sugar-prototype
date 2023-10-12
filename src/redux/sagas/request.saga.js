@@ -63,9 +63,7 @@ function* updateRequest(action) {
         // yield put({ type: 'FETCH_REQUESTS' });
     } catch (error) {
         console.log('updateRequest put request failed', error)
-    }
-}
-
+    }}
 function* claimRequest (action) {
     console.log('claim offer SAGA', action.payload)
     try {
@@ -76,6 +74,8 @@ function* claimRequest (action) {
         console.log('Error with claiming Request', err)
     }
 }
+
+
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);

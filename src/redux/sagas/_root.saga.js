@@ -10,6 +10,7 @@ import allergySaga from './allergy.saga';
 import restrictionSaga from './restriction.saga';
 import deleteActivitySaga from './deleteActivity.saga';
 import categorySaga from './category.saga';
+import adminSaga from './admin.saga';
 
 
 
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     restrictionSaga(),
     deleteActivitySaga(),
     categorySaga(),
+    adminSaga(),
   ]);
 }
