@@ -6,5 +6,4 @@ const adminInviteReducer = (state = [], action) => {
                 return state;
     }
 }
-
 export default adminInviteReducer;

@@ -22,6 +22,7 @@ function UserViewGroupPage() {
     const history = useHistory();
     const store = useReduxStore();
     const group = useSelector((store) => store.group);
+    const user = useSelector((store) => store.user);
     const groupMembers = useSelector((store) => store.groupMembers)
     const selectedMember = useSelector((store) => store.selectedMember)
 
@@ -35,7 +36,7 @@ function UserViewGroupPage() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 250,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -54,6 +55,10 @@ function UserViewGroupPage() {
 
     }
 
+    function removeDuplicates(array) {
+        return [...new Set(array)];
+    }
+
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_INFO' });
     }, []);
@@ -64,7 +69,9 @@ function UserViewGroupPage() {
 
     console.log('testing group info data', group, groupMembers)
 
-
+   const navAddMember = () => {
+    history.push('/adminaddmember')
+   }
     return (
         <>
             <div>
@@ -102,6 +109,7 @@ function UserViewGroupPage() {
                             )}
 
                         </Select>
+            
                     </FormControl>
                     <Modal
 
@@ -113,20 +121,34 @@ function UserViewGroupPage() {
                         <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 {selectedMember.name}
+                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Allergies: {selectedMember.allergy_type}
+                                Allergies: {selectedMember && selectedMember.allergy_type
+                                    ? removeDuplicates(selectedMember.allergy_type).join(', ')
+                                    : 'No allergies'}                            
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Dietary Restrictions: {selectedMember.restriction_type}
+                                Dietary Restrictions: {selectedMember && selectedMember.restriction_type
+                                    ? removeDuplicates(selectedMember.restriction_type).join(', ')
+                                    : 'No restrictions'}                            
                             </Typography>
                         </Box>
                     </Modal>
                 </div>
             </form>
+
+            {user.role > 0 &&
+                <Button onClick={() => navAddMember()}>
+                Add New Member
+            </Button>
+            }
 
         </>
     );

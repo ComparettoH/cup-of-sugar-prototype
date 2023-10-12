@@ -80,7 +80,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('req.body', req.body)
       const activityId = req.params.id;
       const imgPath = req.body.imgPath;
-      const categoryType = req.body.category_type;
+      const categoryId = req.body.category_id;
       const itemName = req.body.item_name;
       const itemDescription = req.body.description;
       const requestDate = req.body.requested_on;
@@ -92,10 +92,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       try {
         await connection.query('BEGIN');
     
-        const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
-        const result = await connection.query(addCategory, [categoryType]);
+        // const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
+        // const result = await connection.query(addCategory, [categoryType]);
     
-        const categoryId = result.rows[0].id;
+        // const categoryId = result.rows[0].id;
     
         const sqlUpdate = `
           UPDATE requests
@@ -103,9 +103,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             item_name = $2, 
             description = $3, 
             category_id = $4, 
-            imgPath = $5, 
-            requested_on = $6, 
-            expires_on = $7
+            requested_on = $5, 
+            expires_on = $6
           WHERE id = $1
           ;`
         await connection.query(sqlUpdate, [
@@ -113,9 +112,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
           itemName,
           itemDescription,
           categoryId,
-          imgPath,
           requestDate,
-          bestByDate,
           expiryDate
         ])
         await connection.query('COMMIT');

@@ -21,6 +21,7 @@ function* fetchRequests() {
 
 }
 
+
 function* addRequest(action) {
     try {
         const newRequest = yield axios.post('/api/request', action.payload);
@@ -46,6 +47,7 @@ function* fetchRequestItem() {
     }
 
 }
+
 
 function* updateRequest(action) {
     
@@ -74,6 +76,8 @@ function* claimRequest (action) {
         console.log('Error with claiming Request', err)
     }
 }
+
+
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);

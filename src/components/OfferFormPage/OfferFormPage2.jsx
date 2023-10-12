@@ -35,6 +35,9 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
+    
+
+
     const handleBestByDate = (date) => {
         setBestByDate(date);
     };
@@ -121,7 +124,7 @@ function OfferFormPage2() {
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                            <Select
+                        <Select
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -129,15 +132,16 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                                )}
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
+
                             </Select>
                         </FormControl>
                     </label>
                 </div>
                 <div>
 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    
                         <label htmlFor="calendar">
                             Best if used by
                             <MobileDatePicker
@@ -146,10 +150,10 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             />
                         </label>
-                    </LocalizationProvider>
+                   
                 </div>
                 <div >
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    
                         <label htmlFor="calendar">
                             Claim by
                             <DateTimeField
@@ -159,7 +163,7 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             />
                         </label>
-                    </LocalizationProvider>
+                   
 
                 </div>
 
