@@ -54,6 +54,10 @@ function UserViewGroupPage() {
 
     }
 
+    function removeDuplicates(array) {
+        return [...new Set(array)];
+    }
+
     useEffect(() => {
         dispatch({ type: 'FETCH_GROUP_INFO' });
     }, []);
@@ -112,20 +116,24 @@ function UserViewGroupPage() {
                     >
                         <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
-                                {selectedMember.name} 
-                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo"/>
+                                {selectedMember.name}
+                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
                             </Typography>
-                            
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
                             </Typography>
-                           
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Allergies: {selectedMember && selectedMember.allergy_type ? selectedMember.allergy_type.join(', ') : 'No allergies'}
+                                Allergies: {selectedMember && selectedMember.allergy_type
+                                    ? removeDuplicates(selectedMember.allergy_type).join(', ')
+                                    : 'No allergies'}                            
                             </Typography>
-                           
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Dietary Restrictions: {selectedMember && selectedMember.restriction_type ? selectedMember.restriction_type.join(', ') : 'No restrictions'}
+                                Dietary Restrictions: {selectedMember && selectedMember.restriction_type
+                                    ? removeDuplicates(selectedMember.restriction_type).join(', ')
+                                    : 'No restrictions'}                            
                             </Typography>
                         </Box>
                     </Modal>
