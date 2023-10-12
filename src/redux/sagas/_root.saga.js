@@ -8,6 +8,9 @@ import requestSaga from './request.saga';
 import groupSaga from './group.saga';
 import allergySaga from './allergy.saga';
 import restrictionSaga from './restriction.saga';
+import deleteActivitySaga from './deleteActivity.saga';
+import categorySaga from './category.saga';
+
 
 
 // rootSaga is the primary saga.
@@ -28,5 +31,7 @@ export default function* rootSaga() {
     groupSaga(),
     allergySaga(),
     restrictionSaga(),
+    deleteActivitySaga(),
+    categorySaga(),
   ]);
 }

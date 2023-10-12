@@ -29,6 +29,7 @@ router.get('/members', rejectUnauthenticated, (req, res) => {
   "user".id, 
   user_profile.name, 
   user_profile.about, 
+  user_profile.imgpath,
   ARRAY_AGG (allergies.allergy_type) AS allergy_type,
   ARRAY_AGG (dietary_restrictions.restriction_type) AS restriction_type  
   FROM "user_profile"
@@ -38,7 +39,7 @@ router.get('/members', rejectUnauthenticated, (req, res) => {
   LEFT JOIN user_dietary_restrictions ON "user".id = user_dietary_restrictions.user_id
   LEFT JOIN dietary_restrictions ON user_dietary_restrictions.user_restriction_id = dietary_restrictions.id
   WHERE "user".group_id = $1
-  GROUP BY "user".id, user_profile.name, user_profile.about
+  GROUP BY "user".id, user_profile.name, user_profile.about, user_profile.imgpath
   ORDER BY user_profile.name DESC;`
   pool.query(groupQueryText, [userGroupID])
   .then( (result) => {

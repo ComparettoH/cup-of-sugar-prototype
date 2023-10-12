@@ -38,8 +38,10 @@ function UserProfile() {
 
     }
 
-    const handleGroupInfo = () => {
+    function handleGroupInfo() {{
+        dispatch({ type: 'SET_GROUP_INFO', payload: profile})
         history.push(`/usergroup`)
+    }
     }
 
     return (
@@ -47,7 +49,7 @@ function UserProfile() {
         <Box>
             <header>
                 <Typography variant="h3">Cup of Sugar</Typography>
-                <Avatar alt='Profile Picture'src={profile.imgpath} />
+                <img src={profile[0]?.imgpath} alt="user's profile photo"/>
             </header>
 
                 <section className="user-profile">
@@ -65,9 +67,9 @@ function UserProfile() {
 
                 </section >
 
-            <footer>
-                <Button variant="outlined" onClick={() => linkEditProfile()}>Edit</Button>
-                <Button variant="outlined" onClick={() => handleGroupInfo()}>Group Info</Button>
+            <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Button id="submit" variant="contained" onClick={() => linkEditProfile()}>Edit</Button>
+                <Button id="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
             </footer>
         </Box>
         </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,17 +8,20 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-
+import TextField from '@mui/material/TextField';
+import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 
 import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
-    const itemName = useSelector((store) => store.offers)
+    const itemName = useSelector((store) => store.offers.itemHeadline)
+    const imgpath = useSelector((store) => store.offers.offerImage)
+    const category = useSelector((store) => store.category)
     // console.log('itemName:', itemName)
 
     const dispatch = useDispatch();
@@ -39,6 +42,14 @@ function OfferFormPage2() {
         setOfferExpiresDate(date);
     };
 
+    useEffect(() => {
+        getCategoryList();
+    }, [])
+
+    const getCategoryList = () => {
+        dispatch({ type: 'FETCH_CATEGORY' })
+    }
+
     const handleBackButton = () => {
         history.push(`/offerform1/${itemName}`)
     }
@@ -47,9 +58,9 @@ function OfferFormPage2() {
         event.preventDefault();
 
         let timestamp = new Date();
-
         let newOffer = {
             item_name: itemName,
+            imgpath: imgpath,
             description: itemDescription,
             perishable: persihableItem,
             homemade: homemadeItem,
@@ -58,27 +69,30 @@ function OfferFormPage2() {
             best_by: bestByDate,
             expires_on: offerExpiresDate
         }
-
+        console.log('newoffer:', newOffer)
         // dispatch to offer saga
         dispatch({ type: 'ADD_OFFER', payload: newOffer })
         // navigate to activity feed
-        // history.push('/activity')
+        history.push('/activity')
     }
 
+    console.log('testing category get', category)
     return (
         <>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <label htmlFor="itemDescription">
                         Description
-                        <input
-
+                        <TextField
+                            id="itemDescription"
                             type='text'
+                            multiline rows={4}
                             placeholder="Provide some details about the item you'd like to share. 
                             You can add information about quantity, date of purchase, reason for sharing, etc."
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
-                            sx={{ width: '100%' }}
+                            fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -88,6 +102,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                     <label>
@@ -95,6 +110,7 @@ function OfferFormPage2() {
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.value)}
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -107,55 +123,50 @@ function OfferFormPage2() {
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
                                 input={<OutlinedInput label="Select from categories:" />}
+                                sx={{ mb: 2 }}
                             >
-                                <MenuItem value="produce">Produce</MenuItem>
-                                <MenuItem value="meatSeafood">Fresh Meat & Seafood</MenuItem>
-                                <MenuItem value="dairyEggs">Dairy & Eggs</MenuItem>
-                                <MenuItem value="frozenFoods">Frozen Foods</MenuItem>
-                                <MenuItem value="prepFood">Prepared Food</MenuItem>
-                                <MenuItem value="dryGoods">Dry Goods</MenuItem>
-                                <MenuItem value="nonPerishables">Non-perishables</MenuItem>
-                                <MenuItem value="other">Other</MenuItem>
+                                {category.map((option1) =>
+                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                            )}
                             </Select>
                         </FormControl>
                     </label>
                 </div>
                 <div>
+
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Best if used by
                             <MobileDatePicker
                                 value={bestByDate}
-                                onChange={handleBestByDate} />
+                                onChange={handleBestByDate}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                     </LocalizationProvider>
                 </div>
-                <div>
+                <div >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             Claim by
                             <DateTimeField
                                 label='Date & Time'
                                 value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate} />
+                                onChange={handleOfferExpiresDate}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                     </LocalizationProvider>
+
                 </div>
 
-                <div>
-                    <Button onClick={() => handleBackButton()} variant="outlined">Back</Button>
-                    <Button type="submit" variant="contained">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                    <Button id="submit" variant="contained">
                         Submit Offer
                     </Button>
                 </div>
             </form>
-
-            <div>
-                <Button variant="outlined">
-                    Submit Offer
-                </Button>
-            </div>
-
         </>
     )
 }

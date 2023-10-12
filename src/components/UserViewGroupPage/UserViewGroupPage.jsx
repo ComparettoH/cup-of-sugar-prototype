@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useReduxStore from '../../hooks/useReduxStore';
 import { useEffect } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -19,6 +20,7 @@ function UserViewGroupPage() {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const store = useReduxStore();
     const group = useSelector((store) => store.group);
     const groupMembers = useSelector((store) => store.groupMembers)
     const selectedMember = useSelector((store) => store.selectedMember)
@@ -33,7 +35,7 @@ function UserViewGroupPage() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 250,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -50,6 +52,10 @@ function UserViewGroupPage() {
 
         dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
 
+    }
+
+    function removeDuplicates(array) {
+        return [...new Set(array)];
     }
 
     useEffect(() => {
@@ -111,15 +117,23 @@ function UserViewGroupPage() {
                         <Box sx={style}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 {selectedMember.name}
+                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                 {selectedMember.about}
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Allergies: {selectedMember.allergy_type[0]}, {selectedMember.allergy_type[1]}
+                                Allergies: {selectedMember && selectedMember.allergy_type
+                                    ? removeDuplicates(selectedMember.allergy_type).join(', ')
+                                    : 'No allergies'}                            
                             </Typography>
+
                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                            Dietary Restrictions: {selectedMember.restriction_type}
+                                Dietary Restrictions: {selectedMember && selectedMember.restriction_type
+                                    ? removeDuplicates(selectedMember.restriction_type).join(', ')
+                                    : 'No restrictions'}                            
                             </Typography>
                         </Box>
                     </Modal>

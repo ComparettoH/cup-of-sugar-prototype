@@ -18,54 +18,57 @@ function OfferItemPage() {
     const profile = useSelector((store) => store.profile);
     const activity = useSelector((store) => store.activityItem)
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_OFFER_ITEM' });
-    }, [dispatch]);
-
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         // ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
+        alignContent: 'center',
         color: theme.palette.text.secondary,
     }));
 
+    const claimOffer = () => {
+        dispatch({
+            type: 'CLAIM_OFFER',
+            payload: activity.id
+        })
+        history.push('/activity')
+    }
+
+    console.log('testing', activity.id)
     return (
         <Box>
             <header>
 
             </header>
             <section className='request-item'>
-                <Grid container spacing={1}>
-                    <Grid xs={12}>
-                        <Item>
+                <Grid container spacing={0}>
+                    <Item>
+                    <Grid xs={12}>  
                             <Typography variant="h5">{activity.name}</Typography>
-                        </Item>
                     </Grid>
                     <Grid xs={12}>
-                        <Item>
                             <Typography variant="h7">Would like to share </Typography>
-                        </Item>
                     </Grid>
                     <Grid xs={12}>
-                        <Item>
                             <Typography variant="h6">{activity.item_name}</Typography>
-                        </Item>
+                    </Grid>
+                    <Grid xs={6}>
+                        <img src={activity.imgpath }/>
                     </Grid>
                     <Grid xs={12}>
-                        <Item>
                             <Typography variant="subtitle1">{activity.description}</Typography>
-                        </Item>
                     </Grid>
                     <Grid xs={12}>
-                        <Item>
-                            <Typography variant="h6">This request expires on: {activity.expires_on}</Typography>
-                        </Item>
+                            <Typography variant="h6">This offer expires on: {activity.expires_on}</Typography>
                     </Grid>
+                    <Button variant="outlined">Fulfill</Button>
+                    </Item>
                 </Grid>
+
             </section>
             <footer>
-                <Button variant="outlined">Fulfill</Button>
+                <Button variant="outlined" onClick={() => claimOffer()}>Claim</Button>
             </footer>
         </Box>
     )
