@@ -94,12 +94,27 @@ function* claimOffer (action) {
     }
 }
 
+function* deleteOffer (action) {
+    try {
+        // DELETES the offer from the DB
+        const deleteOffer = action.payload
+        yield axios({
+            method: 'DELETE',
+            url: `api/offer/${action.payload}`,
+            data: deleteOffer
+        })
+
+    } catch (error) {
+        console.log('delete offer failed', error)
+    }}
+
 function* offerSaga() {
     yield takeLatest('FETCH_OFFERS', fetchOffers);
     yield takeLatest('FETCH_OFFER_ITEM', fetchOfferItem);
     yield takeLatest('ADD_OFFER', addOffer);
-    yield takeLatest('UPDATE_OFFER', updateOffer)
+    yield takeLatest('UPDATE_OFFER', updateOffer);
     yield takeLatest('CLAIM_OFFER', claimOffer);
+    yield takeLatest('DELETE_OFFER', deleteOffer);
 };
 
 export default offerSaga
