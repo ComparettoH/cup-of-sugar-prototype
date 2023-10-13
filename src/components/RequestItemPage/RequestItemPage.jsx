@@ -58,7 +58,7 @@ function RequestItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined" onClick={() => fulfillRequest()}>Fulfill</Button>
+                <Button variant="contained" onClick={() => fulfillRequest()}>Fulfill</Button>
             </footer>
         </Box>
         </>

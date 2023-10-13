@@ -86,7 +86,7 @@ function* updateOffer(action) {
 function* claimOffer (action) {
     console.log('claim offer SAGA', action.payload)
     try {
-        yield axios.put(`/api/offer/${action.payload}`, action.payload)
+        yield axios.put(`/api/offer/claim/${action.payload}`)
         yield put({ type: 'FETCH_OFFERS'})
     }
     catch (err) {

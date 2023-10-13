@@ -34,9 +34,6 @@ function OfferFormPage2() {
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
 
-    
-
-
     const handleBestByDate = (date) => {
         setBestByDate(date);
     };
@@ -82,6 +79,9 @@ function OfferFormPage2() {
     console.log('testing category get', category)
     return (
         <>
+        <div text align="center">
+            <h1>Tell us more:</h1>
+        </div>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <label htmlFor="itemDescription">
@@ -153,12 +153,9 @@ function OfferFormPage2() {
                     
                         <label htmlFor="calendar">
                             Claim by
-                            <DateTimeField
-                                label='Date & Time'
+                            <MobileDateTimePicker
                                 value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate}
-                                sx={{ mb: 2 }}
-                            />
+                                onChange={handleOfferExpiresDate} />
                         </label>
                    
 
