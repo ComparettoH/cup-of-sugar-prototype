@@ -105,6 +105,21 @@ const getCategoryList = () => {
         history.push('/activity')
     }
 
+    const handleDeleteOffer = (props) => {
+        let offerId = props.id;
+
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this offer?"
+            );
+
+    if (confirmDelete) {
+        dispatch({ 
+            type: 'DELETE_OFFER', 
+            payload: offerId });
+        history.push('/activity')
+        }
+    }
+
     return (
         <Box >
         <header>
@@ -197,6 +212,10 @@ const getCategoryList = () => {
                 <div>
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>
                         Save Changes
+                    </Button>
+
+                    <Button type="submit" variant="contained" onClick={() => handleDeleteOffer(updateOffer)}>
+                        Delete
                     </Button>
                 </div>
             {/* </div> */}

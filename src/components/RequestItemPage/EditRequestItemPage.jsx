@@ -88,6 +88,21 @@ const getCategoryList = () => {
         history.push('/activity')
     }
 
+    const handleDeleteRequest = (props) => {
+        let requestId = props.id;
+
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this request?"
+            );
+            
+    if (confirmDelete) {
+        dispatch({ 
+            type: 'DELETE_REQUEST', 
+            payload: requestId });
+        history.push('/activity')
+        }
+    }
+
     return (
         <Box >
             <Item>
@@ -157,6 +172,10 @@ const getCategoryList = () => {
                 <div>
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>
                         Save Changes
+                    </Button>
+
+                    <Button type="submit" variant="contained" onClick={() => handleDeleteRequest(updateRequest)}>
+                        Delete
                     </Button>
                 </div>
             {/* </div> */}
