@@ -9,7 +9,8 @@ import {
     CardActionArea,
     Typography,
     CardMedia,
-    CardActions
+    CardActions, 
+    Stack
 } from '@mui/material';
 
 function ActivityCardContent({ activity, activityView }) {
@@ -28,8 +29,17 @@ function ActivityCardContent({ activity, activityView }) {
     }
 
 return (
-    <Card sx={{ width: '100%' }} >
-        <CardActionArea onClick={() => handleActivityNav()} sx={{}}>
+    <Card sx={{ width: '100%', bgcolor: activity.offered_on ? 'primary.light' : 'primary.main'  }} >
+        <CardActionArea onClick={() => handleActivityNav()} >
+<Stack direction='row'>
+        <CardMedia
+                            component="img"
+                            sx={{ width: 100, height: 100, p: 1 }}
+                            image={activity.imgpath}
+                            alt="Offer or Request Image"
+                        />
+
+            {/*  */}
             {activityView.shares && (activity.claimed_on || activity.fulfilled_on) ?
                 <CardContent sx={{ bgcolor: 'warning.light' }}>
                     <Typography gutterBottom variant="button" color='info.main'>
@@ -51,16 +61,19 @@ return (
                     </Typography>
                     <Typography variant="body1" color="info.main">
                         {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
-                            ${activity.item_name} on ${activity.offered_on ? DateTimeFormatter(activity.offered_on) : DateTimeFormatter(activity.requested_on)}`}
+                            ${activity.item_name} 
+                            on ${activity.offered_on ? DateTimeFormatter(activity.offered_on) : DateTimeFormatter(activity.requested_on)}`}
                     </Typography>
                 </CardContent>
             }
+            </Stack>
         </CardActionArea >
         <CardActions>
             {user.role > 0 &&
                 <DeleteButton activity={activity} />
             }
         </CardActions>
+       
     </Card>
 );
 }
