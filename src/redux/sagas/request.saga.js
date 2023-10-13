@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, take, takeLatest } from 'redux-saga/effects';
 
 // This is a worker saga; will be fired upon 
 // 'FETCH_REQUESTS' 
@@ -76,6 +76,21 @@ function* claimRequest (action) {
     }
 }
 
+function* deleteRequest (action) {
+    try {
+        // DELETES the request from the DB
+        const deleteRequest = action.payload
+        yield axios({
+            method: 'DELETE',
+            url: `api/request/${action.payload}`,
+            data: deleteRequest
+        })
+
+    } catch (error) {
+        console.log('delete request failed', error)
+    }}
+
+
 
 
 function* requestSaga() {
@@ -84,6 +99,7 @@ function* requestSaga() {
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
     yield takeLatest('UPDATE_REQUEST', updateRequest);
     yield takeLatest('FULFILL_REQUEST', claimRequest);
+    yield takeLatest('DELETE_REQUEST', deleteRequest);
 };
 
 export default requestSaga;

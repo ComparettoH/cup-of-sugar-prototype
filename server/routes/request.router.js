@@ -166,17 +166,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const connection = await pool.connect()
     try {
       await connection.query('BEGIN');
-      const sqlDeleteClip = `
+      const sqlDeleteRequest = `
         DELETE FROM requests 
         WHERE id = $1 
         ;`
-      await connection.query(sqlDeleteClip, requestId);
+      await connection.query(sqlDeleteRequest, requestId);
       
       await connection.query('COMMIT');
       res.sendStatus(200);
     } catch (error) {
       await connection.query('ROLLBACK');
-      console.log(`Transaction Error - Rolling back new account`, error);
+      console.log(`Transaction Error - Rolling back delete request`, error);
       res.sendStatus(500);
     } finally {
       connection.release()
