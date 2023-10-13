@@ -119,7 +119,7 @@ function EditRequestItemPage() {
                         placeholder='What item are you sharing?'
                         value={updateRequest.item_name}
                         onChange={(event) => handleHeadlineChange(event)}
-                        sx={{ width: '100%' }}
+                        sx={{ width: '100%', mb: 2 }}
                     />
                 </label>
                 {/* <div>
@@ -141,7 +141,7 @@ function EditRequestItemPage() {
                             You can add information about quantity, date of purchase, reason for sharing, etc."
                             value={updateRequest.description}
                             onChange={(event) => handleDescriptionChange(event)}
-                            sx={{ width: '100%' }}
+                            sx={{ width: '100%', mb: 2 }}
                         />
                     </label>
                 </div>
@@ -168,7 +168,8 @@ function EditRequestItemPage() {
                         Claim by
                         <MobileDateTimePicker
                             value={dayjs(updateRequest.claim_by)}
-                            onChange={(date) => handleUpdateClaimBy(date)} />
+                            onChange={(date) => handleUpdateClaimBy(date)}
+                            sx={{ mb: 2 }} />
                     </label>
                 </div>
 

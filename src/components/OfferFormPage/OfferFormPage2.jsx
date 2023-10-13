@@ -79,9 +79,9 @@ function OfferFormPage2() {
     console.log('testing category get', category)
     return (
         <>
-        <div text align="center">
-            <h1>Tell us more:</h1>
-        </div>
+            <div text align="center">
+                <h1>Tell us more:</h1>
+            </div>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <label htmlFor="itemDescription">
@@ -121,7 +121,7 @@ function OfferFormPage2() {
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                        <Select
+                            <Select
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -129,8 +129,8 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
 
                             </Select>
                         </FormControl>
@@ -138,31 +138,33 @@ function OfferFormPage2() {
                 </div>
                 <div>
 
-                    
-                        <label htmlFor="calendar">
-                            Best if used by
-                            <MobileDatePicker
-                                value={bestByDate}
-                                onChange={handleBestByDate}
-                                sx={{ mb: 2 }}
-                            />
-                        </label>
-                   
+
+                    <label htmlFor="calendar">
+                        Best if used by
+                        <MobileDatePicker
+                            value={bestByDate}
+                            onChange={handleBestByDate}
+                            sx={{ mb: 2 }}
+                        />
+                    </label>
+
                 </div>
                 <div >
-                    
-                        <label htmlFor="calendar">
-                            Claim by
-                            <MobileDateTimePicker
-                                value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate} />
-                        </label>
-                   
+
+                    <label htmlFor="calendar">
+                        Claim by
+                        <MobileDateTimePicker
+                            value={offerExpiresDate}
+                            onChange={handleOfferExpiresDate} />
+                    </label>
+
 
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                <div
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    sx={{ mt: 2 }}>
+                    <Button type="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>

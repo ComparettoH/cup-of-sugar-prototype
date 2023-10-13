@@ -40,7 +40,7 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          User Email:
           <TextField
             type="text"
             name="username"
@@ -53,7 +53,7 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Password:
+          Create Password:
           <TextField
             type="password"
             name="password"
@@ -66,7 +66,7 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Group:
+          Invite Code:
           <TextField
             type="group"
             name="group"
@@ -78,7 +78,12 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <Button
+          type="submit"
+          name="submit"
+          variant="contained">
+          Register
+        </Button>
       </div>
     </form>
   );
