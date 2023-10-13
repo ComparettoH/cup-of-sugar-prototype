@@ -10,15 +10,17 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Unstable_Grid2";
-import {TextField} from "@mui/material";
-import {Checkbox} from "@mui/material";
-import {FormControl} from "@mui/material";
-import {Select} from "@mui/material";
-import {MenuItem} from "@mui/material";
-import {OutlinedInput} from "@mui/material";
+import { TextField } from "@mui/material";
+import { Checkbox } from "@mui/material";
+import { FormControl } from "@mui/material";
+import { Select } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { OutlinedInput } from "@mui/material";
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
+import Stack from '@mui/material/Stack';
 import dayjs from "dayjs";
+import { center } from "@cloudinary/url-gen/qualifiers/textAlignment";
 
 function EditRequestItemPage() {
 
@@ -27,15 +29,15 @@ function EditRequestItemPage() {
     const updateRequest = useSelector((store) => store.updateActivity);
     const category = useSelector((store) => store.category)
 
-const [selectedCategory, setSelectedCategory] = useState('')
+    const [selectedCategory, setSelectedCategory] = useState('')
 
-useEffect(() => {
-    getCategoryList();
-}, [])
+    useEffect(() => {
+        getCategoryList();
+    }, [])
 
-const getCategoryList = () => {
-    dispatch({ type: 'FETCH_CATEGORY' })
-}
+    const getCategoryList = () => {
+        dispatch({ type: 'FETCH_CATEGORY' })
+    }
 
     const Item = styled(Paper)(({ theme }) => ({
         // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -93,30 +95,31 @@ const getCategoryList = () => {
 
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this request?"
-            );
-            
-    if (confirmDelete) {
-        dispatch({ 
-            type: 'DELETE_REQUEST', 
-            payload: requestId });
-        history.push('/activity')
+        );
+
+        if (confirmDelete) {
+            dispatch({
+                type: 'DELETE_REQUEST',
+                payload: requestId
+            });
+            history.push('/activity')
         }
     }
 
     return (
         <Box >
             <Item>
-        <header>
-        </header>
-        
+                <header>
+                </header>
+
                 <label htmlFor='itemHeadline'>
-                    Headline 
+                    Headline
                     <TextField
-                    type='text'
-                    placeholder='What item are you sharing?'
-                    value={updateRequest.item_name}
-                    onChange={(event)=> handleHeadlineChange(event)}
-                    sx={{ width: '100%' }}
+                        type='text'
+                        placeholder='What item are you sharing?'
+                        value={updateRequest.item_name}
+                        onChange={(event) => handleHeadlineChange(event)}
+                        sx={{ width: '100%' }}
                     />
                 </label>
                 {/* <div>
@@ -146,7 +149,7 @@ const getCategoryList = () => {
                     <label htmlFor="categoryDropdown">
                         Item Category
                         <FormControl fullWidth={true}>
-                        <Select
+                            <Select
                                 id="itemCategory"
                                 value={updateRequest.category_id}
                                 onChange={(event) => handleCategoryChange(event)}
@@ -154,8 +157,8 @@ const getCategoryList = () => {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
                             </Select>
                         </FormControl>
                     </label>
@@ -169,7 +172,7 @@ const getCategoryList = () => {
                     </label>
                 </div>
 
-                <div>
+                <Stack spacing={2} direction="row" justifyContent={center} >
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>
                         Save Changes
                     </Button>
@@ -177,10 +180,10 @@ const getCategoryList = () => {
                     <Button type="submit" variant="contained" onClick={() => handleDeleteRequest(updateRequest)}>
                         Delete
                     </Button>
-                </div>
-            {/* </div> */}
+                </Stack>
+                {/* </div> */}
             </Item>
-    </Box>
+        </Box>
     )
 }
 
