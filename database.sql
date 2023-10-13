@@ -116,7 +116,7 @@ VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('
 
 
 INSERT INTO "categories" (category_type)
-VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
+VALUES ('Produce'), ('Baking Supplies'), ('Bread & Bakery'), ('Dairy'), ('Eggs'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Dry Goods'), ('Frozen'), ('Other');
 
 
 

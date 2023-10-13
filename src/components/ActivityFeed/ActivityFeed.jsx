@@ -93,6 +93,7 @@ function ActivityFeed() {
                                 (
                                     <ListItem
                                         key={index}
+                                        sx={{bgcolor: 'warning.main'}}
                                     >
                                         <ListItemText
                                             primary={`You shared ${activity.item_name} 
@@ -132,12 +133,14 @@ function ActivityFeed() {
                     // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
                     // if (user.id !== activity.user_id) {
                     return (
+                        
                         // checks to see if activity should be displayed based on toggle switches
                         (activity.requested_on && activityView.requests)
                         ||
                         (activity.offered_on && activityView.offers)
                         ||
                         ((activity.fulfilled_on || activity.claimed_on) && activityView.shares)
+
                     )
                         &&
                         (

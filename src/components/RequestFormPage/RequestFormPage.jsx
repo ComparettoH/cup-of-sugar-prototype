@@ -120,14 +120,12 @@ function RequestFormPage() {
                     </label>
                 </div>
                 <div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <label htmlFor="calendar">
                             I need this by
                             <MobileDateTimePicker
                                 value={selectedDate}
                                 onChange={handleDateChange} />
                         </label>
-                    </LocalizationProvider>
                 </div>
 
 

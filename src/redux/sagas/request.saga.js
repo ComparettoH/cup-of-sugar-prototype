@@ -64,10 +64,11 @@ function* updateRequest(action) {
     } catch (error) {
         console.log('updateRequest put request failed', error)
     }}
+
 function* claimRequest (action) {
     console.log('claim offer SAGA', action.payload)
     try {
-        yield axios.put(`/api/request/${action.payload}`, action.payload)
+        yield axios.put(`/api/request/fulfill/${action.payload}`)
         yield put({ type: 'FETCH_REQUESTS'})
     }
     catch (err) {
