@@ -71,7 +71,10 @@ function RequestFormPage() {
 
     return (
         <>
-            <div>
+        <div text align="center">
+            <h1>Make a request</h1>
+        </div>
+            <div text align="center">
                 <h3>I wish I had:</h3>
             </div>
             <form onSubmit={handleSubmitRequest} className='formPanel'>

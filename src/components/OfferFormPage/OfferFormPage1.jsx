@@ -28,6 +28,9 @@ function OfferFormPage1(){
 
     return(
         <>
+        <div text align="center">
+            <h1>What do you have to offer?</h1>
+        </div>
         <form className='formPanel'>
             <div>
                 <label htmlFor='itemHeadline'>
