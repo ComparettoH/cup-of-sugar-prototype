@@ -22,6 +22,8 @@ function ActivityFeed() {
     const dispatch = useDispatch();
     const offers = useSelector((store) => store.offers);
     const requests = useSelector((store) => store.requests);
+    const [offersAndRequests, setoffersAndRequests]  = useState([]);
+
     const user = useSelector((store) => store.user)
     // states for the toggle switches to change what is being shown in the activity lists
     const [activityView, setActivityView] = useState({
@@ -36,11 +38,17 @@ function ActivityFeed() {
         dispatch({ type: 'FETCH_REQUESTS' });
     }, []);
 
+    useEffect(() => {
+        if (Array.isArray(offers) && Array.isArray(requests)) {
     // declare and assign an array of all the offers and requests, and then sorts them by created date
-    const offersAndRequests = offers.concat(requests);
-    offersAndRequests.sort((a, b) => {
-        return new Date(a.expires_on) - new Date(b.expires_on);
-    });
+          const oAndR = offers.concat(requests);
+          oAndR.sort((a, b) => {
+            return new Date(a.expires_on) - new Date(b.expires_on);
+          });
+          setoffersAndRequests(oAndR)
+        }
+      }, [offers, requests]);
+
 
     //   sets toggle switch state
     const handleViewChange = (event) => {
@@ -85,6 +93,7 @@ function ActivityFeed() {
                                 (
                                     <ListItem
                                         key={index}
+                                        sx={{bgcolor: 'warning.main'}}
                                     >
                                         <ListItemText
                                             primary={`You shared ${activity.item_name} 
@@ -124,26 +133,28 @@ function ActivityFeed() {
                     // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
                     // if (user.id !== activity.user_id) {
                     return (
+                        
                         // checks to see if activity should be displayed based on toggle switches
                         (activity.requested_on && activityView.requests)
                         ||
                         (activity.offered_on && activityView.offers)
                         ||
                         ((activity.fulfilled_on || activity.claimed_on) && activityView.shares)
-                    ) 
-&&
-                    (
-                        <Grid item key={index} xs={6} sm={6} md={6} >
 
-                            <Card sx={{ width: '100%' }} >
-                                <ActivityCardContent
-                                    activity={activity}
-                                    activityView={activityView}
-                                />
-                            </Card>
-                        </Grid>
-                    );
-                    
+                    )
+                        &&
+                        (
+                            <Grid item key={index} xs={12} sm={6} md={6} >
+
+                                <Card sx={{ width: '100%' }} >
+                                    <ActivityCardContent
+                                        activity={activity}
+                                        activityView={activityView}
+                                    />
+                                </Card>
+                            </Grid>
+                        );
+
                 })
                 }
             </Grid>

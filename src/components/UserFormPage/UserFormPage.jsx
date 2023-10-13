@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import WebcamPage from '../WebcamPage/WebcamPage'
 // material ui imports
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,7 +19,6 @@ import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-
 function UserFormPage({ setIsNavVisible }) {
 
     useEffect(() => {
@@ -30,8 +29,6 @@ function UserFormPage({ setIsNavVisible }) {
         };
     }, []);
 
-
-
     const history = useHistory();
     const dispatch = useDispatch();
     const errors = useSelector((store) => store.errors);
@@ -40,6 +37,7 @@ function UserFormPage({ setIsNavVisible }) {
     // State variables to store selected values for allergies and dietary restrictions
     const [name, setName] = useState('');
     const [profImage, setProfImage] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
     const [userBio, setUserBio] = useState('');
     const [selectedAllergy, setSelectedAllergy] = useState([]);
     const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState([])
@@ -56,9 +54,9 @@ function UserFormPage({ setIsNavVisible }) {
     const successAlert = () => {
         return (
             <Alert severity="success">
-            <AlertTitle>Success</AlertTitle>
-            This is a success alert — <strong>check it out!</strong>
-          </Alert>
+                <AlertTitle>Success</AlertTitle>
+                This is a success alert — <strong>check it out!</strong>
+            </Alert>
         )
     }
 
@@ -107,8 +105,12 @@ function UserFormPage({ setIsNavVisible }) {
         history.push(`/howitworks`)
 
     }
+    
+    const profImageUpload = (image) => {
+        setProfImage(image);
+        setPreviewImage(URL.createObjectURL(image));
+    }
 
-    // console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -130,12 +132,16 @@ function UserFormPage({ setIsNavVisible }) {
                 // imageGallery={imageGallery}
                 // fetchImages={fetchImages}
                 /> */}
+
                 <div>
                     <label htmlFor='image'>
                         Choose an image or photo of yourself:
+                        {previewImage &&
+                            <img src={previewImage} />
+                        }
                         {/* lets user upload an image from their device */}
                         <TextField
-                            onChange={e => setProfImage(e.target.files[0])}
+                            onChange={e => profImageUpload(e.target.files[0])}
                             type="file"
                             placeholder='Upload URL here'
                             sx={{ mb: 2 }}
@@ -152,7 +158,7 @@ function UserFormPage({ setIsNavVisible }) {
                             id="about"
                             type='text'
                             multiline rows={4}
-                            placeholder='Why did you choose Cup Of Sugar?'
+                            placeholder='What do you want your neighbors to know about you?'
                             value={userBio}
                             onChange={(event) => setUserBio(event.target.value)}
                             fullWidth
@@ -194,8 +200,8 @@ function UserFormPage({ setIsNavVisible }) {
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                             sx={{ mb: 2 }}
                         >
-                             {restriction.map((option2, i) =>
-                            <MenuItem key= {i} value={option2.id}>{option2.restriction_type}</MenuItem>
+                            {restriction.map((option2, i) =>
+                                <MenuItem key={i} value={option2.id}>{option2.restriction_type}</MenuItem>
                             )}
                         </Select>
                     </FormControl>

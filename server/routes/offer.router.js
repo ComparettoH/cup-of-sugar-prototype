@@ -55,7 +55,7 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
   const userId = req.user.id;
   const groupId = req.user.group_id;
   const imgPath = req.file.path;
-  const categoryType = req.body.category_type;
+  const categoryId = req.body.category_type;
   const itemName = req.body.item_name;
   const itemDescription = req.body.description;
   const perishableItem = req.body.perishable;
@@ -67,12 +67,6 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
   const connection = await pool.connect()
   try {
     await connection.query('BEGIN');
-    // insert category type into categories table and return category id
-    const addCategory = `INSERT INTO categories (category_type) VALUES ($1) RETURNING id;`
-    const result = await connection.query(addCategory, [categoryType]);
-
-    const categoryId = result.rows[0].id;
-
     // use the newly returned category id to add the new offer
     const addNewOffer = `
       INSERT INTO offers
@@ -174,6 +168,42 @@ console.log('req.body', req.body)
 
   }
 });
+
+router.put("/claim/:id", rejectUnauthenticated, async (req, res) => {
+  console.log('req.body', req.body)
+    const claimedById = req.user.id;
+    const offerClaimed = req.params.id;
+    const claimedOn = new Date();
+    console.log('in claim route', claimedById, offerClaimed, claimedOn)
+
+    const connection = await pool.connect()
+  
+    try {
+      await connection.query('BEGIN');
+  
+      const sqlUpdate = `
+        UPDATE offers
+        SET 
+          claimed_by_user = $2, 
+          claimed_on = TO_TIMESTAMP($3, 'YYYY MM DD')  
+        WHERE id = $1
+        ;`
+      await connection.query(sqlUpdate, [
+        offerClaimed,
+        claimedById,
+        claimedOn,
+      ])
+      await connection.query('COMMIT');
+      res.sendStatus(200);
+    } catch (error) {
+      await connection.query('ROLLBACK');
+      console.log(`Transaction Error - Rolling back new account`, error);
+      res.sendStatus(500);
+    } finally {
+      connection.release()
+  
+    }
+  });
 
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   console.log('in offer delete req.params:', req.params)
