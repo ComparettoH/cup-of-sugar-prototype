@@ -79,6 +79,9 @@ function OfferFormPage2() {
     console.log('testing category get', category)
     return (
         <>
+        <div text align="center">
+            <h1>Tell us more:</h1>
+        </div>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <label htmlFor="itemDescription">

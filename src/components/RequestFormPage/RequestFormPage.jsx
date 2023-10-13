@@ -71,7 +71,10 @@ function RequestFormPage() {
 
     return (
         <>
-            <div>
+        <div text align="center">
+            <h1>Make a request</h1>
+        </div>
+            <div text align="center">
                 <h3>I wish I had:</h3>
             </div>
             <form onSubmit={handleSubmitRequest} className='formPanel'>
@@ -84,6 +87,7 @@ function RequestFormPage() {
                             value={requestedItem}
                             onChange={(event) => setRequestedItem(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -116,6 +120,7 @@ function RequestFormPage() {
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
                     </label>
                 </div>
@@ -124,7 +129,9 @@ function RequestFormPage() {
                             I need this by
                             <MobileDateTimePicker
                                 value={selectedDate}
-                                onChange={handleDateChange} />
+                                onChange={handleDateChange}
+                                sx={{ mb: 2 }}
+                            />
                         </label>
                 </div>
 

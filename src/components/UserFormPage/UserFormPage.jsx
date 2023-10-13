@@ -105,13 +105,12 @@ function UserFormPage({ setIsNavVisible }) {
         history.push(`/howitworks`)
 
     }
-
+    
     const profImageUpload = (image) => {
         setProfImage(image);
         setPreviewImage(URL.createObjectURL(image));
     }
 
-    console.log('testing on clientside in UserForm', allergy, restriction)
     return (
         <>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
@@ -179,8 +178,8 @@ function UserFormPage({ setIsNavVisible }) {
                             input={<OutlinedInput label="Please select dietary restrictions:" />}
                             sx={{ mb: 2 }}
                         >
-                            {allergy.map((option1) =>
-                                <MenuItem key={option1.id} value={option1.id}
+                            {allergy.map((option1, i) =>
+                                <MenuItem key={i} value={option1.id}
                                 >
                                     {option1.allergy_type}
                                 </MenuItem>

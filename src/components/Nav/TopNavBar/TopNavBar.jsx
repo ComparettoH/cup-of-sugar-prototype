@@ -44,6 +44,11 @@ function TopNavBar() {
         handleMenuClose();
     };
 
+    const navUserViewGroupPage = () =>{
+        history.push('/usergroup')
+        handleMenuClose();
+    }
+
     const navHowItWorks = () => {
         history.push('/howitworks');
         handleMenuClose();
@@ -79,6 +84,7 @@ function TopNavBar() {
                 >
                     <MenuItem >Hi, {profile[0]?.name}!</MenuItem>
                     <MenuItem onClick={navProfile}>Profile</MenuItem>
+                    <MenuItem onClick={navUserViewGroupPage}>Group Page</MenuItem>
                     <MenuItem onClick={navHowItWorks}>How It Works</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
