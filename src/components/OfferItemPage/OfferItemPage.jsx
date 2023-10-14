@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
 // material ui imports
 import { styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
@@ -35,7 +36,6 @@ function OfferItemPage() {
         history.push('/activity')
     }
 
-    console.log('testing', activity.id)
     return (
         <Box>
             <header>
@@ -68,7 +68,7 @@ function OfferItemPage() {
 
             </section>
             <footer>
-                <Button variant="outlined" onClick={() => claimOffer()}>Claim</Button>
+                <ActivityCompleteModal offer={activity} />
             </footer>
         </Box>
     )
