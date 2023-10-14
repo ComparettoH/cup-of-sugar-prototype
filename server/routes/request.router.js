@@ -60,7 +60,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       JOIN "user"
       ON requests."user_id" = "user".id
       JOIN "group"
-      ON offers.group_id = "group".id
+      ON requests.group_id = "group".id
       WHERE "user".group_id = $1;
       `
   

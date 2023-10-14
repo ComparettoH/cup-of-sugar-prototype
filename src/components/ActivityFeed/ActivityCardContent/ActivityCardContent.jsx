@@ -62,7 +62,7 @@ function ActivityCardContent({ activity, activityView }) {
                             <Typography variant="body1" color="info.main">
                                 {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
                             ${activity.item_name} 
-                            on ${activity.offered_on ? DateTimeFormatter(activity.offered_on) : DateTimeFormatter(activity.requested_on)}`}
+                            on ${activity.offered_on ? DateFormatter(activity.offered_on) : DateFormatter(activity.requested_on)}`}
                             </Typography>
                         </CardContent>
                     }

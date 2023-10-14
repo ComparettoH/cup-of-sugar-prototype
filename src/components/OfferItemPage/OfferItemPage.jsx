@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
+import {DateTimeFormatter} from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
@@ -51,7 +52,7 @@ function OfferItemPage() {
                             <Typography variant="subtitle1">{activity.description}</Typography>
                     </Grid>
                     <Grid xs={12}>
-                            <Typography variant="h6">This offer expires on: {activity.expires_on}</Typography>
+                            <Typography variant="h6">This offer expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
                     </Grid>
                     
                     </Item>
