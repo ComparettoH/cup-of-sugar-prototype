@@ -11,27 +11,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   if (req.isAuthenticated()) {
     const queryText = `
-    SELECT 
-      offers.id, 
-      offers.user_id, 
-      offers.group_id, 
-      offers.category_id, 
-      offers.item_name, 
-      offers.description, 
-      offers.perishable, 
-      offers.homemade, 
-      offers.imgpath, 
-      offers.offered_on, 
-      offers.best_by, 
-      offers.expires_on, 
-      offers.claimed_on, 
-      offers.claimed_by_user, 
-      user_profile."name",
+    SELECT
+      offers.*, 
+      user_profile1.name AS name, 
+      user_profile2.name AS claimed_by_user_name,
       "user".username,
       "group".share_location
     FROM "offers"
-    JOIN "user_profile"
-    ON offers."user_id" = user_profile."user_id"
+    LEFT JOIN user_profile AS user_profile1 
+    ON offers.user_id = user_profile1.user_id
+    LEFT JOIN user_profile AS user_profile2 
+    ON offers.claimed_by_user = user_profile2.user_id
     JOIN "user"
     ON offers."user_id" = "user".id
     JOIN "group"
