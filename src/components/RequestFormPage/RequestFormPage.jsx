@@ -1,7 +1,7 @@
 // React and Redux imports 
 import React from "react";
 import dayjs from 'dayjs';
-
+import utc from 'dayjs/plugin/utc';
 import { useEffect, useState } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,12 +15,11 @@ import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
-
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 
-
+dayjs.extend(utc);
 
 function RequestFormPage() {
 

@@ -14,9 +14,13 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-
-
+import dayjs, {Dayjs} from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import Button from '@mui/material/Button';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
@@ -155,7 +159,9 @@ function OfferFormPage2() {
                         Claim by
                         <MobileDateTimePicker
                             value={offerExpiresDate}
-                            onChange={handleOfferExpiresDate} />
+                            onChange={handleOfferExpiresDate} 
+                            sx={{ mb: 2 }}
+                            />
                     </label>
 
 
