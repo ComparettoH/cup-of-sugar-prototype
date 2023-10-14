@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, take, takeLatest } from 'redux-saga/effects';
 
 // This is a worker saga; will be fired upon 
 // 'FETCH_REQUESTS' 
@@ -64,16 +64,32 @@ function* updateRequest(action) {
     } catch (error) {
         console.log('updateRequest put request failed', error)
     }}
+
 function* claimRequest (action) {
     console.log('claim offer SAGA', action.payload)
     try {
-        yield axios.put(`/api/request/${action.payload}`, action.payload)
+        yield axios.put(`/api/request/fulfill/${action.payload}`)
         yield put({ type: 'FETCH_REQUESTS'})
     }
     catch (err) {
         console.log('Error with claiming Request', err)
     }
 }
+
+function* deleteRequest (action) {
+    try {
+        // DELETES the request from the DB
+        const deleteRequest = action.payload
+        yield axios({
+            method: 'DELETE',
+            url: `api/request/${action.payload}`,
+            data: deleteRequest
+        })
+
+    } catch (error) {
+        console.log('delete request failed', error)
+    }}
+
 
 
 
@@ -83,6 +99,7 @@ function* requestSaga() {
     yield takeLatest('FETCH_REQUEST_ITEM', fetchRequestItem);
     yield takeLatest('UPDATE_REQUEST', updateRequest);
     yield takeLatest('FULFILL_REQUEST', claimRequest);
+    yield takeLatest('DELETE_REQUEST', deleteRequest);
 };
 
 export default requestSaga;

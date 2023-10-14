@@ -63,8 +63,8 @@ function* setUserInfo (action) {
         headers: headers,
         data: profileForm
     })
-
       yield put({ type: 'SET_USER_PROFILE', payload: newUserInfo.data});
+      yield put({ type: 'FETCH_USER_PROFILE' });
     }
     catch (error) {
       console.log(`User's profile information POST request failed`, error);

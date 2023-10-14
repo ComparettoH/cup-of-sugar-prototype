@@ -12,18 +12,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     
     const itemName = req.body.item_name;
     const itemDescription = req.body.description;
-    const categoryType = req.body.category_type;
+    const categoryId = req.body.category_type;
     const requestDate = req.body.requested_on;
     const expiryDate = req.body.expires_on;
 
     const connection = await pool.connect()
     try {
         await connection.query('BEGIN');
-        // insert category type into categories table and return category id
-        const addCategory = `INSERT INTO categories (category_type) VALUES ($1) RETURNING id;`
-        const result = await connection.query(addCategory, [categoryType]);
-        console.log('result:', result);
-        const categoryId = result.rows[0].id;
         // use the newly returned category id to add the new request
         const addNewRequest = `INSERT INTO requests 
                                 (item_name, description, requested_on, expires_on, category_id, user_id, group_id) 
@@ -56,11 +51,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         requests.expires_on, 
         requests.fulfilled_on, 
         requests.fulfilled_by_user, 
-        user_profile.name
+        user_profile."name",
+        "user".username,
+        "group".share_location
       FROM "requests"
       JOIN "user_profile"
       ON requests."user_id" = user_profile."user_id"
-      WHERE group_id = $1;
+      JOIN "user"
+      ON requests."user_id" = "user".id
+      JOIN "group"
+      ON offers.group_id = "group".id
+      WHERE "user".group_id = $1;
       `
   
       pool.query(queryText, [req.user.group_id])
@@ -127,6 +128,42 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       }
     });
 
+    router.put("/fulfill/:id", rejectUnauthenticated, async (req, res) => {
+      console.log('req.body in fulfill', req.body)
+        const fulfilledById = req.user.id;
+        const requestFulfilled = req.params.id;
+        const fulfilledOn = new Date();
+        console.log('in claim route', fulfilledById, requestFulfilled, fulfilledOn)
+    
+        const connection = await pool.connect()
+      
+        try {
+          await connection.query('BEGIN');
+      
+          const sqlUpdate = `
+            UPDATE requests
+            SET 
+              fulfilled_by_user = $2, 
+              fulfilled_on = TO_TIMESTAMP($3, 'YYYY MM DD')  
+            WHERE id = $1
+            ;`
+          await connection.query(sqlUpdate, [
+            requestFulfilled,
+            fulfilledById,
+            fulfilledOn,
+          ])
+          await connection.query('COMMIT');
+          res.sendStatus(200);
+        } catch (error) {
+          await connection.query('ROLLBACK');
+          console.log(`Transaction Error - Rolling back new account`, error);
+          res.sendStatus(500);
+        } finally {
+          connection.release()
+      
+        }
+      });
+
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     console.log('in request post req.params:', req.params)
   
@@ -135,17 +172,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const connection = await pool.connect()
     try {
       await connection.query('BEGIN');
-      const sqlDeleteClip = `
+      const sqlDeleteRequest = `
         DELETE FROM requests 
         WHERE id = $1 
         ;`
-      await connection.query(sqlDeleteClip, requestId);
+      await connection.query(sqlDeleteRequest, requestId);
       
       await connection.query('COMMIT');
       res.sendStatus(200);
     } catch (error) {
       await connection.query('ROLLBACK');
-      console.log(`Transaction Error - Rolling back new account`, error);
+      console.log(`Transaction Error - Rolling back delete request`, error);
       res.sendStatus(500);
     } finally {
       connection.release()

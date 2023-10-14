@@ -13,7 +13,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 function OfferItemPage() {
 
-    const dispatch = useDispatch();
     const history = useHistory();
     const store = useReduxStore();
     const profile = useSelector((store) => store.profile);
@@ -27,14 +26,6 @@ function OfferItemPage() {
         alignContent: 'center',
         color: theme.palette.text.secondary,
     }));
-
-    const claimOffer = () => {
-        dispatch({
-            type: 'CLAIM_OFFER',
-            payload: activity.id
-        })
-        history.push('/activity')
-    }
 
     return (
         <Box>
@@ -62,7 +53,7 @@ function OfferItemPage() {
                     <Grid xs={12}>
                             <Typography variant="h6">This offer expires on: {activity.expires_on}</Typography>
                     </Grid>
-                    <Button variant="outlined">Fulfill</Button>
+                    
                     </Item>
                 </Grid>
 

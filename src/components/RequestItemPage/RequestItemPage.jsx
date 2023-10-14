@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
 // material ui imports
 // material ui imports
 import Avatar from '@mui/material/Avatar';
@@ -20,18 +21,6 @@ function RequestItemPage() {
     const profile = useSelector((store) => store.profile);
     const activity = useSelector((store) => store.activityItem)
     console.log('activity in request item:', activity)
-    
-    useEffect(() => {
-        dispatch({ type: 'FETCH_REQUEST_ITEM' });
-    }, [dispatch]);
-
-    const fulfillRequest = () => {
-        dispatch({
-            type: 'FULFILL_REQUEST',
-            payload: activity.id
-        })
-        history.push('/activity')
-    }
 
     return (
         <>
@@ -58,7 +47,7 @@ function RequestItemPage() {
                 </Grid>
             </section>
             <footer>
-                <Button variant="outlined" onClick={() => fulfillRequest()}>Fulfill</Button>
+                <ActivityCompleteModal request={activity} />
             </footer>
         </Box>
         </>

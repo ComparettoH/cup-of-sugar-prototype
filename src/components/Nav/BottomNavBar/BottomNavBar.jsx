@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
-import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
-import TurnSlightLeftIcon from '@mui/icons-material/TurnSlightLeft';
-import TurnSlightRightIcon from '@mui/icons-material/TurnSlightRight';
+import ActivityIcon from '../../../assets/cupOfSugarCircleArrow.png'
+import OfferIcon from '../../../assets/cupOfSugarSquiggleArrow.png'
+import RequestIcon from '../../../assets/cupOfSugarSquiggleArrowDL.png'
 import { zIndex } from '@mui/material/styles/zIndex';
 import './BottomNavBar.css';
 
@@ -36,19 +36,19 @@ function BottomNavBar({value, setValue}) {
                     >
                     <BottomNavigationAction
                         label='Request'
-                        icon={<TurnSlightLeftIcon />}
+                        icon={<img src={RequestIcon} width={50}/>}
                         component={Link} to='/requestform'
                     />
 
                     <BottomNavigationAction
                         label='Activity'
-                        icon={<ThreeSixtyIcon />}
+                        icon={<img src={ActivityIcon} width={50}/>}
                         component={Link} to='/activity'
                     />
 
                     <BottomNavigationAction
                         label='Offer'
-                        icon={<TurnSlightRightIcon />}
+                        icon={<img src={OfferIcon} width={50}/>}
                         component={Link} to='/offerform1'
                     />
 

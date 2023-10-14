@@ -22,6 +22,7 @@ function UserProfile() {
     const store = useReduxStore();
     const profile = useSelector((store) => store.profile);
 
+
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
     }, [dispatch]);

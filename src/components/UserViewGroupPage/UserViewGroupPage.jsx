@@ -74,6 +74,9 @@ function UserViewGroupPage() {
    }
     return (
         <>
+            <div text align="center">
+                <h1>Group Page</h1>
+            </div>
             <div>
                 <h2>{group[0]?.group_name}</h2>
                 {/* Group name renders here */}
