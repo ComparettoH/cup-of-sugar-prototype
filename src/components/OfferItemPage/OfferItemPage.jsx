@@ -46,7 +46,7 @@ function OfferItemPage() {
                             <Typography variant="h6">{activity.item_name}</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <img src={activity.imgpath }/>
+                        <img src={activity.imgpath} style={{width: '300px', height: '225px'}} />
                     </Grid>
                     <Grid xs={12}>
                             <Typography variant="subtitle1">{activity.description}</Typography>

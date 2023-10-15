@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { NavVisibilityContext } from './NavVisibilityContext';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
@@ -61,4 +60,3 @@ function Nav() {
 
 
 export default Nav;
-

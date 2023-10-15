@@ -32,12 +32,21 @@ function OfferFormPage1(){
         setPreviewImage(URL.createObjectURL(image));
     }
 
+    // prefill text for tomato offer during presentation
+    const filloutOffer = () => {
+        setItemHeadline('Fresh off the vine Tomatoes')
+    }
+
+    // //prefill text for cookie offer during presentation
+    // setItemHeadline('Coconut Choco Monster Cookies')
+
     return(
         <>
         <Typography variant='h6'>
            I would like to share:
         </Typography>
                 <Typography>
+
                     Headline 
                     <TextField
                     type='text'
@@ -52,7 +61,7 @@ function OfferFormPage1(){
                 <Typography>
                 <h6>Upload an image here:</h6>
                 {previewImage &&
-                <img src={previewImage}/>
+                <img src={previewImage} style={{width: '300px', height: '225px'}}/>
                 }
             </Typography>
                 <TextField

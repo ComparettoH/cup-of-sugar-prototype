@@ -55,7 +55,7 @@ function UserProfile() {
             <Box>
                 <header>
                     <Typography variant="h3">Cup of Sugar</Typography>
-                    <img src={profile[0]?.imgpath} alt="user's profile photo" />
+                    <img src={profile[0]?.imgpath} style={{width: '300px', height: '225px'}} alt="user's profile photo" />
                 </header>
 
                 <section className="user-profile">
@@ -76,7 +76,7 @@ function UserProfile() {
                 </section >
 
                 <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button type="submit" variant="contained" onClick={() => linkEditProfile()}>Edit</Button>
+                    <Button type="submit" variant="contained" color="warning" onClick={() => linkEditProfile()}>Edit</Button>
                     <Button type="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
                 </footer>
             </Box>
