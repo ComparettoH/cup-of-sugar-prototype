@@ -81,19 +81,12 @@ function UserFormPage({ setIsNavVisible }) {
             restriction_type: selectedDietaryRestriction
         }
 
-        console.log('testing newProfile', newProfile)
         dispatch({
             type: 'ADD_USER_PROFILE', payload: newProfile,
         })
         successAlert();
         history.push('/profile')
     }
-    //function that will upload photo to input field or activate in-app camera
-    // const addUserPic = (event) => {
-    //     event.preventDefault();
-    //     console.log("in addUserPic", event.target.files)
-    //     setUserURL(URL.createdObjectURL(event.target.files[0]));
-    // }
 
     //funtion that will handle homemade pref selection
     const homemadePrefChange = (event) => {
@@ -111,8 +104,19 @@ function UserFormPage({ setIsNavVisible }) {
         setPreviewImage(URL.createObjectURL(image));
     }
 
+    // prefill text for Ryan registration  during presentation
+    const fillProfile = () => {
+        setName('Ryan')
+        setUserBio('Hey everyone, my wife Sonya and I just moved here to SugarLand Apartments. We enjoy gardening, the outdoors, and are big Twins fans.')
+        setSelectedAllergy([5])
+        setSelectedDietaryRestriction([8])
+    }
+
     return (
         <>
+        <div text align="center">
+            <h1 onClick={fillProfile}>Tell us about yourself</h1>
+        </div>
             <form className='formPanel' onSubmit={newProfileHandleSubmit}>
                 <div>
                     <label htmlFor='name'>
