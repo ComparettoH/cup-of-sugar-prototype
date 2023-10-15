@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
+import { Button, Typography } from "@mui/material";
 
 function OfferFormPage1(){
 
@@ -42,29 +42,28 @@ function OfferFormPage1(){
 
     return(
         <>
-        <div text align="center">
-            <h1 onClick={filloutOffer}>What do you have to offer?</h1>
-        </div>
-        <form className='formPanel'>
-            <div>
-                <label htmlFor='itemHeadline'>
+        <Typography variant='h6'>
+           I would like to share:
+        </Typography>
+                <Typography>
+
                     Headline 
                     <TextField
                     type='text'
-                    placeholder='What item are you sharing?'
+                    placeholder='What item are you offering?'
                     value={itemHeadline}
                     onChange={(event)=> setItemHeadline(event.target.value)}
                     fullWidth
                     sx={{ mb: 2 }}
                     />
-                </label>
+                </Typography>
             
-                <div>
-                <h6>Upload an Image here:</h6>
+                <Typography>
+                <h6>Upload an image here:</h6>
                 {previewImage &&
                 <img src={previewImage} style={{width: '300px', height: '225px'}}/>
                 }
-            </div>
+            </Typography>
                 <TextField
                             onChange={e => offerImageUpload(e.target.files[0])}
                             type="file"
@@ -72,17 +71,16 @@ function OfferFormPage1(){
                             variant='filled'
 
                         />
-            </div>
         <div>
 
         <Button 
-        id="submit" 
+        type="submit" 
         variant="contained" 
         sx={{ mt: 2 }}
         onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
 
         </div>
-        </form>
+      
         </>
     )
 }
