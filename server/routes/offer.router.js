@@ -11,27 +11,33 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   if (req.isAuthenticated()) {
     const queryText = `
-      SELECT 
-        offers.id, 
-        offers.user_id, 
-        offers.group_id, 
-        offers.category_id, 
-        offers.item_name, 
-        offers.description, 
-        offers.perishable, 
-        offers.homemade, 
-        offers.imgpath, 
-        offers.offered_on, 
-        offers.best_by, 
-        offers.expires_on, 
-        offers.claimed_on, 
-        offers.claimed_by_user, 
-        user_profile.name
-      FROM "offers"
-      JOIN "user_profile"
-      ON offers."user_id" = user_profile."user_id"
-      WHERE group_id = $1
-      `
+    SELECT 
+      offers.id, 
+      offers.user_id, 
+      offers.group_id, 
+      offers.category_id, 
+      offers.item_name, 
+      offers.description, 
+      offers.perishable, 
+      offers.homemade, 
+      offers.imgpath, 
+      offers.offered_on, 
+      offers.best_by, 
+      offers.expires_on, 
+      offers.claimed_on, 
+      offers.claimed_by_user, 
+      user_profile."name",
+      "user".username,
+      "group".share_location
+    FROM "offers"
+    JOIN "user_profile"
+    ON offers."user_id" = user_profile."user_id"
+    JOIN "user"
+    ON offers."user_id" = "user".id
+    JOIN "group"
+    ON offers.group_id = "group".id
+    WHERE "user".group_id = $1;
+        `
 
     pool.query(queryText, [req.user.group_id])
       .then((result) => {

@@ -122,7 +122,7 @@ function OfferFormPage2() {
                     <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
-                        <Select
+                            <Select
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -130,8 +130,8 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
 
                             </Select>
                         </FormControl>
@@ -162,8 +162,10 @@ function OfferFormPage2() {
 
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                <div
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    sx={{ mt: 2 }}>
+                    <Button type="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>
