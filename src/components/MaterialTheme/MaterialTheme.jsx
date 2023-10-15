@@ -40,8 +40,7 @@ function MaterialTheme() {
           '"Courier New"',
           'monospace',
         ].join(','),
-    }
-  });
+    },
       modalStyle:{
           position: 'absolute',
           top: '50%',
@@ -53,24 +52,9 @@ function MaterialTheme() {
           borderWidth: 1,
           boxShadow: 24,
           p: 4,
-      }
-    });
-  
-    theme = createTheme(theme, {
-      // Custom colors created with augmentColor 
-      palette: {
-        pink: theme.palette.augmentColor({
-          color: {
-            main: '#FFEBC8',
-          },
-          name: 'background',
-        }),
-      },
-    });
+      
+        }}); 
     return theme;
-
-    
-
   }
   
 export default MaterialTheme  
