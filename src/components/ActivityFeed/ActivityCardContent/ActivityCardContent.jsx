@@ -17,6 +17,8 @@ function ActivityCardContent({ activity, activityView }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user)
+    const profile = useSelector((store) => store.profile)
+
 
     // navigates to clicked activity info page for clicked card
     const handleActivityNav = () => {
