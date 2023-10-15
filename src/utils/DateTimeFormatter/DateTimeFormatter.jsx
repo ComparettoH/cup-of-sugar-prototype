@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 export function DateTimeFormatter(dateTime) {
     return(
-        dayjs(dateTime).format('MM/DD/YY [at] HH:mm')
+        dayjs(dateTime).format('MM/DD/YY [at] hh:mm A')
     )
 }
 

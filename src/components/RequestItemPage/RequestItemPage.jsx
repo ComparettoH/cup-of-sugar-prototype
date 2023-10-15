@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
+import {DateTimeFormatter} from "../../utils/DateTimeFormatter/DateTimeFormatter"
 // material ui imports
 // material ui imports
 import Avatar from '@mui/material/Avatar';
@@ -20,18 +22,6 @@ function RequestItemPage() {
     const profile = useSelector((store) => store.profile);
     const activity = useSelector((store) => store.activityItem)
     console.log('activity in request item:', activity)
-    
-    useEffect(() => {
-        dispatch({ type: 'FETCH_REQUEST_ITEM' });
-    }, [dispatch]);
-
-    const fulfillRequest = () => {
-        dispatch({
-            type: 'FULFILL_REQUEST',
-            payload: activity.id
-        })
-        history.push('/activity')
-    }
 
     return (
         <>
@@ -53,12 +43,12 @@ function RequestItemPage() {
                         <Typography variant="subtitle1">{activity.description}</Typography>
                     </Grid>
                     <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="h6">This request expires on: {activity.expires_on}</Typography>
+                        <Typography variant="h6">This request expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
                     </Grid>
                 </Grid>
             </section>
             <footer>
-                <Button variant="contained" onClick={() => fulfillRequest()}>Fulfill</Button>
+                <ActivityCompleteModal request={activity} />
             </footer>
         </Box>
         </>

@@ -24,6 +24,18 @@ function MaterialTheme() {
         contrastThreshold: 4.5,
         tonalOffset: 0.4,
       },
+      modalStyle:{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '70%',
+          bgcolor: 'secondary.main',
+          border: 'info.main',
+          borderWidth: 1,
+          boxShadow: 24,
+          p: 4,
+      }
     });
   
     theme = createTheme(theme, {
