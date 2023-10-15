@@ -44,27 +44,29 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST to add a new offer
-router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async (req, res) => {
-  console.log('sent to cloudinary: ', req.file)
-  console.log('post body', req.body)
+router.post('/', rejectUnauthenticated,
+  cloudinaryUpload.single("image"),
+  async (req, res) => {
+    console.log('sent to cloudinary: ', req.file)
+    console.log('post body', req.body)
 
-  const userId = req.user.id;
-  const groupId = req.user.group_id;
-  const imgPath = req.file.path;
-  const categoryId = req.body.category_type;
-  const itemName = req.body.item_name;
-  const itemDescription = req.body.description;
-  const perishableItem = req.body.perishable;
-  const homemadeItem = req.body.homemade;
-  const offerDate = req.body.offered_on;
-  const bestByDate = req.body.best_by;
-  const expiryDate = req.body.expires_on;
+    const userId = req.user.id;
+    const groupId = req.user.group_id;
+    const imgPath = req.file.path;
+    const categoryId = req.body.category_type;
+    const itemName = req.body.item_name;
+    const itemDescription = req.body.description;
+    const perishableItem = req.body.perishable;
+    const homemadeItem = req.body.homemade;
+    const offerDate = req.body.offered_on;
+    const bestByDate = req.body.best_by;
+    const expiryDate = req.body.expires_on;
 
-  const connection = await pool.connect()
-  try {
-    await connection.query('BEGIN');
-    // use the newly returned category id to add the new offer
-    const addNewOffer = `
+    const connection = await pool.connect()
+    try {
+      await connection.query('BEGIN');
+      // use the newly returned category id to add the new offer
+      const addNewOffer = `
       INSERT INTO offers
         (user_id, 
           group_id, 
@@ -83,34 +85,34 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
           TO_TIMESTAMP($10, 'Dy, DD Mon YYYY HH24:MI:SS'), 
           TO_TIMESTAMP($11, 'Dy, DD Mon YYYY HH24:MI:SS'));
         `
-    await connection.query(
-      addNewOffer,
-      [
-        userId,
-        groupId,
-        categoryId,
-        itemName,
-        itemDescription,
-        perishableItem,
-        homemadeItem,
-        imgPath,
-        offerDate,
-        bestByDate,
-        expiryDate
-      ])
-    await connection.query('COMMIT');
-    res.sendStatus(200);
-  } catch (error) {
-    await connection.query('ROLLBACK');
-    console.log('Error adding new offer - rolling back offer', error)
-    res.sendStatus(500);
-  } finally {
-    connection.release()
-  }
-});
+      await connection.query(
+        addNewOffer,
+        [
+          userId,
+          groupId,
+          categoryId,
+          itemName,
+          itemDescription,
+          perishableItem,
+          homemadeItem,
+          imgPath,
+          offerDate,
+          bestByDate,
+          expiryDate
+        ])
+      await connection.query('COMMIT');
+      res.sendStatus(200);
+    } catch (error) {
+      await connection.query('ROLLBACK');
+      console.log('Error adding new offer - rolling back offer', error)
+      res.sendStatus(500);
+    } finally {
+      connection.release()
+    }
+  });
 
 router.put("/:id", rejectUnauthenticated, async (req, res) => {
-console.log('req.body', req.body)
+  console.log('req.body', req.body)
   const activityId = req.params.id;
   const imgPath = req.body.imgPath;
   const categoryId = req.body.category_id;
@@ -167,39 +169,39 @@ console.log('req.body', req.body)
 
 router.put("/claim/:id", rejectUnauthenticated, async (req, res) => {
   console.log('req.body', req.body)
-    const claimedById = req.user.id;
-    const offerClaimed = req.params.id;
-    const claimedOn = new Date();
-    console.log('in claim route', claimedById, offerClaimed, claimedOn)
+  const claimedById = req.user.id;
+  const offerClaimed = req.params.id;
+  const claimedOn = new Date();
+  console.log('in claim route', claimedById, offerClaimed, claimedOn)
 
-    const connection = await pool.connect()
-  
-    try {
-      await connection.query('BEGIN');
-  
-      const sqlUpdate = `
+  const connection = await pool.connect()
+
+  try {
+    await connection.query('BEGIN');
+
+    const sqlUpdate = `
         UPDATE offers
         SET 
           claimed_by_user = $2, 
           claimed_on = TO_TIMESTAMP($3, 'YYYY MM DD')  
         WHERE id = $1
         ;`
-      await connection.query(sqlUpdate, [
-        offerClaimed,
-        claimedById,
-        claimedOn,
-      ])
-      await connection.query('COMMIT');
-      res.sendStatus(200);
-    } catch (error) {
-      await connection.query('ROLLBACK');
-      console.log(`Transaction Error - Rolling back new account`, error);
-      res.sendStatus(500);
-    } finally {
-      connection.release()
-  
-    }
-  });
+    await connection.query(sqlUpdate, [
+      offerClaimed,
+      claimedById,
+      claimedOn,
+    ])
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query('ROLLBACK');
+    console.log(`Transaction Error - Rolling back new account`, error);
+    res.sendStatus(500);
+  } finally {
+    connection.release()
+
+  }
+});
 
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
   console.log('in offer delete req.params:', req.params)

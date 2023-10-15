@@ -36,7 +36,7 @@ function ActivityCardContent({ activity, activityView }) {
                 <Stack direction='row'>
                     <CardMedia
                         component="img"
-                        sx={{ width: 100, height: 100, p: 1 }}
+                        sx={{ width: 100, height: 75, p: 1 }}
                         image={activity.imgpath}
                         alt="Offer or Request Image"
                     />
