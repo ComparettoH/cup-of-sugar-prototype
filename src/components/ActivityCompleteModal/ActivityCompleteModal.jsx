@@ -72,6 +72,7 @@ console.log('offer, request:', offer, request)
             >
                 <Box sx={style}>
                     {offer ?
+                    
                         (<Typography id="modal-claim-offer" color='info.main'>
 {`You're claiming ${offer.item_name} from ${offer.name}. `}
 <br />

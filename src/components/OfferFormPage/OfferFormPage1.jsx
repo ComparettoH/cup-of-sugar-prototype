@@ -37,8 +37,8 @@ function OfferFormPage1(){
         setItemHeadline('Fresh off the vine Tomatoes')
     }
 
-    //prefill text for cookie offer during presentation
-    setItemHeadline('Coconut Choco Monster Cookies')
+    // //prefill text for cookie offer during presentation
+    // setItemHeadline('Coconut Choco Monster Cookies')
 
     return(
         <>

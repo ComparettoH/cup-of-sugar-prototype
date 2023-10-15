@@ -83,11 +83,11 @@ function OfferFormPage2() {
         setSelectedCategory(1)
     }
 
-    //prefill text for cookie offer during presentation
-    setItemDescription(`Accidentally made more cookies than what is needed for the school bake sale. Please come get these off my hands so that my boys don't attempt to eat cookies for breakfast...again.`)
-    setPerishableItem(true)
-    setHomemadeItem(true)
-    setSelectedCategory(5)
+    // //prefill text for cookie offer during presentation
+    // setItemDescription(`Accidentally made more cookies than what is needed for the school bake sale. Please come get these off my hands so that my boys don't attempt to eat cookies for breakfast...again.`)
+    // setPerishableItem(true)
+    // setHomemadeItem(true)
+    // setSelectedCategory(5)
 
     return (
         <>
