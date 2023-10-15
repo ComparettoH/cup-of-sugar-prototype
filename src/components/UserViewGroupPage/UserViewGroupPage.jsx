@@ -74,23 +74,21 @@ function UserViewGroupPage() {
    }
     return (
         <>
-            <div text align="center">
-                <h1>Group Page</h1>
-            </div>
-            <div>
+            <Typography>
+                Group Page
+            </Typography>
+            <Typography>
                 <h2>{group[0]?.group_name}</h2>
-                {/* Group name renders here */}
-            </div>
-            <div>
-                <h4>Your sharing location is:
+            </Typography>
+            <Typography>
+                Your sharing location is:
                     <br></br>
                     {group[0]?.share_location}
-                </h4>
-                {/* Sharing location name renders here */}
-            </div>
-            <form className='formPanel'>
-                <div>
-                    <h4>Meet your neighbors who are a part of {group[0]?.group_name}:</h4>
+            </Typography>
+           
+            <Typography>
+                Meet your neighbors who are a part of<br></br> {group[0]?.group_name}:
+            </Typography>
                     <FormControl fullWidth={true}>
                         <InputLabel htmlFor="neighbor">Select from neighbors:</InputLabel>
                         <Select
@@ -144,8 +142,6 @@ function UserViewGroupPage() {
                             </Typography>
                         </Box>
                     </Modal>
-                </div>
-            </form>
 
             {user.role > 0 &&
                 <Button onClick={() => navAddMember()}>

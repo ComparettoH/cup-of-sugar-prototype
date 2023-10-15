@@ -37,8 +37,6 @@ function OfferFormPage1(){
         <Typography variant='h6'>
            I would like to share:
         </Typography>
-        <form className='formPanel'>
-            <div>
                 <Typography>
                     Headline 
                     <TextField
@@ -64,17 +62,16 @@ function OfferFormPage1(){
                             variant='filled'
 
                         />
-            </div>
         <div>
 
         <Button 
-        id="submit" 
+        type="submit" 
         variant="contained" 
         sx={{ mt: 2 }}
         onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
 
         </div>
-        </form>
+      
         </>
     )
 }
