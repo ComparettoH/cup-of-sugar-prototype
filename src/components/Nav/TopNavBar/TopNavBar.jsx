@@ -61,7 +61,7 @@ function TopNavBar() {
 
     return (
 
-        <AppBar sx={{bgcolor: 'warning.main'}}>
+        <AppBar sx={{bgcolor: 'warning.light'}}>
 
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
                 <Typography variant='h7' gutterBottom >
