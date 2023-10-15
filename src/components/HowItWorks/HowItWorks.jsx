@@ -4,8 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 
 // material ui imports
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { Button, Typography } from "@mui/material";
+
 // custom icon imports
 import CupIcon from '../../assets/cupOfSugarIcon.png'
 import CircleArrow from '../../assets/cupOfSugarCircleArrow.png'

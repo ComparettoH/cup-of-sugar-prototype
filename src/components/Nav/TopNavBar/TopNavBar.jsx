@@ -68,7 +68,7 @@ function TopNavBar() {
 
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
                 <Typography>
-                    Cup of Sugar
+                    Cup of <br></br> Sugar
                 </Typography>
                 <IconButton sx={{ width: 60 }}>
                     <img src={CupIcon} height={50} width={50} />
