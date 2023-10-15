@@ -37,7 +37,7 @@ function HowItWorks({setIsNavVisible}) {
 
     return (
         <>
-            <Box className="how-it-works">
+            <Box className="how-it-works" sx={{p: 2}}>
                 <img className="cup-of-sugar" src={CupIcon} height={80} width={80} />
                 <header>
                     <Typography variant="h3" align="center">How it Works</Typography>
