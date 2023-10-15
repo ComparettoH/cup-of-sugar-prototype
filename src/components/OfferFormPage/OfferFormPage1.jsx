@@ -62,7 +62,7 @@ function OfferFormPage1(){
                 <div>
                 <h6>Upload an Image here:</h6>
                 {previewImage &&
-                <img src={previewImage}/>
+                <img src={previewImage} style={{width: '300px', height: '225px'}}/>
                 }
             </div>
                 <TextField
