@@ -145,9 +145,10 @@ function OfferFormPage2() {
 
                     <label htmlFor="calendar">
                         Best if used by
-                        <MobileDatePicker
+                        <MobileDateTimePicker
                             value={bestByDate}
                             onChange={handleBestByDate}
+                            timezone='America/Chicago'
                             sx={{ mb: 2 }}
                         />
                     </label>
@@ -160,6 +161,7 @@ function OfferFormPage2() {
                         <MobileDateTimePicker
                             value={offerExpiresDate}
                             onChange={handleOfferExpiresDate} 
+                            timezone='America/Chicago'
                             sx={{ mb: 2 }}
                             />
                     </label>
