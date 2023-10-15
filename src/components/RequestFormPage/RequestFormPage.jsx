@@ -69,13 +69,20 @@ function RequestFormPage() {
         history.push('/activity')
     }
 
+    // Code to generate prefilled text during presentation
+    const fillOutRequest = () => {
+        setRequestedItem('2 Tbsp Vanilla')
+        setSelectedCategory(15)
+        setItemDescription(`Help! in need of some vanilla extract for a cookie recipe I'm making. Really trying to avoid running to the grocery store for what feels like the 3rd time this week. You'll be my personal hero!`)
+    }
+
     return (
         <>
         <div text align="center">
             <h1>Make a request</h1>
         </div>
             <div text align="center">
-                <h3>I wish I had:</h3>
+                <h3 onClick={fillOutRequest}>I wish I had:</h3>
             </div>
             <form onSubmit={handleSubmitRequest} className='formPanel'>
                 <div>
