@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -71,15 +71,15 @@ function RequestFormPage() {
 
     return (
         <>
-        <div text align="center">
-            <h1>Make a request</h1>
-        </div>
-            <div text align="center">
-                <h3>I wish I had:</h3>
-            </div>
+        <Typography variant="h4"  >
+            Make a request
+        </Typography>
+            <Typography variant="h5">
+                I wish I had:
+            </Typography>
             <form onSubmit={handleSubmitRequest} className='formPanel'>
                 <div>
-                    <label htmlFor="headline">
+                    <Typography>
                         Headline
                         <TextField
                             type='text'
@@ -89,10 +89,10 @@ function RequestFormPage() {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                <label htmlFor="categoryDropdown">
+                <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
@@ -107,10 +107,10 @@ function RequestFormPage() {
                             )}
                             </Select>
                         </FormControl>
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label htmlFor="itemDescription">
+                    <Typography>
                         Description
                         <TextField
                             id="itemDescription"
@@ -122,17 +122,17 @@ function RequestFormPage() {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                        <label htmlFor="calendar">
+                        <Typography>
                             I need this by
                             <MobileDateTimePicker
                                 value={selectedDate}
                                 onChange={handleDateChange}
                                 sx={{ mb: 2 }}
                             />
-                        </label>
+                        </Typography>
                 </div>
 
 

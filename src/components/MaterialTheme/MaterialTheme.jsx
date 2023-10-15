@@ -24,7 +24,24 @@ function MaterialTheme() {
         contrastThreshold: 4.5,
         tonalOffset: 0.4,
       },
-    });
+      typography: {
+        fontFamily: [
+          'ui-monospace',
+          'Menlo',
+          'Monaco',
+          '"Cascadia Mono"',
+          '"Segoe UI Mono"',
+          '"Roboto Mono"',
+          '"Oxygen Mono"',
+          '"Ubuntu Monospace"',
+          '"Source Code Pro"',
+          '"Fira Mono"',
+          '"Droid Sans Mono"',
+          '"Courier New"',
+          'monospace',
+        ].join(','),
+    }
+  });
   
     theme = createTheme(theme, {
       // Custom colors created with augmentColor 
@@ -38,6 +55,9 @@ function MaterialTheme() {
       },
     });
     return theme;
+
+    
+
   }
   
 export default MaterialTheme  
