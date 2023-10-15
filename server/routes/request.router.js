@@ -51,11 +51,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         requests.expires_on, 
         requests.fulfilled_on, 
         requests.fulfilled_by_user, 
-        user_profile.name
+        user_profile."name",
+        "user".username,
+        "group".share_location
       FROM "requests"
       JOIN "user_profile"
       ON requests."user_id" = user_profile."user_id"
-      WHERE group_id = $1;
+      JOIN "user"
+      ON requests."user_id" = "user".id
+      JOIN "group"
+      ON requests.group_id = "group".id
+      WHERE "user".group_id = $1;
       `
   
       pool.query(queryText, [req.user.group_id])
