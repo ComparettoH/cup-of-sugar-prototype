@@ -32,10 +32,18 @@ function OfferFormPage1(){
         setPreviewImage(URL.createObjectURL(image));
     }
 
+    // prefill text for tomato offer during presentation
+    const filloutOffer = () => {
+        setItemHeadline('Fresh off the vine Tomatoes')
+    }
+
+    //prefill text for cookie offer during presentation
+    setItemHeadline('Coconut Choco Monster Cookies')
+
     return(
         <>
         <div text align="center">
-            <h1>What do you have to offer?</h1>
+            <h1 onClick={filloutOffer}>What do you have to offer?</h1>
         </div>
         <form className='formPanel'>
             <div>

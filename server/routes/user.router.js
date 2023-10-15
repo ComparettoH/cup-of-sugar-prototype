@@ -26,7 +26,7 @@ router.post('/register', (req, res, next) => {
   INSERT INTO "user" (username, password, group_id)
     SELECT $1, $2, id
     FROM "group"
-    WHERE group_name = $3 
+    WHERE join_code = $3 
     RETURNING id;
     `;
   pool

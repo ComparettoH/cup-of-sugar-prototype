@@ -76,11 +76,23 @@ function OfferFormPage2() {
         history.push('/activity')
     }
 
-    console.log('testing category get', category)
+     // prefill text for tomato offer during presentation
+     const filloutOffer = () => {
+        setItemDescription('The wife and I were given some fresh tomoatoes as a house warming gift from my folks. They are delicous, but there is no way we can eat all of them! These tomatoes are grown pesticide free too')
+        setPerishableItem(true)
+        setSelectedCategory(1)
+    }
+
+    //prefill text for cookie offer during presentation
+    setItemDescription(`Accidentally made more cookies than what is needed for the school bake sale. Please come get these off my hands so that my boys don't attempt to eat cookies for breakfast...again.`)
+    setPerishableItem(true)
+    setHomemadeItem(true)
+    setSelectedCategory(5)
+
     return (
         <>
             <div text align="center">
-                <h1>Tell us more:</h1>
+                <h1 onClick={filloutOffer}>Tell us more:</h1>
             </div>
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
