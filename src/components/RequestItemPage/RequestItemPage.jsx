@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
-import {DateTimeFormatter} from "../../utils/DateTimeFormatter/DateTimeFormatter"
+import { DateTimeFormatter } from "../../utils/DateTimeFormatter/DateTimeFormatter"
 // material ui imports
 // material ui imports
 import Avatar from '@mui/material/Avatar';
@@ -25,32 +25,32 @@ function RequestItemPage() {
 
     return (
         <>
-        <Box>
-            <header>
-            </header>
-            <section className='request-item'>
-                <Grid container spacing={1}>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="h5">{activity.name}</Typography>
+            <Box>
+                <header>
+                </header>
+                <section className='request-item'>
+                    <Grid container spacing={2} sx={{ mx: '1rem' }}>
+
+                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                            <Typography variant="h5">{activity.name} has requested</Typography>
+                        </Grid>
+                        <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                            <Typography variant='h4'> {activity.item_name}
+                            </Typography>
+                        </Grid> 
+
+                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                            <Typography variant="subtitle1">{activity.description}</Typography>
+                        </Grid>
+                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                            <Typography variant="h6">This request expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
+                        </Grid>
                     </Grid>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="h7">Would like </Typography>
-                    </Grid>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="h6">{activity.item_name}</Typography>
-                    </Grid>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="subtitle1">{activity.description}</Typography>
-                    </Grid>
-                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                        <Typography variant="h6">This request expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
-                    </Grid>
-                </Grid>
-            </section>
-            <footer>
-                <ActivityCompleteModal request={activity} />
-            </footer>
-        </Box>
+                </section>
+                <footer>
+                    <ActivityCompleteModal request={activity} />
+                </footer>
+            </Box>
         </>
     );
 }
