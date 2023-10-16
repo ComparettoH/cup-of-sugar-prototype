@@ -89,8 +89,10 @@ function UserFormPage({ setIsNavVisible }) {
         })
         successAlert();
         history.push('/profile')
+        console.log('testing', newProfile)
     }
 
+    
     //funtion that will handle homemade pref selection
     const homemadePrefChange = (event) => {
         event.preventDefault();
@@ -124,7 +126,7 @@ function UserFormPage({ setIsNavVisible }) {
             >
                 <img src={CupIcon} height={75} width={75} />
                 <br></br>
-                <Typography variant='h4' >About You</Typography><br></br>
+                <Typography onClick={fillProfile} variant='h4' >About You</Typography><br></br>
                 <form className='formPanel' onSubmit={newProfileHandleSubmit}>
                     <div>
                         <Typography>
