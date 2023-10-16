@@ -30,9 +30,16 @@ function RegisterForm() {
     history.push('/howitworks')
   }; // end registerUser
 
+  //prefill function for registration when sign up is clicked
+  const prefillRegister =() => {
+    setUsername('ralwine@umn.edu')
+    setPassword('alwine1234')
+    setGroup('SL29054a')
+  }
+
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2 onClick={prefillRegister}>Sign Up</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
