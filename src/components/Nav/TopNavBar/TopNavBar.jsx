@@ -65,7 +65,7 @@ function TopNavBar() {
     return (
 <ThemeProvider theme={theme}>
 
-        <AppBar sx={{bgcolor: 'warning.light'}}>
+        <AppBar sx={{bgcolor: 'warning.main'}}>
 
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
                 <Typography>

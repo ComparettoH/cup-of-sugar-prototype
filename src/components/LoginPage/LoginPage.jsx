@@ -1,16 +1,19 @@
 import React from 'react';
 import LoginForm from '../LoginForm/LoginForm';
 import { useHistory } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
+import cupIcon from '../../assets/cupOfSugarIcon.png'
 
 function LoginPage() {
   const history = useHistory();
 
   return (
-    <div>
-      <LoginForm />
 
-      <center>
+    <Box >
+     <center>
+       <img src={cupIcon} alt='Cup Logo' width={100} height={100}/>
+      <LoginForm />
+      
         <Button
           type="button"
           className="btn btn_asLink"
@@ -21,7 +24,7 @@ function LoginPage() {
           Register
         </Button>
       </center>
-    </div>
+    </Box>
   );
 }
 

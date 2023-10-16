@@ -17,6 +17,10 @@ function LandingPage() {
     history.push('/login');
   };
 
+  const onRegistration = (event) => {
+    history.push('/registration');
+  };
+
   return (
     <Box sx={{ display: 'flex', alignContent: 'center', justifyContent: 'center', marginTop: 0 }}>
       <Stack spacing={2} alignItems='center' justifyContent='center'>
@@ -29,10 +33,18 @@ function LandingPage() {
           to <br /> Cup of Sugar
         </Typography >
         <img src={bottomIcon} width={120} height={120} />
-        <Button variant='contained' sx={{width: '100px'}} >
+        <Button
+          variant='contained'
+          sx={{ width: '100px' }}
+          onClick={onLogin}
+        >
           Log In
         </Button>
-        <Button variant='contained' sx={{bgcolor: 'success.main', color: 'secondary.light', width: '100px'}}>
+        <Button
+          variant='contained'
+          sx={{ bgcolor: 'success.main', color: 'secondary.light', width: '100px' }}
+          onClick={onRegistration}
+        >
           Sign Up
         </Button>
       </Stack>
