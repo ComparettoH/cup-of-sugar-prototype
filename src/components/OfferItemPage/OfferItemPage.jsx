@@ -30,9 +30,6 @@ function OfferItemPage() {
 
     return (
         <Box>
-            <header>
-
-            </header>
             <section className='request-item'>
                 <Grid container spacing={0}>
                     <Item>

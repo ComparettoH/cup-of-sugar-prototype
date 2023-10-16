@@ -31,7 +31,16 @@ function ActivityCardContent({ activity, activityView }) {
     }
 
     return (
-        <Card sx={{ width: '100%', bgcolor: activity.offered_on ? 'primary.light' : 'primary.main' }} >
+        <Card sx={{
+            width: '100%',
+            bgcolor: (activity.claimed_on || activity.fulfilled_on)
+                ? 'warning.light'
+                :
+                activity.offered_on
+                    ? 'primary.light'
+                    :
+                    'primary.main'
+        }} >
             <CardActionArea onClick={() => handleActivityNav()} >
                 <Stack direction='row'>
                     <CardMedia
