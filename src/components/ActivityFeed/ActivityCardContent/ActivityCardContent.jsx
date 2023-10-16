@@ -52,11 +52,20 @@ function ActivityCardContent({ activity, activityView }) {
 
                     {/*  */}
                     {activityView.shares && (activity.claimed_on || activity.fulfilled_on) ?
-                        <CardContent sx={{ bgcolor: 'warning.light' }}>
-                            <Typography gutterBottom variant="button" color='info.main'>
+                        <CardContent id='shareCard' sx={{ bgcolor: 'warning.light', width: '100%', p: 1  }}>
+                                  <Stack 
+                            direction='row'
+                            justifyContent="space-between"
+                            alignItems="baseline"
+                            spacing={2}>
+                            <Typography gutterBottom variant="overline" color='info.main'>
                                 Share
                             </Typography>
-                            <Typography variant="body1" color="info.main">
+                            {/* <Typography gutterBottom variant="overline" color='info.light'>
+                            {`expires ${DateFormatter(activity.expires_on)}`}
+                            </Typography> */}
+                            </Stack>
+                            <Typography variant="body1" color="info.dark">
                                 {`${activity.name} 
                             shared ${activity.item_name} 
                             with ${activity.claimed_by_user ? activity.claimed_by_user_name : activity.fulfilled_by_user_name} 
@@ -66,15 +75,23 @@ function ActivityCardContent({ activity, activityView }) {
                         :
                         // checks to see if the activity has been claimed/fulfilled or not.  
                         (!activity.claimed_on && !activity.fulfilled_on) &&
-                        <CardContent sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main' }}>
-                            <Typography gutterBottom variant="button" color='info.main'>
+                        <CardContent id='activityCard' sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main', width: '100%', p:1 }}>
+                            <Stack 
+                            direction='row'
+                            justifyContent="space-between"
+                            alignItems="baseline"
+                            spacing={2}>
+                            <Typography gutterBottom variant="overline" color='info.main'>
                                 {activity.offered_on ? 'offer' : 'request'}
                             </Typography>
-                            <Typography variant="body1" color="info.main">
-                                {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed 
-                            ${activity.item_name} 
-                            on ${activity.offered_on ? DateFormatter(activity.offered_on) : DateFormatter(activity.requested_on)}`}
+                            <Typography gutterBottom variant="overline " color='info.main'>
+                           {`expires ${DateFormatter(activity.expires_on)}`}
                             </Typography>
+                            </Stack>
+                            <Typography variant="body1" color='info.dark' >
+                                {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed ${activity.item_name} `}
+                            </Typography>
+                            
                         </CardContent>
                     }
                 </Stack>
