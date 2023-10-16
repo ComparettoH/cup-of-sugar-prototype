@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
 import ActivityUpdateButton from './ActivityCardContent/ActivityUpdateButton/ActivityUpdateButton';
 import { DateTimeFormatter, DateFormatter } from '../../utils/DateTimeFormatter/DateTimeFormatter';
+import MyActivity from './MyActivity/MyActivity';
 // material ui imports
 import {
     Card,
@@ -86,42 +87,11 @@ function ActivityFeed() {
                 </Typography>
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
-                    {offersAndRequests.map((activity, index) => {
-
-                        if (user.id === activity.user_id) {
-                            return activity.claimed_on || activity.fulfilled_on ?
-                                (
-                                    <ListItem
-                                        key={index}
-                                        sx={{bgcolor: 'warning.main'}}
-                                    >
-                                        <ListItemText
-                                            primary={`You shared ${activity.item_name} 
-                                                        with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
-                                                        on ${activity.claimed_on ? DateFormatter(activity.claimed_on) : DateFormatter(activity.fulfilled_on)}`}
-                                        // secondary={`Offer is set to expire on ${activity.expires_on}`}
-                                        />
-                                    </ListItem>
-                                )
-                                :
-                                (
-                                    <ListItem
-                                        key={index}
-                                        secondaryAction={
-                                            <ActivityUpdateButton activity={activity} />
-                                        }
-                                    >
-                                        <ListItemText
-                                            primary={`You ${activity.offered_on ? 'offered' : 'requested'} ${activity.item_name} 
-                                                        on ${DateFormatter(activity.offered_on) || DateFormatter(activity.requested_on)}`}
-                                            secondary={`Offer is set to expire on ${DateTimeFormatter(activity.expires_on)}`}
-                                        />
-                                    </ListItem>
-                                )
-                        }
-                    }
-                    )
-                    }
+                    {offersAndRequests.map((activity, index) => (
+                        (user.id === activity.user_id) || (user.id === (activity.claimed_by_user || activity.fulfilled_by_user))
+                            ? <MyActivity activity={activity} user={user} index={index} />
+                            : null
+                    ))}
                 </List>
             </Box>
             <Typography>

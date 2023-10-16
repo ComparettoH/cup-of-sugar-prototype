@@ -14,9 +14,10 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Button, Typography } from "@mui/material";
 
 
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
@@ -84,12 +85,13 @@ function OfferFormPage2() {
 
     return (
         <>
-            <div text align="center">
-                <h1 onClick={filloutOffer}>Tell us more:</h1>
-            </div>
+        <Typography>
+            <h1>Offer Details</h1>
+        </Typography>
+
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
-                    <label htmlFor="itemDescription">
+                    <Typography>
                         Description
                         <TextField
                             id="itemDescription"
@@ -102,28 +104,28 @@ function OfferFormPage2() {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label>
+                    <Typography>
                         Perishable
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
-                    </label>
-                    <label>
+                    </Typography>
+                    <Typography>
                         Homemade Item
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label htmlFor="categoryDropdown">
+                    <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
@@ -139,23 +141,22 @@ function OfferFormPage2() {
 
                             </Select>
                         </FormControl>
-                    </label>
+                    </Typography>
                 </div>
                 <div>
 
-
-                    <label htmlFor="calendar">
-                        Best if used by
-                        <MobileDatePicker
-                            value={bestByDate}
-                            onChange={handleBestByDate}
-                            sx={{ mb: 2 }}
-                        />
-                    </label>
-
+                    
+                        <Typography>
+                            Best if used by
+                            <MobileDatePicker
+                                value={bestByDate}
+                                onChange={handleBestByDate}
+                                sx={{ mb: 2 }}
+                            />
+                        </Typography>
+                   
                 </div>
                 <div >
-
                     <label htmlFor="calendar">
                         Claim by
                         <MobileDateTimePicker
@@ -163,6 +164,7 @@ function OfferFormPage2() {
                             onChange={handleOfferExpiresDate} 
                             sx={{ mb: 2 }} />
                     </label>
+
                 </div>
 
                 <div

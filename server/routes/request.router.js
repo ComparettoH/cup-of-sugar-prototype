@@ -41,21 +41,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.isAuthenticated()){
       const queryText = `
       SELECT 
-        requests.id, 
-        requests.user_id, 
-        requests.group_id, 
-        requests.category_id, 
-        requests.item_name, 
-        requests.description,  
-        requests.requested_on, 
-        requests.expires_on, 
-        requests.fulfilled_on, 
-        requests.fulfilled_by_user, 
-        user_profile.name
+        requests.*,
+        user_profile1.name AS name, 
+        user_profile2.name AS claimed_by_user_name,
+        user_profile1.imgpath,
+        "user".username,
+        "group".share_location
       FROM "requests"
-      JOIN "user_profile"
-      ON requests."user_id" = user_profile."user_id"
-      WHERE group_id = $1;
+      LEFT JOIN user_profile AS user_profile1 
+      ON requests.user_id = user_profile1.user_id
+      LEFT JOIN user_profile AS user_profile2 
+      ON requests.fulfilled_by_user = user_profile2.user_id
+      JOIN "user"
+      ON requests."user_id" = "user".id
+      JOIN "group"
+      ON requests.group_id = "group".id
+      WHERE "user".group_id = $1;
       `
   
       pool.query(queryText, [req.user.group_id])
@@ -74,12 +75,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   router.put("/:id", rejectUnauthenticated, async (req, res) => {
     console.log('req.body', req.body)
       const activityId = req.params.id;
-      const imgPath = req.body.imgPath;
       const categoryId = req.body.category_id;
       const itemName = req.body.item_name;
       const itemDescription = req.body.description;
       const requestDate = req.body.requested_on;
-      const bestByDate = req.body.best_by;
       const expiryDate = req.body.expires_on;
     
       const connection = await pool.connect()

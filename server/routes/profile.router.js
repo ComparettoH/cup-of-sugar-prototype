@@ -18,13 +18,29 @@ router.get("/", async (req, res) => {
     await connection.query('BEGIN');
     //gets all information for the profile page
     const sqlProfileInfo = `
-    SELECT name, homemade_pref, about, imgpath, ARRAY_AGG (allergies.allergy_type) AS allergy_type, ARRAY_AGG (dietary_restrictions.restriction_type) AS restriction_type FROM user_profile
-    JOIN user_allergies ON user_profile.user_id = user_allergies.user_id
-    JOIN allergies ON allergies.id = user_allergies.allergy_id
-    JOIN user_dietary_restrictions ON user_profile.user_id = user_dietary_restrictions.user_id
-    JOIN dietary_restrictions ON dietary_restrictions.id = user_dietary_restrictions.user_restriction_id
-    WHERE user_profile.user_id = $1
-    GROUP BY user_profile.name, user_profile.homemade_pref, user_profile.about, user_profile.imgpath;`
+        SELECT 
+          name, 
+          homemade_pref, 
+          about, 
+          imgpath, 
+          ARRAY_AGG (allergies.allergy_type) AS allergy_type, 
+          ARRAY_AGG (dietary_restrictions.restriction_type) AS restriction_type 
+        FROM user_profile
+        JOIN user_allergies 
+        ON user_profile.user_id = user_allergies.user_id
+        JOIN allergies 
+        ON allergies.id = user_allergies.allergy_id
+        JOIN user_dietary_restrictions 
+        ON user_profile.user_id = user_dietary_restrictions.user_id
+        JOIN dietary_restrictions 
+        ON dietary_restrictions.id = user_dietary_restrictions.user_restriction_id
+        WHERE user_profile.user_id = $1
+        GROUP BY 
+          user_profile.name, 
+          user_profile.homemade_pref, 
+          user_profile.about, 
+          user_profile.imgpath;
+        `
     const reply = await connection.query(sqlProfileInfo, [userCurrent]);
     console.log('reply', reply.rows[0])
 
@@ -41,7 +57,7 @@ router.get("/", async (req, res) => {
 });
 
 //POST to add user profile image to cloudinary, and then information and preferences to user_profile table in DB
-router.post('/', cloudinaryUpload.single("image"), async (req, res) => {
+router.post('/', cloudinaryUpload.single("image", {aspect_ratio: "1.0", gravity: "face", crop: "fill"}), async (req, res) => {
   console.log('sent to cloudinary: ', req.file)
   console.log('post body', req.body)
   console.log('post user', req.user)

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
+import ActivityCompleteModal from "../ActivityCompleteModal/ActivityCompleteModal";
+import {DateTimeFormatter} from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
 import { Paper } from "@mui/material";
@@ -12,7 +14,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 
 function OfferItemPage() {
 
-    const dispatch = useDispatch();
     const history = useHistory();
     const store = useReduxStore();
     const profile = useSelector((store) => store.profile);
@@ -27,15 +28,6 @@ function OfferItemPage() {
         color: theme.palette.text.secondary,
     }));
 
-    const claimOffer = () => {
-        dispatch({
-            type: 'CLAIM_OFFER',
-            payload: activity.id
-        })
-        history.push('/activity')
-    }
-
-    console.log('testing', activity.id)
     return (
         <Box>
             <header>
@@ -54,13 +46,13 @@ function OfferItemPage() {
                             <Typography variant="h6">{activity.item_name}</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <img src={activity.imgpath }/>
+                        <img src={activity.imgpath} style={{width: '300px', height: '225px'}} />
                     </Grid>
                     <Grid xs={12}>
                             <Typography variant="subtitle1">{activity.description}</Typography>
                     </Grid>
                     <Grid xs={12}>
-                            <Typography variant="h6">This offer expires on: {activity.expires_on}</Typography>
+                            <Typography variant="h6">This offer expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
                     </Grid>
                     
                     </Item>
@@ -68,7 +60,7 @@ function OfferItemPage() {
 
             </section>
             <footer>
-                <Button variant="contained" onClick={() => claimOffer()}>Claim</Button>
+                <ActivityCompleteModal offer={activity} />
             </footer>
         </Box>
     )

@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 // material ui imports
 import { Box, Typography, Stack, AppBar } from '@mui/material';
 import { IconButton } from "@mui/material";
+import { ThemeProvider } from '@mui/material/styles';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 // custom icon imports
 import CupIcon from '../../../assets/cupOfSugarIcon.png'
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import MaterialTheme from '../../MaterialTheme/MaterialTheme';
 import { useDispatch } from 'react-redux';
 
 
@@ -19,6 +21,7 @@ function TopNavBar() {
     const profile = useSelector((store) => store.profile);
     const [heading, setHeading] = useState('Functional Component');
     const [anchorEl, setAnchorEl] = useState(null);
+    let theme = MaterialTheme();
 
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
@@ -60,12 +63,13 @@ function TopNavBar() {
     };
 
     return (
+<ThemeProvider theme={theme}>
 
-        <AppBar sx={{bgcolor: 'warning.main'}}>
+        <AppBar sx={{bgcolor: 'warning.light'}}>
 
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
-                <Typography variant='h7' gutterBottom >
-                    Cup of Sugar
+                <Typography>
+                    Cup of <br></br> Sugar
                 </Typography>
                 <IconButton sx={{ width: 60 }}>
                     <img src={CupIcon} height={50} width={50} />
@@ -94,6 +98,7 @@ function TopNavBar() {
                 </IconButton> */}
             </Stack>
         </AppBar>
+        </ThemeProvider>
     );
 }
 
