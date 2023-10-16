@@ -7,7 +7,6 @@ import ShareInfoButton from "./ShareInfoButton/ShareInfoButton";
 
 
 function MyActivity({activity, index}) {
-    console.log('in myactivity', activity)
     return activity.claimed_on || activity.fulfilled_on ?
         (
             <ListItem

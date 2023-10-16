@@ -21,7 +21,7 @@ function ActivityFeed() {
     const dispatch = useDispatch();
     const offers = useSelector((store) => store.offers);
     const requests = useSelector((store) => store.requests);
-    const [offersAndRequests, setoffersAndRequests]  = useState([]);
+    const [offersAndRequests, setoffersAndRequests] = useState([]);
 
     const user = useSelector((store) => store.user)
     // states for the toggle switches to change what is being shown in the activity lists
@@ -39,14 +39,14 @@ function ActivityFeed() {
 
     useEffect(() => {
         if (Array.isArray(offers) && Array.isArray(requests)) {
-    // declare and assign an array of all the offers and requests, and then sorts them by created date
-          const oAndR = offers.concat(requests);
-          oAndR.sort((a, b) => {
-            return new Date(a.expires_on) - new Date(b.expires_on);
-          });
-          setoffersAndRequests(oAndR)
+            // declare and assign an array of all the offers and requests, and then sorts them by created date
+            const oAndR = offers.concat(requests);
+            oAndR.sort((a, b) => {
+                return new Date(a.expires_on) - new Date(b.expires_on);
+            });
+            setoffersAndRequests(oAndR)
         }
-      }, [offers, requests]);
+    }, [offers, requests]);
 
 
     //   sets toggle switch state
@@ -86,9 +86,20 @@ function ActivityFeed() {
                 {/* Creates a list of user's offers and requests in order of when they created them */}
                 <List dense>
                     {offersAndRequests.map((activity, index) => (
-                        (user.id === activity.user_id) || (user.id === (activity.claimed_by_user || activity.fulfilled_by_user))
-                            ? <MyActivity activity={activity} user={user} index={index} />
-                            : null
+                        (((user.id === activity.user_id)
+                            ||
+                            (user.id === (activity.claimed_by_user || activity.fulfilled_by_user)))
+                            &&
+                            (activity.claimed_on || activity.fulfilled_on))
+                        && <MyActivity activity={activity} user={user} index={index} />
+                    ))}
+                      {offersAndRequests.map((activity, index) => (
+                        ((user.id === activity.user_id)
+                            &&
+                            !activity.claimed_on 
+                            && 
+                            !activity.fulfilled_on)
+                        && <MyActivity activity={activity} user={user} index={index} />
                     ))}
                 </List>
             </Box>
@@ -98,10 +109,7 @@ function ActivityFeed() {
             <Grid container spacing={2} >
                 {/* maps over offers and builds cards for each one */}
                 {offersAndRequests.map((activity, index) => {
-                    // const video = cld.video(phrase.public_id).resize(fill().width(400).height(250));
-                    // if (user.id !== activity.user_id) {
                     return (
-                        
                         // checks to see if activity should be displayed based on toggle switches
                         (activity.requested_on && activityView.requests)
                         ||
