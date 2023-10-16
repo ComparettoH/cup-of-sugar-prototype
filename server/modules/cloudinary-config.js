@@ -16,10 +16,7 @@ cloudinary.config({
     cloudinary: cloudinary,
     params: {
       folder: 'CupOfSugar',
-      resource_type: 'image',
-      // aspect_ratio: ".75", 
-      // gravity: "face", 
-      // crop: "fill"
+      resource_type: 'image'
     }
   });
   
