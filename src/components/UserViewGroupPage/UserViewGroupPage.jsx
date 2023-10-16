@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Grid } from '@mui/material';
 // import GroupMemberModal from '../GroupMemberModal/GroupMemberModal';
 
 function UserViewGroupPage() {
@@ -69,84 +70,87 @@ function UserViewGroupPage() {
 
     console.log('testing group info data', group, groupMembers)
 
-   const navAddMember = () => {
-    history.push('/adminaddmember')
-   }
+    const navAddMember = () => {
+        history.push('/adminaddmember')
+    }
     return (
         <>
-            <Typography>
-                Group Page
-            </Typography>
-            <Typography>
-                <h2>{group[0]?.group_name}</h2>
-            </Typography>
-            <Typography>
-                Your sharing location is:
-                    <br></br>
-                    {group[0]?.share_location}
-            </Typography>
-           
-            <Typography>
-                Meet your neighbors who are a part of<br></br> {group[0]?.group_name}:
-            </Typography>
-                    <FormControl fullWidth={true}>
-                        <InputLabel htmlFor="neighbor">Select from neighbors:</InputLabel>
-                        <Select
-                            id="neighbor"
-                            value={selectedNeighbor}
-                            input={<OutlinedInput label="Select from neighbors:" />}
+           <Box sx={{ mx: '1rem' }}>
+            <Typography variant='h4' align="center">
+                {group[0]?.group_name}
+            </Typography><br></br>
+            <Typography variant="h5" sx={{fontWeight: 'bold'}}>
+                Your sharing location</Typography>
+               <Typography variant='h6'>
+                {group[0]?.share_location}
+                </Typography>
+                <br></br>
+            <Typography variant="h6" sx={{fontWeight: 'bold'}}>
+                Meet your neighbors </Typography>
+               
+            <FormControl fullWidth={true}>
+                <InputLabel htmlFor="neighbor">Select from neighbors:</InputLabel>
+                <Select
+                    id="neighbor"
+                    value={selectedNeighbor}
+                    input={<OutlinedInput label="Select from neighbors:" />}
+                >
+                    {Array.isArray(groupMembers) && groupMembers.map((member) =>
+                        <MenuItem
+
+                            key={member.id}
+                            value={member.id}
+                            onClick={() => { handleNeighborSelection(member) }}
                         >
-                            {Array.isArray(groupMembers) && groupMembers.map((member) =>
-                                <MenuItem
+                            {member.name}
 
-                                    key={member.id}
-                                    value={member.id}
-                                    onClick={() => { handleNeighborSelection(member) }}
-                                >
-                                    {member.name}
+                        </MenuItem>
 
-                                </MenuItem>
+                    )}
 
-                            )}
+                </Select>
+               
+                <br></br>
+            </FormControl>
+            </Box>
 
-                        </Select>
-            
-                    </FormControl>
-                    <Modal
+            <Modal
 
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                {selectedMember.name}
-                                <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
-                            </Typography>
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {selectedMember.name}
+                        <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
+                    </Typography>
 
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                {selectedMember.about}
-                            </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {selectedMember.about}
+                    </Typography>
 
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Allergies: {selectedMember && selectedMember.allergy_type
-                                    ? removeDuplicates(selectedMember.allergy_type).join(', ')
-                                    : 'No allergies'}                            
-                            </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Allergies: {selectedMember && selectedMember.allergy_type
+                            ? removeDuplicates(selectedMember.allergy_type).join(', ')
+                            : 'No allergies'}
+                    </Typography>
 
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Dietary Restrictions: {selectedMember && selectedMember.restriction_type
-                                    ? removeDuplicates(selectedMember.restriction_type).join(', ')
-                                    : 'No restrictions'}                            
-                            </Typography>
-                        </Box>
-                    </Modal>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Dietary Restrictions: {selectedMember && selectedMember.restriction_type
+                            ? removeDuplicates(selectedMember.restriction_type).join(', ')
+                            : 'No restrictions'}
+                    </Typography>
+                </Box>
+            </Modal>
 
             {user.role > 0 &&
-                <Button onClick={() => navAddMember()}>
-                Add New Member
-            </Button>
+            <Grid align="center">
+                <Button variant='contained' onClick={() => navAddMember()}>
+                    Add New Member
+                </Button>
+            </Grid>
             }
 
         </>
