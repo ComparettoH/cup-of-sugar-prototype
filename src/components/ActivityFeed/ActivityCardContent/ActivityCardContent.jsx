@@ -96,7 +96,7 @@ function ActivityCardContent({ activity, activityView }) {
                     }
                 </Stack>
             </CardActionArea >
-            <CardActions>
+            <CardActions style={{ justifyContent: 'flex-end' }}>
                 {user.role > 0 &&
                     <DeleteButton activity={activity} />
                 }
