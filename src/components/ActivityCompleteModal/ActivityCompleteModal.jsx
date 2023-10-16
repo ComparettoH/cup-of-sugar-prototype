@@ -7,8 +7,8 @@ import { Button, Box, Typography, Stack, Divider, Fab } from '@mui/material';
 
 
 
-export default function ActivityCompleteModal({ offer, request}) {
-console.log('offer, request:', offer, request)
+export default function ActivityCompleteModal({ offer, request }) {
+    console.log('offer, request:', offer, request)
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -67,21 +67,22 @@ console.log('offer, request:', offer, request)
             <Modal
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="complete activiy modal"
+                aria-labelledby="complete activity modal"
                 aria-describedby="modal to give more info when you fulfill or claim an activity"
             >
                 <Box sx={style}>
                     {offer ?
+
                         (<Typography id="modal-claim-offer" color='info.main'>
-{`You're claiming ${offer.item_name} from ${offer.name}. `}
-<br />
-{`They'll make the drop off at your group's exchange spot: ${offer.share_location}, or you can email them at ${offer.username} to work out a different pick up plan`}
+                            {`You're claiming ${offer.item_name} from ${offer.name}. `}
+                            <br />
+                            {`They'll make the drop off at your group's exchange spot: ${offer.share_location}, or you can email them at ${offer.username} to work out a different pick up plan`}
                         </Typography>)
                         :
                         (<Typography id="modal-delete-activity" color='info.main'>
-{`You're sharing ${request.item_name} with ${request.name}. `}
-<br />
-{`Please drop it off at your group's exchange spot: ${request.share_location}, or you can email ${request.name} at ${request.username} to work out a different sharing plan`}
+                            {`You're sharing ${request.item_name} with ${request.name}. `}
+                            <br />
+                            {`Please drop it off at your group's exchange spot: ${request.share_location}, or you can email ${request.name} at ${request.username} to work out a different sharing plan`}
                         </Typography>)
                     }
 
@@ -94,7 +95,7 @@ console.log('offer, request:', offer, request)
                         sx={{ mt: 3 }}
                     >
 
-                       
+
                         <Button
                             onClick={handleClose}
                             size="small"

@@ -77,12 +77,18 @@ function OfferFormPage2() {
         history.push('/activity')
     }
 
-    console.log('testing category get', category)
+     // prefill text for tomato offer during presentation
+     const filloutOffer = () => {
+        setItemDescription('The wife and I were given some fresh tomatoes as a house warming gift from my folks. They are delicious, but there is no way we can eat all of them! These tomatoes are grown pesticide free too')
+        setPerishableItem(true)
+    }
+
     return (
         <>
         <Typography>
             <h1>Offer Details</h1>
         </Typography>
+
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
                     <Typography>
@@ -151,14 +157,13 @@ function OfferFormPage2() {
                    
                 </div>
                 <div >
-                    
-                        <Typography>
-                            Claim by
-                            <MobileDateTimePicker
-                                value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate} />
-                        </Typography>
-                   
+                    <label htmlFor="calendar">
+                        Claim by
+                        <MobileDateTimePicker
+                            value={offerExpiresDate}
+                            onChange={handleOfferExpiresDate} 
+                            sx={{ mb: 2 }} />
+                    </label>
 
                 </div>
 

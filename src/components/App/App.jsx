@@ -15,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import MaterialTheme from '../MaterialTheme/MaterialTheme';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -38,7 +37,8 @@ import EditRequestItemPage from '../RequestItemPage/EditRequestItemPage';
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Wrapper from '../../utils/AppBarHeightWrapper/AppBarHeightWrapper';
 
 
 
@@ -66,8 +66,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <NavVisibilityContext.Provider value={{ isNavVisible, setIsNavVisible }}>
+      <Wrapper appBarHeight={45}>
       <Router>
         
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', marginBottom: '20px' }}>
@@ -295,6 +296,7 @@ function App() {
         </div>
 
       </Router>
+      </Wrapper>
       </NavVisibilityContext.Provider>
       </LocalizationProvider>
     </ThemeProvider >

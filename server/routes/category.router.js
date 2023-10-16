@@ -6,7 +6,8 @@ const router = express.Router();
 
 // GET to pull category selections from DB
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "categories";`
+  const queryText = `SELECT * FROM "categories"
+  ORDER BY category_type ASC;`
   pool.query(queryText)
   .then( (result) => {
     res.send(result.rows);

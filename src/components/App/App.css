@@ -5,8 +5,9 @@ body,
 }
 
 body {
+  /* font-family: monospace; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: 100px;
+  margin-top: 0;
   background-color: #FFEBC8;
   margin-bottom: 100px;
 }
@@ -121,4 +122,9 @@ input {
 
 .submit{
   z-index: 1;
+}
+
+#activityCard,
+#shareCard {
+  padding-bottom: 0;
 }

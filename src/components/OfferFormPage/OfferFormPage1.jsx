@@ -34,7 +34,12 @@ function OfferFormPage1() {
         setPreviewImage(URL.createObjectURL(image));
     }
 
-    return (
+    // prefill text for tomato offer during presentation
+    const filloutOffer = () => {
+        setItemHeadline('Fresh off the vine Tomatoes')
+    }
+    
+    return(
         <>
             <Box
                 component="form"
@@ -47,7 +52,8 @@ function OfferFormPage1() {
                     I would like to share:
                 </Typography>
                 <Typography>
-                    Headline
+
+                    Headline 
                     <TextField
                         type='text'
                         placeholder='What item are you offering?'
@@ -59,11 +65,11 @@ function OfferFormPage1() {
                 </Typography>
 
                 <Typography>
-                    <h6>Upload an image here:</h6>
-                    {previewImage &&
-                        <img src={previewImage} />
-                    }
-                </Typography>
+                <h6>Upload an image here:</h6>
+                {previewImage &&
+                <img src={previewImage} style={{width: '300px', height: '225px'}}/>
+                }
+            </Typography>
                 <TextField
                     onChange={e => offerImageUpload(e.target.files[0])}
                     type="file"
