@@ -55,15 +55,12 @@ router.get("/", async (req, res) => {
     connection.release()
   }
 });
-
 //POST to add user profile image to cloudinary, and then information and preferences to user_profile table in DB
 router.post('/', cloudinaryUpload.single("image", {aspect_ratio: "1.0", gravity: "face", crop: "fill"}), async (req, res) => {
   console.log('sent to cloudinary: ', req.file)
   console.log('post body', req.body)
   console.log('post user', req.user)
   const userId = req.user.id
-
-
 
   const [
     name,

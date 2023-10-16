@@ -110,9 +110,7 @@ function UserFormPage({ setIsNavVisible }) {
     // prefill text for Ryan registration  during presentation
     const fillProfile = () => {
         setName('Ryan')
-        setUserBio('Hey everyone, my wife Sonya and I just moved here to SugarLand Apartments. We enjoy gardening, the outdoors, and are big Twins fans.')
-        setSelectedAllergy([5])
-        setSelectedDietaryRestriction([8])
+        setUserBio('Hey everyone, my wife Sonia and I just moved here to SugarLand Apartments. We enjoy gardening, the outdoors, and are big Twins fans.')
     }
 
     return (
