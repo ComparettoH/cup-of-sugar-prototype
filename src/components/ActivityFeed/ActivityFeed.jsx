@@ -12,8 +12,6 @@ import {
     Box,
     Typography,
     List,
-    ListItem,
-    ListItemText,
     FormGroup,
     FormControlLabel
 } from '@mui/material';

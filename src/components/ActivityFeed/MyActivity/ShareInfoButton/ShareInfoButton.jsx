@@ -44,18 +44,18 @@ export default function ShareInfoButton({ activity }) {
                         activity.claimed_on ?
                         // text for you made an offer and someone else claimed
                             <Typography id="modal-share-info" color='info.main'>
-                                {`You shared ${activity.item_name} with ${activity.claimed_by_user} on ${DateFormatter(activity.claimed_on)}.`}
+                                {`You shared ${activity.item_name} with ${activity.claimed_by_user_name} on ${DateFormatter(activity.claimed_on)}.`}
                                 <br />
-                                {`Please leave it in your group's sharing location: ${activity.sharing_location} or email ${activity.claimed_by_user} at to arrange an exchange.`}
+                                {`Please leave it in your group's sharing location: ${activity.share_location}, or email ${activity.claimed_by_user_name} at ${activity.username} to arrange an exchange.`}
                                 <br />
                                 Thanks for sharing and helping to reduce food waste!
                             </Typography>
                             :
                             // text for you made a request and someone else fulfilled
                             <Typography id="modal-share-info" color='info.main'>
-                                {`${activity.fulfilled_by_user} shared ${activity.item_name} with you on ${DateFormatter(activity.fulfilled_on)}.`}
+                                {`${activity.fulfilled_by_user_name} shared ${activity.item_name} with you on ${DateFormatter(activity.fulfilled_on)}.`}
                                 <br />
-                                {`Please retrieve it from your group's sharing location: ${activity.sharing_location} or email ${activity.fulfilled_by_user} at to arrange an exchange.`}
+                                {`Please retrieve it from your group's sharing location: ${activity.share_location}, or email ${activity.fulfilled_by_user_name} at ${activity.username} to arrange an exchange.`}
                                 <br />
                                 Thanks for sharing and helping to reduce food waste!
                             </Typography>
@@ -65,7 +65,7 @@ export default function ShareInfoButton({ activity }) {
                         <Typography id="modal-share-info" color='info.main'>
                             {`You claimed ${activity.item_name} from ${activity.name} on ${DateFormatter(activity.claimed_on)}.`}
                             <br />
-                            {`Please retrieve it from your group's sharing location: ${activity.sharing_location} or email ${activity.name} at ${activity.username} to arrange an exchange.`}
+                            {`Please retrieve it from your group's sharing location: ${activity.share_location}, or email ${activity.name} at ${activity.username} to arrange an exchange.`}
                             <br />
                             Thanks for sharing and helping to reduce food waste!
                         </Typography>
@@ -74,7 +74,7 @@ export default function ShareInfoButton({ activity }) {
                         <Typography id="modal-share-info" color='info.main'>
                             {`You shared ${activity.item_name} with ${activity.name} on ${DateFormatter(activity.fulfilled_on)}.`}
                             <br />
-                            {`Please leave it in your group's sharing location: ${activity.sharing_location} or email ${activity.name} at ${activity.username} to arrange an exchange.`}
+                            {`Please leave it in your group's sharing location: ${activity.share_location}, or email ${activity.name} at ${activity.username} to arrange an exchange.`}
                             <br />
                             Thanks for sharing and helping to reduce food waste!
                         </Typography>
