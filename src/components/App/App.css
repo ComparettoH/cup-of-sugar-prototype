@@ -5,8 +5,11 @@ body,
 }
 
 body {
+  /* font-family: monospace; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
+  margin-top: 0;
+  background-color: #FFEBC8;
+  margin-bottom: 100px;
 }
 
 img {
@@ -37,6 +40,7 @@ Button
   font-size: 1.1rem;
   outline: 0;
   cursor: pointer;
+  z-index: 1;
 }
 
 .btn_sizeMin {
@@ -84,10 +88,10 @@ Alert
   box-sizing: border-box;
   padding: 15px 10px;
   margin: 15px 0;
-  border: 2px solid #e01616;
-  background-color: #efefef;
+  border: 2px solid #ff312e;
+  background-color: #FFEBC8;
   border-radius: 3px;
-  color: #e01616;
+  color: #ff312e;
   font-size: 0.8rem;
 }
 
@@ -109,4 +113,13 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+.main-content{
+  padding-bottom: 80px;
+  height: calc(100vh - 80px);
+}
+
+.submit{
+  z-index: 1;
 }

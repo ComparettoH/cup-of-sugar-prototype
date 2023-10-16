@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Button } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
@@ -11,15 +11,15 @@ function RegisterPage() {
       <RegisterForm />
 
       <center>
-        <button
+        <Button
           type="button"
           className="btn btn_asLink"
           onClick={() => {
-            history.push('/login');
+            history.push('/howitworks');
           }}
         >
           Login
-        </button>
+        </Button>
       </center>
     </div>
   );

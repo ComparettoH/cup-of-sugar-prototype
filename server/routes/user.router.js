@@ -1,9 +1,7 @@
 const express = require('express');
-const {
-  rejectUnauthenticated,
-} = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
+const encryptLib = require('../modules/encryption');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
@@ -14,17 +12,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// TODO: should this be an async post request? first getting group id and then inserting username, password, and group id?
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
+  const group = req.body.group;
+  console.log('group', group)
+  const queryText = `    
+  INSERT INTO "user" (username, password, group_id)
+    SELECT $1, $2, id
+    FROM "group"
+    WHERE join_code = $3 
+    RETURNING id;
+    `;
   pool
-    .query(queryText, [username, password])
+    .query(queryText, [username, password, group])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);

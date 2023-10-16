@@ -1,30 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import { useContext } from 'react';
+import { NavVisibilityContext } from './NavVisibilityContext';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import { useState } from 'react'
+import BottomNavBar from './BottomNavBar/BottomNavBar';
+import TopNavBar from './TopNavBar/TopNavBar';
+
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const [value, setValue] = useState(0);
+  const { isNavVisible } = useContext(NavVisibilityContext);
+
+  if (!isNavVisible) {
+    return null;
+  }
 
   return (
+
     <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
-      </Link>
       <div>
-        {/* If no user is logged in, show these links */}
+        {/* If no user is logged in, show these links
         {!user.id && (
           // If there's no user, show login/registration links
           <Link className="navLink" to="/login">
             Login / Register
           </Link>
-        )}
+        )} */}
 
         {/* If a user is logged in, show these links */}
         {user.id && (
-          <>
-            <Link className="navLink" to="/user">
+          <div className='loginNav'>
+
+            <TopNavBar />
+            <div>
+
+            </div>
+            {/* <Link className="navLink" to="/user">
               Home
             </Link>
 
@@ -32,16 +47,16 @@ function Nav() {
               Info Page
             </Link>
 
-            <LogOutButton className="navLink" />
-          </>
-        )}
+            <LogOutButton className="navLink" /> */}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
+            <BottomNavBar id='bottomNav' value={value} setValue={setValue} />
+
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
+
 
 export default Nav;
