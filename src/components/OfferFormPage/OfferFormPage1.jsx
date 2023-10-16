@@ -36,10 +36,7 @@ function OfferFormPage1(){
     const filloutOffer = () => {
         setItemHeadline('Fresh off the vine Tomatoes')
     }
-
-    // //prefill text for cookie offer during presentation
-    // setItemHeadline('Coconut Choco Monster Cookies')
-
+    
     return(
         <>
         <Typography variant='h6'>

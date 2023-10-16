@@ -8,6 +8,7 @@
 CREATE TABLE "group" (
     id SERIAL PRIMARY KEY,
     group_name varchar(50) NOT NULL,
+    join_code varchar(50) NOT NULL,
     share_location varchar(100) NOT NULL
 );
 
@@ -102,9 +103,9 @@ CREATE TABLE "user_dietary_restrictions" (
 );
 
 
-INSERT INTO "group" (group_name, share_location)
-VALUES ('Cup of Sugar Team', 'Prime Commons'), 
-('Elm Apartments', 'Rec Room in Building 208'), ('Huxley Apartments', 'Reception Front Desk'), ('The Laker', 'Commons Area on 3rd floor');
+INSERT INTO "group" (group_name, join_code, share_location)
+VALUES ('Sugarland Apartments', 'SL29054a','Lobby area on the first floor by reception desk'), 
+('Elm Apartments', 'EL92075a','Rec Room in Building 208'), ('Huxley Apartments', 'HX09528a','Reception Front Desk'), ('The Laker', 'TL29375r','Commons Area on 3rd floor');
 
 
 INSERT INTO "allergies" (allergy_type)
@@ -116,10 +117,7 @@ VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('
 
 
 INSERT INTO "categories" (category_type)
-VALUES ('Produce'), ('Baking Supplies'), ('Bread & Bakery'), ('Dairy'), ('Eggs'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Dry Goods'), ('Frozen'), ('Other');
-
-
-
+VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Baking Supplies'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
 
 
 --***NOTE These inserts will need to be updated to match current user database info on each individuals repository***
