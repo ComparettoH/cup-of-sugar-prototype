@@ -50,7 +50,7 @@ function ActivityCardContent({ activity, activityView }) {
                             <Typography variant="body1" color="info.main">
                                 {`${activity.name} 
                             shared ${activity.item_name} 
-                            with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
+                            with ${activity.claimed_by_user ? activity.claimed_by_user_name : activity.fulfilled_by_user_name} 
                             on ${activity.claimed_on ? DateFormatter(activity.claimed_on) : DateFormatter(activity.fulfilled_on)}`}
                             </Typography>
                         </CardContent>
