@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Stack, Typography } from '@mui/material';
 
 import { useHistory } from 'react-router-dom';
 
@@ -32,41 +33,42 @@ function RegisterForm() {
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+       <Stack alignItems='center' spacing={2}>
+       <div>
+          <Typography variant='h5'>Sign Up</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
+      </div>
       <div>
         <label htmlFor="username">
-          User Email:
+        <Typography variant='body1' align='left'>User Email:</Typography>
           <TextField
             type="text"
             name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
-            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
-          Create Password:
+        <Typography variant='body1' align='left'>Create Password:</Typography>
           <TextField
             type="password"
             name="password"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
-            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
-          Invite Code:
+        <Typography variant='body1' align='left'>Invite Code:</Typography>
           <TextField
             type="group"
             name="group"
@@ -82,9 +84,10 @@ function RegisterForm() {
           type="submit"
           name="submit"
           variant="contained">
-          Register
+          Sign Up
         </Button>
       </div>
+      </Stack>
     </form>
   );
 }

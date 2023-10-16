@@ -30,7 +30,7 @@ function LoginForm() {
     <form className="formPanel" onSubmit={login}>
       <Stack alignItems='center' spacing={2}>
         <div>
-          <Typography variant='h5'>Login</Typography>
+          <Typography variant='h5'>Log In</Typography>
           {errors.loginMessage && (
             <h3 className="alert" role="alert">
               {errors.loginMessage}
@@ -62,9 +62,7 @@ function LoginForm() {
             />
           </label>
         </div>
-    
       <div>
-
           <Button
             type="submit"
             name="submit"
@@ -73,8 +71,7 @@ function LoginForm() {
             Log In
           </Button>
           </div>
-        </Stack>
-   
+        </Stack> 
     </form>
   );
 }
