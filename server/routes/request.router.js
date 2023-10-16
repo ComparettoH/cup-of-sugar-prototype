@@ -52,7 +52,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         requests.fulfilled_on, 
         requests.fulfilled_by_user, 
         user_profile.name,
-        user_profile.imgpath
+        user_profile.imgpath,
         "user".username,
         "group".share_location
       FROM "requests"
