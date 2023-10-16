@@ -39,7 +39,7 @@ export default function DeleteButton({ activity }) {
             <Button
                 onClick={handleOpen}
                 size="small"
-                variant='outlined'
+                variant='text'
                 color="error"
             >
                 Delete

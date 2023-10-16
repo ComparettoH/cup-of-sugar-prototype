@@ -123,3 +123,8 @@ input {
 .submit{
   z-index: 1;
 }
+
+#activityCard,
+#shareCard {
+  padding-bottom: 0;
+}

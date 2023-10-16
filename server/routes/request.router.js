@@ -43,7 +43,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       SELECT 
         requests.*,
         user_profile1.name AS name, 
-        user_profile2.name AS claimed_by_user_name,
+        user_profile2.name AS fulfilled_by_user_name,
         user_profile1.imgpath,
         "user".username,
         "group".share_location

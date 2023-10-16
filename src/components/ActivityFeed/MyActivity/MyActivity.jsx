@@ -7,7 +7,6 @@ import ShareInfoButton from "./ShareInfoButton/ShareInfoButton";
 
 
 function MyActivity({activity, index}) {
-    console.log('in myactivity', activity)
     return activity.claimed_on || activity.fulfilled_on ?
         (
             <ListItem
@@ -17,7 +16,7 @@ function MyActivity({activity, index}) {
             >
                 <ListItemText
                     primary={`You shared ${activity.item_name} 
-                            with ${activity.claimed_by_user ? activity.claimed_by_user : activity.fulfilled_by_user} 
+                            with ${activity.claimed_by_user ? activity.claimed_by_user_name : activity.fulfilled_by_user_name} 
                             on ${activity.claimed_on ? DateFormatter(activity.claimed_on) : DateFormatter(activity.fulfilled_on)}`} />
             </ListItem>
         )
