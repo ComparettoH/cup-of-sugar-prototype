@@ -92,7 +92,6 @@ function ActivityFeed() {
                         flexDirection="column"
                         alignItems="center"
                         justifyContent="center"
-                        minHeight="100vh"
                     >
                         <List dense sx={{ width: '95%' }} >
                             {offersAndRequests.map((activity, index) => (

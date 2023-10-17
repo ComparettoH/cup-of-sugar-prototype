@@ -9,6 +9,9 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { Grid } from "@mui/material";
+
 
 // This function will fetch user profile info:
 // Username, Picture, About Section, Allergies, and Dietary Restrictions,
@@ -50,31 +53,36 @@ function UserProfile() {
         return [...new Set(array)];
     }
 
+  
+
     return (
         <>
+        
             <Box>
-                <header>
-                    <Typography variant="h3">Cup of Sugar</Typography>
-                    <img src={profile[0]?.imgpath} style={{width: '300px', height: '225px'}} alt="user's profile photo" />
-                </header>
+               <Stack direction="column" spacing={2} >
+                    <Typography variant="h4" align="center">{profile[0]?.name}</Typography>
+                 <Grid align="center">
+                  <img src={profile[0]?.imgpath} style={{width: '300px', height: '225px', alignContent: 'center'}} alt="user's profile photo"/> 
+                  </Grid>
+              </Stack>
+              </Box>
+                <br></br>
 
-                <section className="user-profile">
+                <Box sx={{ mx: '1rem' }}>
 
-                    <Typography variant="h4">{profile[0]?.name}</Typography>
+                    <Typography variant="h5" sx={{fontWeight: 'bold'}}>About Me</Typography>
+                    <Typography variant="h6">{profile[0]?.about}</Typography><br></br>
 
-                    <Typography variant="h5">About Me</Typography>
-                    <Typography variant="h6">{profile[0]?.about}</Typography>
-
-                    <Typography variant="h5">My Allergies</Typography>
+                    <Typography variant="h5" sx={{fontWeight: 'bold'}}>My Allergies</Typography>
                     <Typography variant="h6">{profile[0]?.allergy_type ? removeDuplicates(
-                        profile[0]?.allergy_type).join(', ') : 'None'}</Typography>
+                        profile[0]?.allergy_type).join(', ') : 'None'}</Typography><br></br>
 
-                    <Typography variant="h5">My Dietary Restrictions</Typography>
+                    <Typography variant="h5" sx={{fontWeight: 'bold'}}>My Dietary Restrictions</Typography>
                     <Typography variant="h6">{profile[0]?.restriction_type ? removeDuplicates(
                         profile[0]?.restriction_type).join(', ') : 'None'}</Typography>
 
-                </section >
-
+                </Box >
+                <Box>
                 <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Button type="submit" variant="contained" color="warning" onClick={() => linkEditProfile()}>Edit</Button>
                     <Button type="submit" variant="contained" onClick={() => handleGroupInfo()}>Group Info</Button>
