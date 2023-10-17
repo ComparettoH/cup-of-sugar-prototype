@@ -108,20 +108,16 @@ function EditRequestItemPage() {
 
     return (
         <Box >
-            <Item>
-                <header>
-                </header>
-
-                <label htmlFor='itemHeadline'>
-                    Headline
+             <Typography variant="h5" align='center'>Edit Request</Typography>
+            <br></br>
+            <Typography sx={{ mx: '1rem'}}>Headline</Typography>
                     <TextField
                         type='text'
                         placeholder='What item are you sharing?'
                         value={updateRequest.item_name}
                         onChange={(event) => handleHeadlineChange(event)}
-                        sx={{ width: '100%', mb: 2 }}
+                        sx={{ mx: '1rem', width: '90%'}}
                     />
-                </label>
                 {/* <div>
                 <h6>Upload an Image here:</h6>
                 <TextField
@@ -132,58 +128,54 @@ function EditRequestItemPage() {
 
                         /> */}
                 <div>
-                    <label htmlFor="itemDescription">
-                        Description
+                    <br></br>
+                    <Typography sx={{ mx: '1rem'}}>Description</Typography>
                         <TextField
-
+                            multiline
                             type='text'
                             placeholder="Provide some details about the item you'd like to share. 
                             You can add information about quantity, date of purchase, reason for sharing, etc."
                             value={updateRequest.description}
                             onChange={(event) => handleDescriptionChange(event)}
-                            sx={{ width: '100%', mb: 2 }}
+                            sx={{ mx: '1rem', width: '90%'}}
                         />
-                    </label>
                 </div>
                 <div>
-                    <label htmlFor="categoryDropdown">
-                        Item Category
+                <br></br>
+                <Typography sx={{ mx: '1rem'}}>Item Category</Typography>
                         <FormControl fullWidth={true}>
                             <Select
                                 id="itemCategory"
                                 value={updateRequest.category_id}
                                 onChange={(event) => handleCategoryChange(event)}
                                 input={<OutlinedInput label="Select from categories:" />}
-                                sx={{ mb: 2 }}
+                                sx={{ mx: '1rem', width: '90%'}}
                             >
                                 {category.map((option1) =>
                                     <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
                                 )}
                             </Select>
                         </FormControl>
-                    </label>
                 </div>
                 <div>
-                    <label htmlFor="calendar">
-                        Claim by
+                <br></br>
+                <Typography sx={{ mx: '1rem'}}>Claim by</Typography>
                         <MobileDateTimePicker
                             value={dayjs(updateRequest.claim_by)}
                             onChange={(date) => handleUpdateClaimBy(date)}
-                            sx={{ mb: 2 }} />
-                    </label>
+                            sx={{ mx: '1rem'}}/>
                 </div>
+                <br></br>
+                <Stack spacing={14} direction="row" justifyContent={center}>
+                <Button type="submit" variant="contained" sx={{ bgcolor: 'error.light' }} onClick={() => handleDeleteRequest(updateRequest)}>
+                        Delete
+                    </Button>
 
-                <Stack spacing={2} direction="row" justifyContent={center} >
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>
                         Save Changes
                     </Button>
-
-                    <Button type="submit" variant="contained" onClick={() => handleDeleteRequest(updateRequest)}>
-                        Delete
-                    </Button>
                 </Stack>
                 {/* </div> */}
-            </Item>
         </Box>
     )
 }
