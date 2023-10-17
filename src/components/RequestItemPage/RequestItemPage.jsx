@@ -32,7 +32,7 @@ function RequestItemPage() {
                     <Grid container spacing={2} sx={{ mx: '1rem' }}>
 
                         <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant="h5">{activity.name} has requested</Typography>
+                            <Typography variant="h5">{activity.name} requested</Typography>
                         </Grid>
                         <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                             <Typography variant='h4'> {activity.item_name}
