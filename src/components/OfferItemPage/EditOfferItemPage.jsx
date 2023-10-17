@@ -202,7 +202,7 @@ function EditOfferItemPage() {
                     onChange={(date) => handleUpdateClaimBy(date)} />
             </div>
             <br></br>
-            <Stack spacing={13} direction="row" sx={{ mx: '1rem'}}>
+            <Stack spacing={14} direction="row" justifyContent={center}>
                 <Button type="submit" variant="contained" sx={{ bgcolor: 'error.light' }} onClick={() => handleDeleteOffer(updateOffer)}>
                     Delete
                 </Button>
