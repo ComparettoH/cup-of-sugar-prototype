@@ -86,7 +86,7 @@ function UserViewGroupPage() {
                     {group[0]?.share_location}
             </Typography>
            
-            <Typography>
+            <Typography sx={{mb: 2}}>
                 Meet your neighbors who are a part of<br></br> {group[0]?.group_name}:
             </Typography>
                     <FormControl fullWidth={true}>
@@ -94,7 +94,8 @@ function UserViewGroupPage() {
                         <Select
                             id="neighbor"
                             value={selectedNeighbor}
-                            input={<OutlinedInput label="Select from neighbors:" />}
+                            input={<OutlinedInput label="Select from neighbors:" 
+                            />}
                         >
                             {Array.isArray(groupMembers) && groupMembers.map((member) =>
                                 <MenuItem

@@ -17,9 +17,10 @@ cloudinary.config({
     params: {
       folder: 'CupOfSugar',
       resource_type: 'image',
-      aspect_ratio: ".75", 
-      gravity: "face", 
-      crop: "fill"}
+      // aspect_ratio: ".75", 
+      // gravity: "face", 
+      // crop: "fill"
+    }
   });
   
   const upload = multer({ storage: storage })
