@@ -34,7 +34,7 @@ function ActivityCardContent({ activity, activityView }) {
         <Card sx={{
             width: '100%',
             bgcolor: (activity.claimed_on || activity.fulfilled_on)
-                ? 'warning.light'
+                ? 'success.main'
                 :
                 activity.offered_on
                     ? 'primary.light'
@@ -52,20 +52,20 @@ function ActivityCardContent({ activity, activityView }) {
 
                     {/*  */}
                     {activityView.shares && (activity.claimed_on || activity.fulfilled_on) ?
-                        <CardContent id='shareCard' sx={{ bgcolor: 'warning.light', width: '100%', p: 1  }}>
+                        <CardContent id='shareCard' sx={{ bgcolor: 'success.main', width: '100%', p: 1  }}>
                                   <Stack 
                             direction='row'
                             justifyContent="space-between"
                             alignItems="baseline"
                             spacing={2}>
-                            <Typography gutterBottom variant="overline" color='info.main'>
+                            <Typography gutterBottom variant="overline" color='secondary.main'>
                                 Share
                             </Typography>
                             {/* <Typography gutterBottom variant="overline" color='info.light'>
                             {`expires ${DateFormatter(activity.expires_on)}`}
                             </Typography> */}
                             </Stack>
-                            <Typography variant="body1" color="info.dark">
+                            <Typography variant="body1" color="secondary.light">
                                 {`${activity.name} 
                             shared ${activity.item_name} 
                             with ${activity.claimed_by_user ? activity.claimed_by_user_name : activity.fulfilled_by_user_name} 

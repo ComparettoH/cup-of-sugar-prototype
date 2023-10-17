@@ -161,7 +161,7 @@ function UserFormPage({ setIsNavVisible }) {
                                 placeholder='Upload URL here'
                                 sx={{ mb: 2 }}
                                 accept="image/*"
-                                variant='filled'
+                                variant='outlined'
                             />
                         </Typography>
                     </div>
@@ -241,7 +241,7 @@ function UserFormPage({ setIsNavVisible }) {
                         /> */}
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Button onClick={() => handleBackButton()} variant="contained">Back</Button>
+                        <Button onClick={() => handleBackButton()} variant="outlined" color='success'>Back</Button>
                         <Button variant='contained' type="submit">
                             Submit
                         </Button>

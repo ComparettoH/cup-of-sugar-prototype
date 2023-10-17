@@ -12,7 +12,7 @@ function MyActivity({activity, index}) {
             <ListItem
                 key={index}
                 secondaryAction={<ShareInfoButton activity={activity} />}
-                sx={{ bgcolor: 'warning.light', borderWidth: 2, borderStyle: 'solid', borderColor: 'error.light' }}
+                sx={{ bgcolor: 'success.light', borderWidth: 3, borderStyle: 'solid', borderColor: 'info.main' }}
             >
                 <ListItemText
                     primary={`You shared ${activity.item_name} 
