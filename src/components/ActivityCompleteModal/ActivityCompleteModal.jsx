@@ -73,17 +73,23 @@ export default function ActivityCompleteModal({ offer, request }) {
                 <Box sx={style}>
                     {offer ?
 
-                        (<Typography id="modal-claim-offer" color='info.main'>
-                            {`You're claiming ${offer.item_name} from ${offer.name}. `}
-                            <br />
-                            {`They'll make the drop off at your group's exchange spot: ${offer.share_location}, or you can email them at ${offer.username} to work out a different pick up plan`}
-                        </Typography>)
+                        (<Box>
+                            <Typography id="modal-claim-offer" color='info.main' fontWeight='bold'>
+                                {`You're claiming ${offer.item_name} from ${offer.name}. `}
+                            </Typography>
+                            <Typography mt={2} id="modal-claim-offer" color='info.main'>
+                                {`They'll make the drop off at your group's exchange spot: ${offer.share_location}, or you can email them at ${offer.username} to work out a different pick-up plan.`}
+                            </Typography>
+                        </Box>)
                         :
-                        (<Typography id="modal-delete-activity" color='info.main'>
-                            {`You're sharing ${request.item_name} with ${request.name}. `}
-                            <br />
-                            {`Please drop it off at your group's exchange spot: ${request.share_location}, or you can email ${request.name} at ${request.username} to work out a different sharing plan`}
-                        </Typography>)
+                        (<Box>
+                            <Typography id="modal-fulfill-request" color='info.main'fontWeight='bold'>
+                                {`You're sharing ${request.item_name} with ${request.name}. `}
+                            </Typography>
+                            <Typography mt={2} id="modal-fulfill-request" color='info.main'>
+                                {`Please drop it off at your group's exchange spot: ${request.share_location}, or you can email ${request.name} at ${request.username} to work out a different sharing plan.`}
+                            </Typography>
+                        </Box>)
                     }
 
                     <Stack
