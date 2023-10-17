@@ -77,10 +77,10 @@ function RequestFormPage() {
 
     return (
         <>
-        <Typography variant="h4"  >
+        <Typography variant="h4" align='center' >
             Make a request
         </Typography>
-            <Typography variant="h5">
+            <Typography variant="h5" align="center">
                 I wish I had:
             </Typography>
 
@@ -137,13 +137,10 @@ function RequestFormPage() {
                             <MobileDateTimePicker
                                 value={selectedDate}
                                 onChange={handleDateChange}
-                                sx={{ mb: 2 }}
+                                sx={{ mb: 2, width: '100%' }}
                             />
                         </Typography>
                 </div>
-
-
-            
             <Button type="submit" variant="contained">
                 Request
             </Button>
