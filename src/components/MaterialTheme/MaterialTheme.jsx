@@ -19,7 +19,7 @@ function MaterialTheme() {
           main: '#3A3335',
         },
         success: {
-          main: '#276FBF'
+          main: '#40846D'
         },
         contrastThreshold: 4.5,
         tonalOffset: 0.4,

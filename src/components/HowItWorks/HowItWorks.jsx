@@ -37,10 +37,10 @@ function HowItWorks({setIsNavVisible}) {
 
     return (
         <>
-            <Box className="how-it-works">
+            <Box className="how-it-works" sx={{mx: '1.5rem'}}>
                 <img className="cup-of-sugar" src={CupIcon} height={80} width={80} />
                 <header>
-                    <Typography variant="h3" align="center">How it Works</Typography>
+                    <Typography variant="h3" align="center" sx={{mt: 2}}>How it Works</Typography>
                 </header>
                 <br></br>
                 <section>
@@ -57,7 +57,7 @@ function HowItWorks({setIsNavVisible}) {
                     <Typography variant="h5" align="center">Activity</Typography>
                     <Typography variant="h6" align="center">See how your community is helping each other out!</Typography>
                 </section>
-                <footer>
+                <footer style={{marginTop: "40px"}}>
                     <Button variant='contained' onClick={() => handleGetStarted()}>Get Started</Button>
                 </footer>
             </Box>

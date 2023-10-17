@@ -5,8 +5,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TextField } from '@mui/material';
 import { Button, Typography } from "@mui/material";
+import Box from '@mui/material/Box';
 
-function OfferFormPage1(){
+
+function OfferFormPage1() {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -39,22 +41,29 @@ function OfferFormPage1(){
     
     return(
         <>
-        <Typography variant='h6'>
-           I would like to share:
-        </Typography>
+            <Box
+                component="form"
+                justifyContent="center"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '35ch' },
+                }}
+            >
+                <Typography variant='h6'  >
+                    I would like to share:
+                </Typography>
                 <Typography>
 
                     Headline 
                     <TextField
-                    type='text'
-                    placeholder='What item are you offering?'
-                    value={itemHeadline}
-                    onChange={(event)=> setItemHeadline(event.target.value)}
-                    fullWidth
-                    sx={{ mb: 2 }}
+                        type='text'
+                        placeholder='What item are you offering?'
+                        value={itemHeadline}
+                        onChange={(event) => setItemHeadline(event.target.value)}
+                        fullWidth
+                        sx={{ mb: 2 }}
                     />
                 </Typography>
-            
+
                 <Typography>
                 <h6>Upload an image here:</h6>
                 {previewImage &&
@@ -62,22 +71,22 @@ function OfferFormPage1(){
                 }
             </Typography>
                 <TextField
-                            onChange={e => offerImageUpload(e.target.files[0])}
-                            type="file"
-                            accept="image/*"
-                            variant='filled'
+                    onChange={e => offerImageUpload(e.target.files[0])}
+                    type="file"
+                    accept="image/*"
+                    variant='filled'
 
-                        />
-        <div>
+                />
+                <div>
 
-        <Button 
-        type="submit" 
-        variant="contained" 
-        sx={{ mt: 2 }}
-        onClick={() => handleOfferFormPage2({itemHeadline})}>Next</Button>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ mt: 2, alignContent:"right" }}
+                        onClick={() => handleOfferFormPage2({ itemHeadline })}>Next</Button>
 
-        </div>
-      
+                </div>
+            </Box>
         </>
     )
 }
