@@ -65,9 +65,9 @@ function RequestFormPage() {
 
     return (
         <>
-        <Typography variant="h4" align='center' >
-            Make a request
-        </Typography>
+            <Typography variant="h4" align='center' >
+                Make a request
+            </Typography>
             <Typography variant="h5" align="center">
                 I wish I had:
             </Typography>
@@ -76,6 +76,7 @@ function RequestFormPage() {
                     <Typography>
                         Headline
                         <TextField
+                            required
                             type='text'
                             placeholder="What item do you need?"
                             value={requestedItem}
@@ -86,10 +87,11 @@ function RequestFormPage() {
                     </Typography>
                 </div>
                 <div>
-                <Typography>
+                    <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
+                                required
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -97,8 +99,8 @@ function RequestFormPage() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
                             </Select>
                         </FormControl>
                     </Typography>
@@ -119,18 +121,19 @@ function RequestFormPage() {
                     </Typography>
                 </div>
                 <div>
-                        <Typography>
-                            I need this by
-                            <MobileDateTimePicker
-                                value={selectedDate}
-                                onChange={handleDateChange}
-                                sx={{ mb: 2, width: '100%' }}
-                            />
-                        </Typography>
+                    <Typography>
+                        I need this by
+                        <MobileDateTimePicker
+                            required
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            sx={{ mb: 2, width: '100%' }}
+                        />
+                    </Typography>
                 </div>
-            <Button type="submit" variant="contained">
-                Request
-            </Button>
+                <Button type="submit" variant="contained">
+                    Request
+                </Button>
             </form>
         </>)
 }

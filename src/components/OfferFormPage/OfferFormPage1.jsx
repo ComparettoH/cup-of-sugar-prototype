@@ -61,6 +61,7 @@ function OfferFormPage1() {
                     Headline:
                     </Typography>
                     <TextField
+                        required
                         type='text'
                         placeholder='What item are you offering?'
                         value={itemHeadline}
@@ -74,6 +75,7 @@ function OfferFormPage1() {
                     }
                 </Typography>
                 <TextField
+                    required
                     onChange={e => offerImageUpload(e.target.files[0])}
                     type="file"
                     accept="image/*"

@@ -72,17 +72,17 @@ function OfferFormPage2() {
         history.push('/activity')
     }
 
-     // prefill text for tomato offer during presentation
-     const filloutOffer = () => {
+    // prefill text for tomato offer during presentation
+    const filloutOffer = () => {
         setItemDescription('The wife and I were given some fresh tomatoes as a house warming gift from my folks. They are delicious, but there is no way we can eat all of them! These tomatoes are grown pesticide free too')
         setPerishableItem(true)
     }
 
     return (
         <>
-        <Typography variant='h4' align='center'>
-            Offer Details
-        </Typography>
+            <Typography variant='h4' align='center'>
+                Offer Details
+            </Typography>
 
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
@@ -122,6 +122,7 @@ function OfferFormPage2() {
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
+                                required
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -138,30 +139,30 @@ function OfferFormPage2() {
                 </div>
                 <div>
 
-                    
-                        <Typography>
-                            Best if used by
-                            <MobileDatePicker
-                                value={bestByDate}
-                                onChange={handleBestByDate}
-                                sx={{ mb: 2, width: '100%' }}
-                            />
-                        </Typography>
-                   
+
+                    <Typography>
+                        Best if used by
+                        <MobileDatePicker
+                            required
+                            value={bestByDate}
+                            onChange={handleBestByDate}
+                            sx={{ mb: 2, width: '100%' }}
+                        />
+                    </Typography>
+
                 </div>
                 <Typography>
                     <label htmlFor="calendar">
-                        Claim by 
-                       
-                        <MobileDateTimePicker
-                            value={offerExpiresDate}
-                            onChange={handleOfferExpiresDate} 
-                            sx={{ mb: 2, width: '100%'}} />
-                            
-                    </label>
-                    </Typography>
+                        Claim by
 
-                    
+                        <MobileDateTimePicker
+                            required
+                            value={offerExpiresDate}
+                            onChange={handleOfferExpiresDate}
+                            sx={{ mb: 2, width: '100%' }} />
+
+                    </label>
+                </Typography>
 
                 <div
                     style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}

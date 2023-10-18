@@ -88,7 +88,7 @@ function UserFormPage({ setIsNavVisible }) {
         history.push('/profile')
         console.log('testing', newProfile)
     }
-    
+
     //funtion that will handle homemade pref selection
     const homemadePrefChange = (event) => {
         event.preventDefault();
@@ -129,6 +129,7 @@ function UserFormPage({ setIsNavVisible }) {
                             Name
                         </Typography>
                         <TextField
+                            required
                             type="text"
                             placeholder='Your name here'
                             value={name}
@@ -145,6 +146,7 @@ function UserFormPage({ setIsNavVisible }) {
                             }
                             {/* lets user upload an image from their device */}
                             <TextField
+                                required
                                 onChange={e => profImageUpload(e.target.files[0])}
                                 type="file"
                                 placeholder='Upload URL here'
@@ -174,6 +176,7 @@ function UserFormPage({ setIsNavVisible }) {
                             <InputLabel htmlFor="allergy">Please select allergies:</InputLabel>
                             {/* Allergy Drop Down menu */}
                             <Select
+                                required
                                 id="allergies"
                                 multiple
                                 value={selectedAllergy}
@@ -196,6 +199,7 @@ function UserFormPage({ setIsNavVisible }) {
                             <InputLabel htmlFor="dietaryRestriction">Please select dietary restrictions:</InputLabel>
                             {/* Dietary Restriction Drop Down menu */}
                             <Select
+                                required
                                 id="dietaryRestriction"
                                 multiple
                                 value={selectedDietaryRestriction}
