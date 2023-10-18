@@ -16,8 +16,8 @@ cloudinary.config({
     cloudinary: cloudinary,
     params: {
       folder: 'CupOfSugar',
-      resource_type: 'image',
-    },
+      resource_type: 'image'
+    }
   });
   
   const upload = multer({ storage: storage })

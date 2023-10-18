@@ -8,6 +8,7 @@
 CREATE TABLE "group" (
     id SERIAL PRIMARY KEY,
     group_name varchar(50) NOT NULL,
+    join_code varchar(50) NOT NULL,
     share_location varchar(100) NOT NULL
 );
 
@@ -102,9 +103,9 @@ CREATE TABLE "user_dietary_restrictions" (
 );
 
 
-INSERT INTO "group" (group_name, share_location)
-VALUES ('Cup of Sugar Team', 'Prime Commons'), 
-('Elm Apartments', 'Rec Room in Building 208'), ('Huxley Apartments', 'Reception Front Desk'), ('The Laker', 'Commons Area on 3rd floor');
+INSERT INTO "group" (group_name, join_code, share_location)
+VALUES ('Sugarland Apartments', 'SL29054a','Lobby area on the first floor by reception desk'), 
+('Elm Apartments', 'EL92075a','Rec Room in Building 208'), ('Huxley Apartments', 'HX09528a','Reception Front Desk'), ('The Laker', 'TL29375r','Commons Area on 3rd floor');
 
 
 INSERT INTO "allergies" (allergy_type)
@@ -116,15 +117,12 @@ VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('
 
 
 INSERT INTO "categories" (category_type)
-VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
-
-
-
+VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Baking Supplies'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
 
 
 --***NOTE These inserts will need to be updated to match current user database info on each individuals repository***
-INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath, role)
-VALUES (3, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8', 1);
+INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath)
+VALUES (3, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8');
 
 
 INSERT INTO "user_allergies" (user_id, allergy_id)

@@ -11,27 +11,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
   if (req.isAuthenticated()) {
     const queryText = `
-      SELECT 
-        offers.id, 
-        offers.user_id, 
-        offers.group_id, 
-        offers.category_id, 
-        offers.item_name, 
-        offers.description, 
-        offers.perishable, 
-        offers.homemade, 
-        offers.imgpath, 
-        offers.offered_on, 
-        offers.best_by, 
-        offers.expires_on, 
-        offers.claimed_on, 
-        offers.claimed_by_user, 
-        user_profile.name
-      FROM "offers"
-      JOIN "user_profile"
-      ON offers."user_id" = user_profile."user_id"
-      WHERE group_id = $1
-      `
+    SELECT
+      offers.*, 
+      user_profile1.name AS name, 
+      user_profile2.name AS claimed_by_user_name,
+      "user".username,
+      "group".share_location
+    FROM "offers"
+    LEFT JOIN user_profile AS user_profile1 
+    ON offers.user_id = user_profile1.user_id
+    LEFT JOIN user_profile AS user_profile2 
+    ON offers.claimed_by_user = user_profile2.user_id
+    JOIN "user"
+    ON offers."user_id" = "user".id
+    JOIN "group"
+    ON offers.group_id = "group".id
+    WHERE "user".group_id = $1;
+        `
 
     pool.query(queryText, [req.user.group_id])
       .then((result) => {
@@ -48,33 +44,29 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 // POST to add a new offer
-router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async (req, res) => {
-  console.log('sent to cloudinary: ', req.file)
-  console.log('post body', req.body)
+router.post('/', rejectUnauthenticated,
+  cloudinaryUpload.single("image"),
+  async (req, res) => {
+    console.log('sent to cloudinary: ', req.file)
+    console.log('post body', req.body)
 
-  const userId = req.user.id;
-  const groupId = req.user.group_id;
-  const imgPath = req.file.path;
-  const categoryType = req.body.category_type;
-  const itemName = req.body.item_name;
-  const itemDescription = req.body.description;
-  const perishableItem = req.body.perishable;
-  const homemadeItem = req.body.homemade;
-  const offerDate = req.body.offered_on;
-  const bestByDate = req.body.best_by;
-  const expiryDate = req.body.expires_on;
+    const userId = req.user.id;
+    const groupId = req.user.group_id;
+    const imgPath = req.file.path;
+    const categoryId = req.body.category_type;
+    const itemName = req.body.item_name;
+    const itemDescription = req.body.description;
+    const perishableItem = req.body.perishable;
+    const homemadeItem = req.body.homemade;
+    const offerDate = req.body.offered_on;
+    const bestByDate = req.body.best_by;
+    const expiryDate = req.body.expires_on;
 
-  const connection = await pool.connect()
-  try {
-    await connection.query('BEGIN');
-    // insert category type into categories table and return category id
-    const addCategory = `INSERT INTO categories (category_type) VALUES ($1) RETURNING id;`
-    const result = await connection.query(addCategory, [categoryType]);
-
-    const categoryId = result.rows[0].id;
-
-    // use the newly returned category id to add the new offer
-    const addNewOffer = `
+    const connection = await pool.connect()
+    try {
+      await connection.query('BEGIN');
+      // use the newly returned category id to add the new offer
+      const addNewOffer = `
       INSERT INTO offers
         (user_id, 
           group_id, 
@@ -93,34 +85,34 @@ router.post('/', rejectUnauthenticated, cloudinaryUpload.single("image"), async 
           TO_TIMESTAMP($10, 'Dy, DD Mon YYYY HH24:MI:SS'), 
           TO_TIMESTAMP($11, 'Dy, DD Mon YYYY HH24:MI:SS'));
         `
-    await connection.query(
-      addNewOffer,
-      [
-        userId,
-        groupId,
-        categoryId,
-        itemName,
-        itemDescription,
-        perishableItem,
-        homemadeItem,
-        imgPath,
-        offerDate,
-        bestByDate,
-        expiryDate
-      ])
-    await connection.query('COMMIT');
-    res.sendStatus(200);
-  } catch (error) {
-    await connection.query('ROLLBACK');
-    console.log('Error adding new offer - rolling back offer', error)
-    res.sendStatus(500);
-  } finally {
-    connection.release()
-  }
-});
+      await connection.query(
+        addNewOffer,
+        [
+          userId,
+          groupId,
+          categoryId,
+          itemName,
+          itemDescription,
+          perishableItem,
+          homemadeItem,
+          imgPath,
+          offerDate,
+          bestByDate,
+          expiryDate
+        ])
+      await connection.query('COMMIT');
+      res.sendStatus(200);
+    } catch (error) {
+      await connection.query('ROLLBACK');
+      console.log('Error adding new offer - rolling back offer', error)
+      res.sendStatus(500);
+    } finally {
+      connection.release()
+    }
+  });
 
 router.put("/:id", rejectUnauthenticated, async (req, res) => {
-console.log('req.body', req.body)
+  console.log('req.body', req.body)
   const activityId = req.params.id;
   const imgPath = req.body.imgPath;
   const categoryId = req.body.category_id;
@@ -162,6 +154,42 @@ console.log('req.body', req.body)
       offerDate,
       bestByDate,
       expiryDate
+    ])
+    await connection.query('COMMIT');
+    res.sendStatus(200);
+  } catch (error) {
+    await connection.query('ROLLBACK');
+    console.log(`Transaction Error - Rolling back new account`, error);
+    res.sendStatus(500);
+  } finally {
+    connection.release()
+
+  }
+});
+
+router.put("/claim/:id", rejectUnauthenticated, async (req, res) => {
+  console.log('req.body', req.body)
+  const claimedById = req.user.id;
+  const offerClaimed = req.params.id;
+  const claimedOn = new Date();
+  console.log('in claim route', claimedById, offerClaimed, claimedOn)
+
+  const connection = await pool.connect()
+
+  try {
+    await connection.query('BEGIN');
+
+    const sqlUpdate = `
+        UPDATE offers
+        SET 
+          claimed_by_user = $2, 
+          claimed_on = TO_TIMESTAMP($3, 'YYYY MM DD')  
+        WHERE id = $1
+        ;`
+    await connection.query(sqlUpdate, [
+      offerClaimed,
+      claimedById,
+      claimedOn,
     ])
     await connection.query('COMMIT');
     res.sendStatus(200);

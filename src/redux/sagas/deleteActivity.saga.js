@@ -37,4 +37,4 @@ function* deleteActivitySaga() {
     yield takeLatest('DELETE_ACTIVITY', deleteActivity);
 }
 
-export default deleteActivitySaga
+export default deleteActivitySaga;

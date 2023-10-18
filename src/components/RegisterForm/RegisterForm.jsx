@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Stack, Typography } from '@mui/material';
 
 import { useHistory } from 'react-router-dom';
 
@@ -30,43 +31,51 @@ function RegisterForm() {
     history.push('/howitworks')
   }; // end registerUser
 
+  //prefill function for registration when sign up is clicked
+  const prefillRegister =() => {
+    setUsername('ralwine@umn.edu')
+    setPassword('alwine1234')
+    setGroup('SL29054a')
+  }
+
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+       <Stack alignItems='center' spacing={2}>
+       <div>
+          <Typography onClick={prefillRegister} variant='h5'>Sign Up</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
+      </div>
       <div>
         <label htmlFor="username">
-          Username:
+        <Typography variant='body1' align='left'>User Email:</Typography>
           <TextField
             type="text"
             name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
-            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
-          Password:
+        <Typography variant='body1' align='left'>Create Password:</Typography>
           <TextField
             type="password"
             name="password"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
-            sx={{ mb: 2 }}
           />
         </label>
       </div>
       <div>
         <label htmlFor="password">
-          Group:
+        <Typography variant='body1' align='left'>Invite Code:</Typography>
           <TextField
             type="group"
             name="group"
@@ -78,8 +87,14 @@ function RegisterForm() {
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+        <Button
+          type="submit"
+          name="submit"
+          variant="contained">
+          Sign Up
+        </Button>
       </div>
+      </Stack>
     </form>
   );
 }

@@ -19,7 +19,7 @@ function AddMemberForm() {
     All you have to do is click on this link, make a username and password and enter in our group join code: ${group.name} `);
 
     useEffect(() => {
-        dispatch({type: 'FETCH_GROUP_INFO'})
+        dispatch({ type: 'FETCH_GROUP_INFO' })
     }, [])
 
     const adminInvite = (event) => {
@@ -34,8 +34,10 @@ function AddMemberForm() {
             type: 'SEND_INVITE', payload: userInvite
         })
         console.log("sending admin invite")
+        // Navigate to the group page
+        history.push('/usergroup');
     }
-    
+
 
     return (
         <>
@@ -82,7 +84,7 @@ function AddMemberForm() {
                     </label>
                 </div>
                 <div>
-                    <Button variant='contained' id="submit">
+                    <Button variant='contained' type="submit">
                         Send Invite
                     </Button>
                 </div>

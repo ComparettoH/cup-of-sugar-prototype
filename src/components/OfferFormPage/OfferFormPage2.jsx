@@ -14,9 +14,10 @@ import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import { DateTimeField } from '@mui/x-date-pickers/DateTimeField';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Button, Typography } from "@mui/material";
 
 
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
@@ -33,9 +34,6 @@ function OfferFormPage2() {
     const [selectedCategory, setSelectedCategory] = useState('')
     const [bestByDate, setBestByDate] = useState(null);
     const [offerExpiresDate, setOfferExpiresDate] = useState(null);
-
-    
-
 
     const handleBestByDate = (date) => {
         setBestByDate(date);
@@ -79,12 +77,21 @@ function OfferFormPage2() {
         history.push('/activity')
     }
 
-    console.log('testing category get', category)
+     // prefill text for tomato offer during presentation
+     const filloutOffer = () => {
+        setItemDescription('The wife and I were given some fresh tomatoes as a house warming gift from my folks. They are delicious, but there is no way we can eat all of them! These tomatoes are grown pesticide free too')
+        setPerishableItem(true)
+    }
+
     return (
         <>
+        <Typography>
+            <h1>Offer Details</h1>
+        </Typography>
+
             <form onSubmit={handleSubmitOffer} className='formPanel'>
                 <div>
-                    <label htmlFor="itemDescription">
+                    <Typography>
                         Description
                         <TextField
                             id="itemDescription"
@@ -97,31 +104,31 @@ function OfferFormPage2() {
                             fullWidth
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label>
+                    <Typography>
                         Perishable
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
-                    </label>
-                    <label>
+                    </Typography>
+                    <Typography>
                         Homemade Item
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.checked)}
                             sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label htmlFor="categoryDropdown">
+                    <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
-                        <Select
+                            <Select
                                 id="itemCategory"
                                 value={selectedCategory}
                                 onChange={(event) => setSelectedCategory(event.target.value)}
@@ -129,43 +136,41 @@ function OfferFormPage2() {
                                 sx={{ mb: 2 }}
                             >
                                 {category.map((option1) =>
-                            <MenuItem key= {option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
-                            )}
+                                    <MenuItem key={option1.id} value={option1.id} onChange={(event) => setSelectedCategory(event.target.value)}>{option1.category_type}</MenuItem>
+                                )}
 
                             </Select>
                         </FormControl>
-                    </label>
+                    </Typography>
                 </div>
                 <div>
 
                     
-                        <label htmlFor="calendar">
+                        <Typography>
                             Best if used by
                             <MobileDatePicker
                                 value={bestByDate}
                                 onChange={handleBestByDate}
                                 sx={{ mb: 2 }}
                             />
-                        </label>
+                        </Typography>
                    
                 </div>
                 <div >
-                    
-                        <label htmlFor="calendar">
-                            Claim by
-                            <DateTimeField
-                                label='Date & Time'
-                                value={offerExpiresDate}
-                                onChange={handleOfferExpiresDate}
-                                sx={{ mb: 2 }}
-                            />
-                        </label>
-                   
+                    <label htmlFor="calendar">
+                        Claim by
+                        <MobileDateTimePicker
+                            value={offerExpiresDate}
+                            onChange={handleOfferExpiresDate} 
+                            sx={{ mb: 2 }} />
+                    </label>
 
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button id="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
+                <div
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                    sx={{ mt: 2 }}>
+                    <Button type="submit" onClick={() => handleBackButton()} variant="contained">Back</Button>
                     <Button type="submit" variant="contained">
                         Submit Offer
                     </Button>

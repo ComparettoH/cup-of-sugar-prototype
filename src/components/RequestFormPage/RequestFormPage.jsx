@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -69,14 +69,24 @@ function RequestFormPage() {
         history.push('/activity')
     }
 
+    // Code to generate prefilled text during presentation
+    const fillOutRequest = () => {
+        setRequestedItem('2 Tbsp Vanilla')
+        setItemDescription(`Help! in need of some vanilla extract for a cookie recipe I'm making. Really trying to avoid running to the grocery store for what feels like the 3rd time this week. You'll be my personal hero!`)
+    }
+
     return (
         <>
-            <div>
-                <h3>I wish I had:</h3>
-            </div>
+        <Typography variant="h4"  >
+            Make a request
+        </Typography>
+            <Typography variant="h5">
+                I wish I had:
+            </Typography>
+
             <form onSubmit={handleSubmitRequest} className='formPanel'>
                 <div>
-                    <label htmlFor="headline">
+                    <Typography>
                         Headline
                         <TextField
                             type='text'
@@ -84,11 +94,12 @@ function RequestFormPage() {
                             value={requestedItem}
                             onChange={(event) => setRequestedItem(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                <label htmlFor="categoryDropdown">
+                <Typography>
                         Item Category
                         <FormControl fullWidth={true}>
                             <Select
@@ -103,10 +114,10 @@ function RequestFormPage() {
                             )}
                             </Select>
                         </FormControl>
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <label htmlFor="itemDescription">
+                    <Typography>
                         Description
                         <TextField
                             id="itemDescription"
@@ -116,18 +127,19 @@ function RequestFormPage() {
                             value={itemDescription}
                             onChange={(event) => setItemDescription(event.target.value)}
                             fullWidth
+                            sx={{ mb: 2 }}
                         />
-                    </label>
+                    </Typography>
                 </div>
                 <div>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <label htmlFor="calendar">
+                        <Typography>
                             I need this by
                             <MobileDateTimePicker
                                 value={selectedDate}
-                                onChange={handleDateChange} />
-                        </label>
-                    </LocalizationProvider>
+                                onChange={handleDateChange}
+                                sx={{ mb: 2 }}
+                            />
+                        </Typography>
                 </div>
 
 
