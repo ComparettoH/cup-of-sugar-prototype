@@ -36,6 +36,10 @@ function Nav() {
 
           </div>
         )}
+
+        <Link className="navLink" to="/about">
+          About
+        </Link>
       </div>
     </div>
   );

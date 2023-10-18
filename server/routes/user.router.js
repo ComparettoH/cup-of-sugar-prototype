@@ -1,7 +1,9 @@
 const express = require('express');
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-const pool = require('../modules/pool');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
+const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
 
 const router = express.Router();
@@ -30,7 +32,7 @@ router.post('/register', (req, res, next) => {
     RETURNING id;
     `;
   pool
-    .query(queryText, [username, password, group])
+    .query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
