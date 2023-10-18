@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 // material ui imports
@@ -9,9 +8,7 @@ import { Paper } from "@mui/material";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Grid from "@mui/material/Unstable_Grid2";
 import { TextField } from "@mui/material";
-import { Checkbox } from "@mui/material";
 import { FormControl } from "@mui/material";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
@@ -40,8 +37,6 @@ function EditRequestItemPage() {
     }
 
     const Item = styled(Paper)(({ theme }) => ({
-        // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        // ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
@@ -54,12 +49,7 @@ function EditRequestItemPage() {
             payload: { property: 'item_name', value: e.target.value }
         });
     };
-    // const handleImageChange = (e) => {
-    //     dispatch({
-    //         type: 'EDIT_ACTIVITY_ONCHANGE',
-    //         payload: { property: 'imgpath', value: e.target.value }
-    //     });
-    // }
+    
     const handleDescriptionChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
@@ -92,7 +82,6 @@ function EditRequestItemPage() {
 
     const handleDeleteRequest = (props) => {
         let requestId = props.id;
-
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this request?"
         );
@@ -118,15 +107,6 @@ function EditRequestItemPage() {
                         onChange={(event) => handleHeadlineChange(event)}
                         sx={{ mx: '1rem', width: '90%'}}
                     />
-                {/* <div>
-                <h6>Upload an Image here:</h6>
-                <TextField
-                            onChange={e => handleImageChange(e.target.files[0])}
-                            type="file"
-                            accept="image/*"
-                            variant='filled'
-
-                        /> */}
                 <div>
                     <br></br>
                     <Typography sx={{ mx: '1rem'}}>Description</Typography>
@@ -170,12 +150,10 @@ function EditRequestItemPage() {
                 <Button type="submit" variant="contained" sx={{ bgcolor: 'error.light' }} onClick={() => handleDeleteRequest(updateRequest)}>
                         Delete
                     </Button>
-
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>
                         Save Changes
                     </Button>
                 </Stack>
-                {/* </div> */}
         </Box>
     )
 }

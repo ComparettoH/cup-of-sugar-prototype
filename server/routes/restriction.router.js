@@ -1,7 +1,5 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
-
 const router = express.Router();
 
 // GET to pull restrictions from DB
@@ -16,6 +14,5 @@ router.get('/', (req, res) => {
     res.sendStatus(500);
   })
 });
-
 
 module.exports = router;

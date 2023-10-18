@@ -117,26 +117,3 @@ VALUES ('Vegetarian'), ('Vegan'), ('Gluten-Free'), ('Dairy-Free'), ('Halal'), ('
 
 INSERT INTO "categories" (category_type)
 VALUES ('Produce'), ('Herbs and Spices'), ('Meat'), ('Seafood'), ('Bread & Bakery'), ('Frozen'), ('Eggs'), ('Baking Supplies'), ('Dairy'), ('Dry Goods'), ('Beverages'), ('Other');
-
-
---***NOTE These inserts will need to be updated to match current user database info on each individuals repository***
-INSERT INTO user_profile (user_id, name, homemade_pref, about, imgpath)
-VALUES (3, 'Gabe Glasco', true, 'I love food!', 'https://media.licdn.com/dms/image/D5603AQHRDWm2Y7e4iw/profile-displayphoto-shrink_400_400/0/1692454757979?e=1701907200&v=beta&t=19AOPPK4yvYK4MAVqafhM3K8VueFm5JAvRg_qgOQ0d8');
-
-
-INSERT INTO "user_allergies" (user_id, allergy_id)
-VALUES (3, 4), (3, 6);
-
-
-INSERT INTO "user_dietary_restrictions" (user_id, user_restriction_id)
-VALUES (3, 1), (3, 6);
-
--- Testing SQL
-SELECT name, homemade_pref, about, imgpath, allergy_type, restriction_type   
-        FROM user_profile
-		JOIN allergies 
-        ON user_profile.user_id = allergies.user_id
-        JOIN dietary_restrictions 
-        ON user_profile.user_id = dietary_restrictions.user_id
-        WHERE user_profile.user_id = 2 ;
-

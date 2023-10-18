@@ -2,7 +2,6 @@ import axios from "axios";
 import { put, takeLatest } from 'redux-saga/effects';
 
 // This is a worker saga; will be fired upon 'FETCH_USER_PROFILE' actions
-
 function* fetchOffers() {
     try {
         const config = {
@@ -15,9 +14,7 @@ function* fetchOffers() {
     } catch (error) {
         console.log('fetchOffer GET request failed', error)
     }
-
 }
-
 
 function* fetchOfferItem() {
     try {
@@ -31,7 +28,6 @@ function* fetchOfferItem() {
         console.log('fetchOfferItem get request failed', error)
     }
 }
-
 
 function* addOffer(action) {
     try {
@@ -60,15 +56,12 @@ function* addOffer(action) {
         yield put({ type: 'FETCH_OFFERS' });
     }
     catch (error) {
-
         console.log(`addOffer POST request failed`, error);
     }
 }
 
-function* updateOffer(action) {
-    
+function* updateOffer(action) {    
     try {
-
         const updateOffer = action.payload
         yield axios({
             method: 'PUT',
@@ -80,8 +73,6 @@ function* updateOffer(action) {
         console.log('fetchOfferItem get request failed', error)
     }
 }
-
-
 
 function* claimOffer (action) {
     console.log('claim offer SAGA', action.payload)

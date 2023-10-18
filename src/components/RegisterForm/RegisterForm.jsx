@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Stack, Typography } from '@mui/material';
-
 import { useHistory } from 'react-router-dom';
-
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -30,6 +27,7 @@ function RegisterForm() {
 
     history.push('/howitworks')
   }; // end registerUser
+
 
   return (
     <form className="formPanel" onSubmit={registerUser}>

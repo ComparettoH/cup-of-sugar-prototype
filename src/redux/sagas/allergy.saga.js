@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchAllergy() {
   try {
     const allergyResponse = yield axios.get('/api/allergy');
-    console.log('in allergySaga test data state', allergyResponse)
     yield put({ type: 'SET_ALLERGY', payload: allergyResponse.data });
   }
   catch (error) {

@@ -1,9 +1,6 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-
 const pool = require('../modules/pool');
-
-
 const router = express.Router();
 
 // GET for Group information
