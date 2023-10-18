@@ -85,8 +85,8 @@ function OfferFormPage2() {
 
     return (
         <>
-        <Typography>
-            <h1>Offer Details</h1>
+        <Typography variant='h4' align='center'>
+            Offer Details
         </Typography>
 
             <form onSubmit={handleSubmitOffer} className='formPanel'>
@@ -107,20 +107,18 @@ function OfferFormPage2() {
                     </Typography>
                 </div>
                 <div>
-                    <Typography>
+                    <Typography >
                         Perishable
                         <Checkbox
                             checked={persihableItem}
                             onChange={(event) => setPerishableItem(event.target.checked)}
-                            sx={{ mb: 2 }}
                         />
                     </Typography>
-                    <Typography>
+                    <Typography >
                         Homemade Item
                         <Checkbox
                             checked={homemadeItem}
                             onChange={(event) => setHomemadeItem(event.target.checked)}
-                            sx={{ mb: 2 }}
                         />
                     </Typography>
                 </div>
@@ -151,21 +149,24 @@ function OfferFormPage2() {
                             <MobileDatePicker
                                 value={bestByDate}
                                 onChange={handleBestByDate}
-                                sx={{ mb: 2 }}
+                                sx={{ mb: 2, width: '100%' }}
                             />
                         </Typography>
                    
                 </div>
-                <div >
+                <Typography>
                     <label htmlFor="calendar">
-                        Claim by
+                        Claim by 
+                       
                         <MobileDateTimePicker
                             value={offerExpiresDate}
                             onChange={handleOfferExpiresDate} 
-                            sx={{ mb: 2 }} />
+                            sx={{ mb: 2, width: '100%'}} />
+                            
                     </label>
+                    </Typography>
 
-                </div>
+                    
 
                 <div
                     style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}

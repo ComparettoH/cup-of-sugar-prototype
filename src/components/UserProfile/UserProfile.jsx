@@ -62,7 +62,7 @@ function UserProfile() {
                <Stack direction="column" spacing={2} >
                     <Typography variant="h4" align="center">{profile[0]?.name}</Typography>
                  <Grid align="center">
-                  <img src={profile[0]?.imgpath} style={{width: '300px', height: '225px', alignContent: 'center'}} alt="user's profile photo"/> 
+                  <img src={profile[0]?.imgpath} style={{width: '250px', height: '250px', alignContent: 'center'}} alt="user's profile photo"/> 
                   </Grid>
               </Stack>
               </Box>
