@@ -7,6 +7,7 @@ import { useState } from 'react'
 import BottomNavBar from './BottomNavBar/BottomNavBar';
 import TopNavBar from './TopNavBar/TopNavBar';
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
   const [value, setValue] = useState(0);
@@ -30,9 +31,6 @@ function Nav() {
           </div>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );
