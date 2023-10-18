@@ -5,9 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Box from '@mui/material/Box';
@@ -26,7 +24,6 @@ function UserViewGroupPage() {
     const user = useSelector((store) => store.user);
     const groupMembers = useSelector((store) => store.groupMembers)
     const selectedMember = useSelector((store) => store.selectedMember)
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -47,14 +44,10 @@ function UserViewGroupPage() {
 
     console.log('groupMembers:', groupMembers)
 
-
     const handleNeighborSelection = (member) => {
-        console.log('member:', member)
         setSelectedNeighbor(member);
         handleOpen();
-
         dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
-
     }
 
     function removeDuplicates(array) {
@@ -107,9 +100,7 @@ function UserViewGroupPage() {
                                 {member.name}
 
                             </MenuItem>
-
                         )}
-
                     </Select>
 
                     <br></br>
@@ -117,7 +108,6 @@ function UserViewGroupPage() {
             </Box>
 
             <Modal
-
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
@@ -128,7 +118,6 @@ function UserViewGroupPage() {
                         {selectedMember.name}</Typography>
                     <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
 
-
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {selectedMember.about}
                     </Typography>
@@ -138,15 +127,12 @@ function UserViewGroupPage() {
                             ? removeDuplicates(selectedMember.allergy_type).join(', ')
                             : 'No allergies'}</Typography>
 
-
                     <Typography id="modal-modal-description" sx={{ mt: 2, fontWeight: 'bold' }}>
                         Dietary Restrictions:</Typography><Typography> {selectedMember && selectedMember.restriction_type
                             ? removeDuplicates(selectedMember.restriction_type).join(', ')
                             : 'No restrictions'}</Typography>
-
                 </Box>
             </Modal>
-
             {user.role > 0 &&
                 <Grid align="center">
                     <Button variant='contained' onClick={() => navAddMember()}>
@@ -154,10 +140,8 @@ function UserViewGroupPage() {
                     </Button>
                 </Grid>
             }
-
         </>
     );
-
 }
 
 export default UserViewGroupPage;

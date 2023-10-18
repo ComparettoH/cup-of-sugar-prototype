@@ -17,7 +17,6 @@ function* fetchUserProfile() {
     } catch (error) {
         console.log('fetchUserProfile get request failed', error)
     }
-
 }
 
 function* updateProfile (action) {
@@ -37,7 +36,6 @@ function* updateProfile (action) {
         });
     } catch (error) {
         console.log('updateProfile request failed', error)
-
     }
 }
 

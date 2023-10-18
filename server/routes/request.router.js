@@ -1,21 +1,17 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-
 const pool = require('../modules/pool');
-
 const router = express.Router();
 
 // POST to add a new request
 router.post('/', rejectUnauthenticated, async (req, res) => {
     const userId = req.user.id;
-    const groupId = req.user.group_id;
-    
+    const groupId = req.user.group_id;   
     const itemName = req.body.item_name;
     const itemDescription = req.body.description;
     const categoryId = req.body.category_type;
     const requestDate = req.body.requested_on;
     const expiryDate = req.body.expires_on;
-
     const connection = await pool.connect()
     try {
         await connection.query('BEGIN');
@@ -34,7 +30,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         connection.release()
     }
 });
-
 
 // GET for ALL of group's request posts for activity feed
 router.get('/', rejectUnauthenticated, (req, res) => {
@@ -57,8 +52,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       JOIN "group"
       ON requests.group_id = "group".id
       WHERE "user".group_id = $1;
-      `
-  
+      ` 
       pool.query(queryText, [req.user.group_id])
       .then( (result) => {
       res.send(result.rows);
@@ -73,24 +67,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   });
 
   router.put("/:id", rejectUnauthenticated, async (req, res) => {
-    console.log('req.body', req.body)
       const activityId = req.params.id;
       const categoryId = req.body.category_id;
       const itemName = req.body.item_name;
       const itemDescription = req.body.description;
       const requestDate = req.body.requested_on;
       const expiryDate = req.body.expires_on;
-    
-      const connection = await pool.connect()
-    
+      const connection = await pool.connect()   
       try {
         await connection.query('BEGIN');
-    
-        // const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
-        // const result = await connection.query(addCategory, [categoryType]);
-    
-        // const categoryId = result.rows[0].id;
-    
         const sqlUpdate = `
           UPDATE requests
           SET 
@@ -116,23 +101,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         console.log(`Transaction Error - Rolling back new account`, error);
         res.sendStatus(500);
       } finally {
-        connection.release()
-    
+        connection.release()    
       }
     });
 
     router.put("/fulfill/:id", rejectUnauthenticated, async (req, res) => {
-      console.log('req.body in fulfill', req.body)
         const fulfilledById = req.user.id;
         const requestFulfilled = req.params.id;
-        const fulfilledOn = new Date();
-        console.log('in claim route', fulfilledById, requestFulfilled, fulfilledOn)
-    
-        const connection = await pool.connect()
-      
+        const fulfilledOn = new Date(); 
+        const connection = await pool.connect()      
         try {
-          await connection.query('BEGIN');
-      
+          await connection.query('BEGIN');     
           const sqlUpdate = `
             UPDATE requests
             SET 
@@ -152,16 +131,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
           console.log(`Transaction Error - Rolling back new account`, error);
           res.sendStatus(500);
         } finally {
-          connection.release()
-      
+          connection.release()      
         }
       });
 
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
-    console.log('in request post req.params:', req.params)
-  
-    const requestId = [req.params.id];
-  
+    const requestId = [req.params.id];  
     const connection = await pool.connect()
     try {
       await connection.query('BEGIN');
@@ -169,8 +144,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         DELETE FROM requests 
         WHERE id = $1 
         ;`
-      await connection.query(sqlDeleteRequest, requestId);
-      
+      await connection.query(sqlDeleteRequest, requestId);     
       await connection.query('COMMIT');
       res.sendStatus(200);
     } catch (error) {

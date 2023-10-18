@@ -1,10 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from "react";
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl'
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React from 'react';
 import { Button } from '@mui/material';
 
 function AdminViewGroupPage() {

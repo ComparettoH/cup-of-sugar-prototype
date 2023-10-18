@@ -7,7 +7,6 @@ import { TextField } from '@mui/material';
 import { Button, Typography, Stack } from "@mui/material";
 import Box from '@mui/material/Box';
 
-
 function OfferFormPage1() {
 
     const dispatch = useDispatch();
@@ -18,7 +17,6 @@ function OfferFormPage1() {
     const [itemHeadline, setItemHeadline] = useState('')
 
     const handleOfferFormPage2 = () => {
-        console.log('itemHeadline:', itemHeadline)
         const itemNamePhoto = {
             itemHeadline,
             offerImage,
@@ -49,8 +47,7 @@ function OfferFormPage1() {
                     '& .MuiTextField-root': { m: 1, width: '35ch' },
                     mt: 2
                 }}
-            >
-                
+            >               
                 <Typography variant='h4'  >
                     Make an offer
                 </Typography>
@@ -64,15 +61,13 @@ function OfferFormPage1() {
                     Headline:
                     </Typography>
                     <TextField
+                        required
                         type='text'
                         placeholder='What item are you offering?'
                         value={itemHeadline}
                         onChange={(event) => setItemHeadline(event.target.value)}
-                        fullWidth
-                        
+                        fullWidth                       
                     />
-                
-
                 <Typography align='left' >
                     Upload an image here:
                     {previewImage &&
@@ -80,6 +75,7 @@ function OfferFormPage1() {
                     }
                 </Typography>
                 <TextField
+                    required
                     onChange={e => offerImageUpload(e.target.files[0])}
                     type="file"
                     accept="image/*"
@@ -92,9 +88,7 @@ function OfferFormPage1() {
                         type="submit"
                         variant="contained"
                         onClick={() => handleOfferFormPage2({ itemHeadline })}>Next</Button>
-
-                </Box>
-                
+                </Box>               
         </>
     )
 }

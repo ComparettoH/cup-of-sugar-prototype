@@ -7,10 +7,8 @@ import EditIcon from '@mui/icons-material/Edit';
 export default function UpdateActivityButton({ activity }) {
     const dispatch = useDispatch();
     const history = useHistory();
-
     // updates activity
     const handleUpdate = () => {
-        console.log('activity in button', activity)
         dispatch({ type: 'SET_UPDATE_ACTIVITY', payload: activity })
         activity.offered_on ?
         history.push('/updateoffer')
@@ -19,7 +17,6 @@ export default function UpdateActivityButton({ activity }) {
     }
 
     return (
-
         <IconButton onClick={handleUpdate} edge="end" aria-label="delete" >
             <EditIcon />
         </IconButton>

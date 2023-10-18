@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // material ui imports
-import { Box, Typography, Stack, AppBar } from '@mui/material';
+import { Typography, Stack, AppBar } from '@mui/material';
 import { IconButton } from "@mui/material";
 import { ThemeProvider } from '@mui/material/styles';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
@@ -12,7 +12,6 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MaterialTheme from '../../MaterialTheme/MaterialTheme';
 import { useDispatch } from 'react-redux';
-
 
 function TopNavBar() {
 
@@ -26,11 +25,7 @@ function TopNavBar() {
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
     }, [dispatch]);
-    // // navigates to the profile page
-    // const navProfile = () => {
-    //     history.push('/profile')
-    // }
-
+    
     // Open the dropdown menu
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -64,9 +59,7 @@ function TopNavBar() {
 
     return (
 <ThemeProvider theme={theme}>
-
         <AppBar sx={{bgcolor: 'warning.main'}}>
-
             <Stack direction='row' justifyContent="space-around" alignItems="center" >
                 <Typography>
                     Cup of <br></br> Sugar
@@ -92,10 +85,6 @@ function TopNavBar() {
                     <MenuItem onClick={navHowItWorks}>How It Works</MenuItem>
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
-                {/* <IconButton id='active' size='large' onClick={navProfile} >
-
-                    <AccountCircleTwoToneIcon fontSize="large" />
-                </IconButton> */}
             </Stack>
         </AppBar>
         </ThemeProvider>

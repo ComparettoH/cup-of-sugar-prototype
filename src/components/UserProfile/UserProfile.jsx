@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 // Material UI imports
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Grid } from "@mui/material";
-
 
 // This function will fetch user profile info:
 // Username, Picture, About Section, Allergies, and Dietary Restrictions,
@@ -25,11 +23,9 @@ function UserProfile() {
     const store = useReduxStore();
     const profile = useSelector((store) => store.profile);
 
-
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
     }, [dispatch]);
-
 
     // will this send user to original user profile form or new page EditProfile?
     const linkEditProfile = () => {
@@ -39,7 +35,6 @@ function UserProfile() {
         dispatch({ type: 'SET_EDIT_PROFILE', payload: profile })
         // navigate to editprofile page
         history.push('/editprofile')
-
     }
 
     function handleGroupInfo() {
@@ -53,11 +48,8 @@ function UserProfile() {
         return [...new Set(array)];
     }
 
-  
-
     return (
-        <>
-        
+        <>       
             <Box>
                <Stack direction="column" spacing={2} >
                     <Typography variant="h4" align="center">{profile[0]?.name}</Typography>
@@ -67,9 +59,7 @@ function UserProfile() {
               </Stack>
               </Box>
                 <br></br>
-
                 <Box sx={{ mx: '1rem' }}>
-
                     <Typography variant="h5" sx={{fontWeight: 'bold'}}>About Me</Typography>
                     <Typography variant="h6">{profile[0]?.about}</Typography><br></br>
 
@@ -80,7 +70,6 @@ function UserProfile() {
                     <Typography variant="h5" sx={{fontWeight: 'bold'}}>My Dietary Restrictions</Typography>
                     <Typography variant="h6">{profile[0]?.restriction_type ? removeDuplicates(
                         profile[0]?.restriction_type).join(', ') : 'None'}</Typography>
-
                 </Box >
                 <Box>
                 <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -90,7 +79,6 @@ function UserProfile() {
             </Box>
         </>
     )
-
 };
 
 export default UserProfile;

@@ -38,7 +38,6 @@ function AddMemberForm() {
         history.push('/usergroup');
     }
 
-
     return (
         <>
             <form className='formPanel' onSubmit={adminInvite}>
@@ -46,6 +45,7 @@ function AddMemberForm() {
                     <label htmlFor='userEmail'>
                         Email Address:
                         <TextField
+                            required
                             type="text"
                             placeholder="Who would you like to invite to join Cup of Sugar?"
                             value={userEmail}
@@ -59,6 +59,7 @@ function AddMemberForm() {
                     <label htmlFor='subjectLine'>
                         Subject Line:
                         <TextField
+                            required
                             type="text"
                             placeholder="Include name of invitee"
                             value={subjectLine}
@@ -72,10 +73,11 @@ function AddMemberForm() {
                     <label htmlFor='adminMessage'>
                         Message:
                         <TextField
+                            required
                             id="adminMessage"
                             type="text"
                             multiline rows={4}
-                            placeholder="Post invite information here"
+                            placeholder="Post invite information here. Please include invite code"
                             value={emailText}
                             onChange={(event) => setEmailText(event.target.value)}
                             fullWidth
