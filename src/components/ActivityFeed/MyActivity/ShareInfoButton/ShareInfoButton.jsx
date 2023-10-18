@@ -17,7 +17,6 @@ export default function ShareInfoButton({ activity }) {
     const style = MaterialTheme().modalStyle;
     console.log('activity', activity)
 
-
     // changes state for the modal operation
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);

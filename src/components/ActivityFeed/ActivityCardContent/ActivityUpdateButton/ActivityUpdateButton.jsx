@@ -19,7 +19,6 @@ export default function UpdateActivityButton({ activity }) {
     }
 
     return (
-
         <IconButton onClick={handleUpdate} edge="end" aria-label="delete" >
             <EditIcon />
         </IconButton>

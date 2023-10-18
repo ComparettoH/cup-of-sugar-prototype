@@ -1,10 +1,7 @@
-
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { Button, Box, Typography, Stack, Divider } from '@mui/material';
-
-
 
 export default function DeleteButton({ activity }) {
     const dispatch = useDispatch();

@@ -6,7 +6,6 @@ import cupIcon from '../../assets/cupOfSugarIcon.png';
 import bottomIcon from '../../assets/Squiggle Arrow RotatedBottom.png'
 
 // CUSTOM COMPONENTS
-import RegisterForm from '../RegisterForm/RegisterForm';
 import { Typography, Box, Stack, Button } from '@mui/material';
 
 function LandingPage() {

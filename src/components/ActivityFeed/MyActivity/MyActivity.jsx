@@ -1,10 +1,8 @@
 import React from "react";
 import { DateTimeFormatter, DateFormatter } from '../../../utils/DateTimeFormatter/DateTimeFormatter';
 import ActivityUpdateButton from "../ActivityCardContent/ActivityUpdateButton/ActivityUpdateButton";
-
 import { ListItem, ListItemText } from "@mui/material";
 import ShareInfoButton from "./ShareInfoButton/ShareInfoButton";
-
 
 function MyActivity({activity, index}) {
     return activity.claimed_on || activity.fulfilled_on ?

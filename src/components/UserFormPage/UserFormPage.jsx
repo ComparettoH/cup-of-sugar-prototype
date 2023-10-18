@@ -1,15 +1,12 @@
-
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import WebcamPage from '../WebcamPage/WebcamPage'
 // material ui imports
 import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,9 +18,9 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Box from '@mui/material/Box';
 import CupIcon from '../../assets/cupOfSugarIcon.png'
 
-
 function UserFormPage({ setIsNavVisible }) {
 
+    //this useEffect hides the nav bars!
     useEffect(() => {
         setIsNavVisible(false);
 
@@ -91,7 +88,6 @@ function UserFormPage({ setIsNavVisible }) {
         history.push('/profile')
         console.log('testing', newProfile)
     }
-
     
     //funtion that will handle homemade pref selection
     const homemadePrefChange = (event) => {
@@ -132,7 +128,6 @@ function UserFormPage({ setIsNavVisible }) {
                         <Typography>
                             Name
                         </Typography>
-
                         <TextField
                             type="text"
                             placeholder='Your name here'
@@ -142,12 +137,6 @@ function UserFormPage({ setIsNavVisible }) {
                             sx={{ mb: 2 }}
                         />
                     </div>
-                    {/* webcam page to take and display picture for your profile */}
-                    {/* <WebcamPage
-                // imageGallery={imageGallery}
-                // fetchImages={fetchImages}
-                /> */}
-
                     <div>
                         <Typography>
                             Choose an image or photo of yourself:
@@ -165,7 +154,6 @@ function UserFormPage({ setIsNavVisible }) {
                             />
                         </Typography>
                     </div>
-
                     <div>
                         <Typography>
                             Tell us a little about yourself:
@@ -235,10 +223,6 @@ function UserFormPage({ setIsNavVisible }) {
                                 <FormControlLabel value='false' control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
-                        {/* <
-                            checked={acceptsHomemade}
-                            onChange={(event) => setAcceptsHomemade(event.target.value)}
-                        /> */}
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Button onClick={() => handleBackButton()} variant="outlined" color='success'>Back</Button>

@@ -4,8 +4,6 @@ import ActivityCardContent from './ActivityCardContent/ActivityCardContent';
 import MyActivity from './MyActivity/MyActivity';
 // material ui imports
 import {
-    AppBar,
-    Toolbar,
     Card,
     Switch,
     Grid,

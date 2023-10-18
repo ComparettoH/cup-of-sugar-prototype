@@ -1,26 +1,18 @@
 // React and Redux imports 
 import React from "react";
 import dayjs from 'dayjs';
-
 import { useEffect, useState } from "react";
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from "react-redux";
-import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
-
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
-
-
 
 function RequestFormPage() {
 
@@ -32,10 +24,6 @@ function RequestFormPage() {
     const [itemDescription, setItemDescription] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('')
     const [selectedDate, setSelectedDate] = useState(null);
-
-    // const handleItemCategorySelection = (event) => {
-    //     setSelectedCategory(event.target.value)
-    // }
 
     useEffect(() => {
         getCategoryList();
@@ -83,7 +71,6 @@ function RequestFormPage() {
             <Typography variant="h5" align="center">
                 I wish I had:
             </Typography>
-
             <form onSubmit={handleSubmitRequest} className='formPanel'>
                 <div>
                     <Typography>
@@ -145,7 +132,6 @@ function RequestFormPage() {
                 Request
             </Button>
             </form>
-
         </>)
 }
 

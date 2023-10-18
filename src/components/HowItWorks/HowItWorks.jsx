@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-
 // material ui imports
 import Box from '@mui/material/Box';
 import { Button, Typography } from "@mui/material";
@@ -14,10 +13,10 @@ import SquiggleArrow2 from '../../assets/cupOfSugarSquiggleArrowDL.png'
 // css to align page format
 import './HowItWorks.css'
 
-
 // This is a static page to show how the app works
 function HowItWorks({setIsNavVisible}) {
 
+    // this hides the nav bars!
     useEffect(() => {
         setIsNavVisible(false);
     
@@ -27,8 +26,6 @@ function HowItWorks({setIsNavVisible}) {
       }, []);
 
     const history = useHistory();
-
-    
 
     // takes the user to the user form after registration
     const handleGetStarted = () => {
@@ -61,7 +58,6 @@ function HowItWorks({setIsNavVisible}) {
                     <Button variant='contained' onClick={() => handleGetStarted()}>Get Started</Button>
                 </footer>
             </Box>
-
         </>
     )
 };

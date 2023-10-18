@@ -1,11 +1,8 @@
-
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Modal from '@mui/material/Modal';
 import { Button, Box, Typography, Stack, Divider, Fab } from '@mui/material';
-
-
 
 export default function ActivityCompleteModal({ offer, request }) {
     console.log('offer, request:', offer, request)
@@ -13,7 +10,6 @@ export default function ActivityCompleteModal({ offer, request }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const group = useSelector((store => store.group))
     // changes state for the modal operation
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -36,7 +32,6 @@ export default function ActivityCompleteModal({ offer, request }) {
                 type: 'FULFILL_REQUEST',
                 payload: request.id
             })
-
         history.push('/activity')
     }
 
@@ -83,7 +78,7 @@ export default function ActivityCompleteModal({ offer, request }) {
                         </Box>)
                         :
                         (<Box>
-                            <Typography id="modal-fulfill-request" color='info.main'fontWeight='bold'>
+                            <Typography id="modal-fulfill-request" color='info.main' fontWeight='bold'>
                                 {`You're sharing ${request.item_name} with ${request.name}. `}
                             </Typography>
                             <Typography mt={2} id="modal-fulfill-request" color='info.main'>
@@ -91,7 +86,6 @@ export default function ActivityCompleteModal({ offer, request }) {
                             </Typography>
                         </Box>)
                     }
-
                     <Stack
                         direction="row"
                         spacing={2}
@@ -100,8 +94,6 @@ export default function ActivityCompleteModal({ offer, request }) {
                         divider={<Divider orientation="vertical" flexItem />}
                         sx={{ mt: 3 }}
                     >
-
-
                         <Button
                             onClick={handleClose}
                             size="small"
@@ -123,5 +115,4 @@ export default function ActivityCompleteModal({ offer, request }) {
             </Modal>
         </div>
     )
-
 }

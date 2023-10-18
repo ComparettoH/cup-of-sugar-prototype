@@ -38,7 +38,6 @@ function AddMemberForm() {
         history.push('/usergroup');
     }
 
-
     return (
         <>
             <form className='formPanel' onSubmit={adminInvite}>
