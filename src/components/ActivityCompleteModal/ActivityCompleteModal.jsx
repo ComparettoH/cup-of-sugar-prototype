@@ -5,11 +5,8 @@ import Modal from '@mui/material/Modal';
 import { Button, Box, Typography, Stack, Divider, Fab } from '@mui/material';
 
 export default function ActivityCompleteModal({ offer, request }) {
-    console.log('offer, request:', offer, request)
-
     const dispatch = useDispatch();
     const history = useHistory();
-
     // changes state for the modal operation
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);

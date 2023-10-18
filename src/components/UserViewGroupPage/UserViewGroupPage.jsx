@@ -45,7 +45,6 @@ function UserViewGroupPage() {
     console.log('groupMembers:', groupMembers)
 
     const handleNeighborSelection = (member) => {
-        console.log('member:', member)
         setSelectedNeighbor(member);
         handleOpen();
         dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
@@ -119,7 +118,6 @@ function UserViewGroupPage() {
                         {selectedMember.name}</Typography>
                     <img src={selectedMember.imgpath} alt="Neighbor's profile photo" />
 
-
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {selectedMember.about}
                     </Typography>
@@ -133,10 +131,8 @@ function UserViewGroupPage() {
                         Dietary Restrictions:</Typography><Typography> {selectedMember && selectedMember.restriction_type
                             ? removeDuplicates(selectedMember.restriction_type).join(', ')
                             : 'No restrictions'}</Typography>
-
                 </Box>
             </Modal>
-
             {user.role > 0 &&
                 <Grid align="center">
                     <Button variant='contained' onClick={() => navAddMember()}>

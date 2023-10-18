@@ -4,7 +4,6 @@ import './LandingPage.css';
 import topIcon from '../../assets/Squiggle Arrow RotatedTop.png';
 import cupIcon from '../../assets/cupOfSugarIcon.png';
 import bottomIcon from '../../assets/Squiggle Arrow RotatedBottom.png'
-
 // CUSTOM COMPONENTS
 import { Typography, Box, Stack, Button } from '@mui/material';
 

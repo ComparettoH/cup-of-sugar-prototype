@@ -7,7 +7,7 @@ import { useState } from "react";
 import { DateFormatter } from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
-import { Grid, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from "@mui/material";
@@ -26,8 +26,6 @@ function EditOfferItemPage() {
     const history = useHistory();
     const updateOffer = useSelector((store) => store.updateActivity)
     const category = useSelector((store) => store.category)
-
-    console.log('update offer in edit offer', updateOffer)
     const [selectedCategory, setSelectedCategory] = useState('')
 
     useEffect(() => {
@@ -39,8 +37,6 @@ function EditOfferItemPage() {
     }
 
     const Item = styled(Paper)(({ theme }) => ({
-        // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        // ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
@@ -83,7 +79,6 @@ function EditOfferItemPage() {
     }
 
     const handleUpdateBestBy = (e) => {
-        console.log('in update best by:', e)
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'best_by', value: DateFormatter(e.target.value) }

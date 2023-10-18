@@ -1,14 +1,11 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const cloudinaryUpload = require('../modules/cloudinary-config');
-
 const pool = require('../modules/pool');
-
 const router = express.Router();
 
 // GET for ALL of group's offer posts for activity feed
 router.get('/', rejectUnauthenticated, (req, res) => {
-
   if (req.isAuthenticated()) {
     const queryText = `
     SELECT
@@ -28,7 +25,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     ON offers.group_id = "group".id
     WHERE "user".group_id = $1;
         `
-
     pool.query(queryText, [req.user.group_id])
       .then((result) => {
         res.send(result.rows);
@@ -47,9 +43,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated,
   cloudinaryUpload.single("image"),
   async (req, res) => {
-    console.log('sent to cloudinary: ', req.file)
-    console.log('post body', req.body)
-
     const userId = req.user.id;
     const groupId = req.user.group_id;
     const imgPath = req.file.path;
@@ -61,7 +54,6 @@ router.post('/', rejectUnauthenticated,
     const offerDate = req.body.offered_on;
     const bestByDate = req.body.best_by;
     const expiryDate = req.body.expires_on;
-
     const connection = await pool.connect()
     try {
       await connection.query('BEGIN');
@@ -112,7 +104,6 @@ router.post('/', rejectUnauthenticated,
   });
 
 router.put("/:id", rejectUnauthenticated, async (req, res) => {
-  console.log('req.body', req.body)
   const activityId = req.params.id;
   const imgPath = req.body.imgPath;
   const categoryId = req.body.category_id;
@@ -123,12 +114,9 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
   const offerDate = req.body.offered_on;
   const bestByDate = req.body.best_by;
   const expiryDate = req.body.expires_on;
-
   const connection = await pool.connect()
-
   try {
     await connection.query('BEGIN');
-
     const sqlUpdate = `
       UPDATE offers
       SET 
@@ -163,22 +151,16 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     res.sendStatus(500);
   } finally {
     connection.release()
-
   }
 });
 
 router.put("/claim/:id", rejectUnauthenticated, async (req, res) => {
-  console.log('req.body', req.body)
   const claimedById = req.user.id;
   const offerClaimed = req.params.id;
   const claimedOn = new Date();
-  console.log('in claim route', claimedById, offerClaimed, claimedOn)
-
   const connection = await pool.connect()
-
   try {
     await connection.query('BEGIN');
-
     const sqlUpdate = `
         UPDATE offers
         SET 
@@ -199,15 +181,11 @@ router.put("/claim/:id", rejectUnauthenticated, async (req, res) => {
     res.sendStatus(500);
   } finally {
     connection.release()
-
   }
 });
 
 router.delete("/:id", rejectUnauthenticated, async (req, res) => {
-  console.log('in offer delete req.params:', req.params)
-
   const offerId = [req.params.id];
-
   const connection = await pool.connect()
   try {
     await connection.query('BEGIN');
@@ -216,7 +194,6 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
       WHERE id = $1 
       ;`
     await connection.query(sqlDeleteOffer, offerId);
-
     await connection.query('COMMIT');
     res.sendStatus(200);
   } catch (error) {
@@ -227,6 +204,5 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     connection.release()
   }
 });
-
 
 module.exports = router;

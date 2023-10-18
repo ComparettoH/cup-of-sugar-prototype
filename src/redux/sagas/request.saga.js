@@ -18,22 +18,19 @@ function* fetchRequests() {
     } catch (error) {
         console.log('fetchRequest get request failed', error)
     }
-
 }
-
 
 function* addRequest(action) {
     try {
         const newRequest = yield axios.post('/api/request', action.payload);
         console.log('in request SAGA', newRequest)
-        yield put({ type: 'CREATE_NEW_REQUEST', payload: newRequest.data});
-      }
-      catch (error) {
+        yield put({ type: 'CREATE_NEW_REQUEST', payload: newRequest.data });
+    }
+    catch (error) {
         console.log(`addRequest POST request failed`, error);
-      }
+    }
 }
 
-    
 function* fetchRequestItem() {
     try {
         const config = {
@@ -45,12 +42,9 @@ function* fetchRequestItem() {
     } catch (error) {
         console.log('fetchRequestItem get request failed', error)
     }
-
 }
 
-
 function* updateRequest(action) {
-    
     try {
         // PUTS the updated request from updateActivity reducer to the DB
         const updateRequest = action.payload
@@ -59,24 +53,23 @@ function* updateRequest(action) {
             url: `api/request/${action.payload.id}`,
             data: updateRequest
         })
-
         // yield put({ type: 'FETCH_REQUESTS' });
     } catch (error) {
         console.log('updateRequest put request failed', error)
-    }}
+    }
+}
 
-function* claimRequest (action) {
-    console.log('claim offer SAGA', action.payload)
+function* claimRequest(action) {
     try {
         yield axios.put(`/api/request/fulfill/${action.payload}`)
-        yield put({ type: 'FETCH_REQUESTS'})
+        yield put({ type: 'FETCH_REQUESTS' })
     }
     catch (err) {
         console.log('Error with claiming Request', err)
     }
 }
 
-function* deleteRequest (action) {
+function* deleteRequest(action) {
     try {
         // DELETES the request from the DB
         const deleteRequest = action.payload
@@ -85,13 +78,10 @@ function* deleteRequest (action) {
             url: `api/request/${action.payload}`,
             data: deleteRequest
         })
-
     } catch (error) {
         console.log('delete request failed', error)
-    }}
-
-
-
+    }
+}
 
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);

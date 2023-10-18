@@ -1,19 +1,14 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const cloudinaryUpload = require('../modules/cloudinary-config');
-
 const pool = require('../modules/pool');
-
 const router = express.Router();
 
 // gets user profile information to display on user profile page
 router.get("/", async (req, res) => {
-
   // sets userCurrent with id
   const userCurrent = req.user.id;
-  console.log(userCurrent);
   const connection = await pool.connect()
-
   try {
     await connection.query('BEGIN');
     //gets all information for the profile page
@@ -42,8 +37,6 @@ router.get("/", async (req, res) => {
           user_profile.imgpath;
         `
     const reply = await connection.query(sqlProfileInfo, [userCurrent]);
-    console.log('reply', reply.rows[0])
-
     await connection.query('COMMIT');
     //   sends object with: {name, homemade_pref, about, imgpath, allergy_type, and diet_type} 
     res.send(reply.rows)
@@ -63,11 +56,7 @@ router.post('/', cloudinaryUpload.single("image",
     { gravity: 'face' },
   ],
 }), async (req, res) => {
-  console.log('sent to cloudinary: ', req.file)
-  console.log('post body', req.body)
-  console.log('post user', req.user)
   const userId = req.user.id
-
   const [
     name,
     homemade_pref,
@@ -85,27 +74,19 @@ router.post('/', cloudinaryUpload.single("image",
       req.body.allergy_type.split(',').map(Number),
       req.body.restriction_type.split(',').map(Number)
     ]
-
-  //Testing console logs
-  console.log('in newUserInfo post', name, homemade_pref, about, imgpath, allergy_type, restriction_type)
-  console.log(userId)
-
   const connection = await pool.connect()
   try {
     await connection.query('BEGIN');
-
     // posts user info on user_profile table
     const sqlUserInfo = `INSERT INTO "user_profile"
       ("user_id", "name","homemade_pref", "about", "imgpath")
         VALUES ($1, $2, $3, $4, $5);`
-
     await connection.query(sqlUserInfo, [userId, name, homemade_pref, about, imgpath])
     //posts user allergy selections to allergies table
     const sqlUserAllergies =
       `INSERT INTO "user_allergies"
       ("user_id", "allergy_id")
       VALUES ($1, $2);`
-
     for (let allergy of allergy_type) {
       await connection.query(sqlUserAllergies, [userId, allergy])
     }
@@ -114,11 +95,9 @@ router.post('/', cloudinaryUpload.single("image",
       `INSERT INTO "user_dietary_restrictions"
       ("user_id", "user_restriction_id")
       VALUES ($1, $2);`
-
     for (let restriction of restriction_type) {
       await connection.query(sqlUserDietary, [userId, restriction])
     }
-
     await connection.query('COMMIT');
     res.sendStatus(200);
   }
@@ -155,14 +134,6 @@ router.put("/", async (req, res) => {
         req.body.allergy_type,
         req.body.restriction_type
       ]
-  console.log('name, homemade_pref, about, imgpath, allergy_type, restriction_type',
-    name,
-    homemade_pref,
-    about,
-    imgpath,
-    allergy_type,
-    restriction_type)
-
   const connection = await pool.connect()
   try {
     await connection.query('BEGIN');
@@ -188,7 +159,6 @@ router.put("/", async (req, res) => {
         WHERE id = $1
         ;`
     await connection.query(sqlUpdateDietary, [id, restriction_type])
-
     await connection.query('COMMIT');
     res.sendStatus(200);
   } catch (error) {

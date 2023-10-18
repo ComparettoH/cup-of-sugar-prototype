@@ -17,7 +17,6 @@ function OfferFormPage1() {
     const [itemHeadline, setItemHeadline] = useState('')
 
     const handleOfferFormPage2 = () => {
-        console.log('itemHeadline:', itemHeadline)
         const itemNamePhoto = {
             itemHeadline,
             offerImage,

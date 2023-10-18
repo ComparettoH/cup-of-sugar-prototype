@@ -16,15 +16,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Button, Typography } from "@mui/material";
 
-
-// import Button from '@mui/material/Button';
-
 function OfferFormPage2() {
     const itemName = useSelector((store) => store.offers.itemHeadline)
     const imgpath = useSelector((store) => store.offers.offerImage)
     const category = useSelector((store) => store.category)
-    // console.log('itemName:', itemName)
-
     const dispatch = useDispatch();
     const history = useHistory();
 

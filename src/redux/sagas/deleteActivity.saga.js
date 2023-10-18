@@ -6,9 +6,7 @@ function* deleteActivity(action) {
 try 
 {
     const activity = action.payload;
-    // console.log('activity on delete:', activity)
       activity.offered_on ?
-
         yield axios({
             method: 'DELETE',
             url: `/api/offer/${activity.id}`,
@@ -18,7 +16,6 @@ try
             method: 'DELETE',
             url: `/api/request/${activity.id}`,
         })
-
         activity.offered_on ?
         yield put({
             type: 'FETCH_OFFERS'

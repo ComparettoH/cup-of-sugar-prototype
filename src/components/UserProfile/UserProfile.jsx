@@ -23,11 +23,9 @@ function UserProfile() {
     const store = useReduxStore();
     const profile = useSelector((store) => store.profile);
 
-
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_PROFILE' });
     }, [dispatch]);
-
 
     // will this send user to original user profile form or new page EditProfile?
     const linkEditProfile = () => {
@@ -37,7 +35,6 @@ function UserProfile() {
         dispatch({ type: 'SET_EDIT_PROFILE', payload: profile })
         // navigate to editprofile page
         history.push('/editprofile')
-
     }
 
     function handleGroupInfo() {
