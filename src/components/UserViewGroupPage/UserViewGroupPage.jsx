@@ -48,6 +48,7 @@ function UserViewGroupPage() {
         setSelectedNeighbor(member);
         handleOpen();
         dispatch({ type: 'SET_SELECTED_MEMBER', payload: member })
+    }
 
     function removeDuplicates(array) {
         return [...new Set(array)];

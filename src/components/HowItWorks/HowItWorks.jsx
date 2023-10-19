@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // material ui imports
 import Box from '@mui/material/Box';
@@ -15,7 +16,7 @@ import './HowItWorks.css'
 
 // This is a static page to show how the app works
 function HowItWorks({setIsNavVisible}) {
-
+const profile = useSelector((store) => store.profile)
     // this hides the nav bars!
     useEffect(() => {
         setIsNavVisible(false);
@@ -29,7 +30,11 @@ function HowItWorks({setIsNavVisible}) {
 
     // takes the user to the user form after registration
     const handleGetStarted = () => {
+        profile.name ? 
+        history.push('/activity')
+        :
         history.push('/userform')
+
     };
 
     return (
@@ -55,7 +60,7 @@ function HowItWorks({setIsNavVisible}) {
                     <Typography variant="h6" align="center">See how your community is helping each other out!</Typography>
                 </section>
                 <footer style={{marginTop: "40px"}}>
-                    <Button variant='contained' onClick={() => handleGetStarted()}>Get Started</Button>
+                    <Button variant='contained' onClick={() => handleGetStarted()}>{profile.name ? 'Activity' : 'Get Started'}</Button>
                 </footer>
             </Box>
         </>

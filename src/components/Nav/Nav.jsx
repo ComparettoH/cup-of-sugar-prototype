@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import { NavVisibilityContext } from './NavVisibilityContext';
+import { Link } from '@mui/material';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
@@ -19,21 +20,13 @@ function Nav() {
   return (
 
     <div className="nav">
-      <div>
         {/* If a user is logged in, show these links */}
         {user.id && (
           <div className='loginNav'>
             <TopNavBar />
-            <div>
-            </div>
             <BottomNavBar id='bottomNav' value={value} setValue={setValue} />
           </div>
         )}
-
-        <Link className="navLink" to="/about">
-          About
-        </Link>
-      </div>
     </div>
   );
 };

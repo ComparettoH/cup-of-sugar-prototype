@@ -83,21 +83,6 @@ function* deleteRequest (action) {
         console.log('delete request failed', error)
     }}
 
-
-function* deleteRequest(action) {
-    try {
-        // DELETES the request from the DB
-        const deleteRequest = action.payload
-        yield axios({
-            method: 'DELETE',
-            url: `api/request/${action.payload}`,
-            data: deleteRequest
-        })
-    } catch (error) {
-        console.log('delete request failed', error)
-    }
-}
-
 function* requestSaga() {
     yield takeLatest('FETCH_REQUESTS', fetchRequests);
     yield takeLatest('ADD_REQUEST', addRequest);
