@@ -19,8 +19,7 @@ function OfferItemPage() {
     return (
         <Box>
             <Stack direction="column" spacing={2} >
-            <section className='offer-item'>
-                <Grid container spacing={2} sx={{ mx: '1rem' }}>                   
+                <Grid container spacing={2} sx={{ mx: '1rem' }}>
                     <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
                         <Typography variant="h6">{activity.name} would like to share</Typography>
                     </Grid>
@@ -28,7 +27,7 @@ function OfferItemPage() {
                         <Typography variant="h4">{activity.item_name}</Typography>
                     </Grid>
                     <Grid align="center" >
-                        <img src={activity.imgpath} sx={{width: '300px', height: '300px'}} />
+                        <img src={activity.imgpath} sx={{ width: '300px', height: '300px' }} />
                     </Grid>
                     <Grid xs={12}>
                         <Typography variant="subtitle1">{activity.description}</Typography>
@@ -37,12 +36,12 @@ function OfferItemPage() {
                         <Typography variant="h6">This offer expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
                     </Grid>
                 </Grid>
-            </section>
-            <footer>
-                <ActivityCompleteModal offer={activity} />
-            </footer>
+                {/* Claim button inside activity complete modal component */}
+                <Grid xs={12} mt={5} display="flex" justifyContent="center" alignItems="center">
+                    <ActivityCompleteModal request={activity} />
+                </Grid>
             </Stack>
-        </Box>        
+        </Box>
     )
 }
 

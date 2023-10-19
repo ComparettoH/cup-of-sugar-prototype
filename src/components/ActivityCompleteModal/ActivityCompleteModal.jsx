@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Modal from '@mui/material/Modal';
-import { Button, Box, Typography, Stack, Divider, Fab } from '@mui/material';
+import { Button, Box, Typography, Stack, Divider, Fab, Grid } from '@mui/material';
 
 
 
@@ -57,6 +57,7 @@ export default function ActivityCompleteModal({ offer, request }) {
     return (
         <div>
             <Button
+              
                 onClick={handleOpen}
                 size="small"
                 variant='contained'
@@ -121,7 +122,7 @@ export default function ActivityCompleteModal({ offer, request }) {
                     </Stack>
                 </Box>
             </Modal>
-        </div>
+            </div>
     )
 
 }

@@ -131,9 +131,11 @@ function RequestFormPage() {
                         />
                     </Typography>
                 </div>
+                <div style={{ float: 'right' }}>
                 <Button type="submit" variant="contained">
                     Request
                 </Button>
+                </div>
             </form>
         </>)
 }

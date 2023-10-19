@@ -147,7 +147,7 @@ function EditRequestItemPage() {
                 </div>
                 <br></br>
                 <Stack spacing={14} direction="row" justifyContent={center}>
-                <Button type="submit" variant="contained" sx={{ bgcolor: 'error.light' }} onClick={() => handleDeleteRequest(updateRequest)}>
+                <Button type="submit" variant="outlined" color="error" onClick={() => handleDeleteRequest(updateRequest)}>
                         Delete
                     </Button>
                     <Button type="submit" variant="contained" onClick={() => handleSaveUpdate()}>

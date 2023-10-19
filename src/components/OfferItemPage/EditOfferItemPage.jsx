@@ -186,7 +186,7 @@ function EditOfferItemPage() {
             </div>
             <br></br>
             <Stack spacing={14} direction="row" justifyContent={center}>
-                <Button type="submit" variant="contained" sx={{ bgcolor: 'error.light' }} onClick={() => handleDeleteOffer(updateOffer)}>
+                <Button type="submit" variant="outlined" color="error" onClick={() => handleDeleteOffer(updateOffer)}>
                     Delete
                 </Button>
 

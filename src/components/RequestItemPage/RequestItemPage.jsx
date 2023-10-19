@@ -26,30 +26,32 @@ function RequestItemPage() {
     return (
         <>
             <Box>
-                <header>
-                </header>
-                <section className='request-item'>
-                    <Grid container spacing={2} sx={{ mx: '1rem' }}>
 
-                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant="h5">{activity.name} requested</Typography>
-                        </Grid>
-                        <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant='h4'> {activity.item_name}
-                            </Typography>
-                        </Grid> 
 
-                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant="subtitle1">{activity.description}</Typography>
-                        </Grid>
-                        <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
-                            <Typography variant="h6">This request expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
-                        </Grid>
+                <Grid container spacing={2} sx={{ mx: '1rem' }}>
+
+                    <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                        <Typography variant="h5">{activity.name} requested</Typography>
                     </Grid>
-                </section>
-                <footer>
+                    <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
+                        <Typography variant='h4'> {activity.item_name}
+                        </Typography>
+                    </Grid>
+
+                    <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                        <Typography variant="subtitle1">{activity.description}</Typography>
+                    </Grid>
+                    <Grid xs={12} mt={2} display="flex" justifyContent="center" alignItems="center">
+                        <Typography variant="h6">This request expires on: {DateTimeFormatter(activity.expires_on)}</Typography>
+                    </Grid>
+
+                </Grid>
+                {/* Fulfill button inside activity complete modal component */}
+                <Grid xs={12} mt={5} display="flex" justifyContent="center" alignItems="center">
                     <ActivityCompleteModal request={activity} />
-                </footer>
+                </Grid>
+
+
             </Box>
         </>
     );
