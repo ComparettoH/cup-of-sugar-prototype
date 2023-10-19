@@ -1,7 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import { NavVisibilityContext } from './NavVisibilityContext';
-import { Link } from '@mui/material';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react'
