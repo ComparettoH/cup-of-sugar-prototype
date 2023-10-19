@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchRestriction() {
   try {
     const restrictResponse = yield axios.get('/api/restriction');
-    console.log('in restrictionSaga test data state', restrictResponse)
     yield put({ type: 'SET_RESTRICTION', payload: restrictResponse.data });
   }
   catch (error) {

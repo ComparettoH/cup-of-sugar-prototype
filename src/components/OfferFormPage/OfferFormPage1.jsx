@@ -4,9 +4,8 @@ import { useDispatch } from "react-redux";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TextField } from '@mui/material';
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Stack } from "@mui/material";
 import Box from '@mui/material/Box';
-
 
 function OfferFormPage1() {
 
@@ -18,7 +17,6 @@ function OfferFormPage1() {
     const [itemHeadline, setItemHeadline] = useState('')
 
     const handleOfferFormPage2 = () => {
-        console.log('itemHeadline:', itemHeadline)
         const itemNamePhoto = {
             itemHeadline,
             offerImage,
@@ -38,55 +36,59 @@ function OfferFormPage1() {
     const filloutOffer = () => {
         setItemHeadline('Fresh off the vine Tomatoes')
     }
-    
-    return(
+
+    return (
         <>
             <Box
                 component="form"
                 justifyContent="center"
+                align="center"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '35ch' },
+                    mt: 2
                 }}
-            >
-                <Typography variant='h6'  >
+            >               
+                <Typography variant='h4'  >
+                    Make an offer
+                </Typography>
+                <Typography variant='h5'  >
                     I would like to share:
                 </Typography>
-                <Typography>
+                </Box>
 
-                    Headline 
+                <Stack spacing={2} sx={{mt: 3, mx: '1rem'}}>
+                <Typography align='left' >
+                    Headline:
+                    </Typography>
                     <TextField
+                        required
                         type='text'
                         placeholder='What item are you offering?'
                         value={itemHeadline}
                         onChange={(event) => setItemHeadline(event.target.value)}
-                        fullWidth
-                        sx={{ mb: 2 }}
+                        fullWidth                       
                     />
+                <Typography align='left' >
+                    Upload an image here:
+                    {previewImage &&
+                        <img src={previewImage} style={{ width: '300px', height: '225px' }} />
+                    }
                 </Typography>
-
-                <Typography>
-                <h6>Upload an image here:</h6>
-                {previewImage &&
-                <img src={previewImage} style={{width: '300px', height: '225px'}}/>
-                }
-            </Typography>
                 <TextField
+                    required
                     onChange={e => offerImageUpload(e.target.files[0])}
                     type="file"
                     accept="image/*"
-                    variant='filled'
-
+                    variant='outlined'
+                    sx={{ mx: '1rem', width: '90%'}}
                 />
-                <div>
-
+                </Stack>
+                <Box display='flex' justifyContent='center' sx={{mt: 5}}>
                     <Button
                         type="submit"
                         variant="contained"
-                        sx={{ mt: 2, alignContent:"right" }}
                         onClick={() => handleOfferFormPage2({ itemHeadline })}>Next</Button>
-
-                </div>
-            </Box>
+                </Box>               
         </>
     )
 }

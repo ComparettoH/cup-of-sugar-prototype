@@ -75,23 +75,22 @@ function ActivityCardContent({ activity, activityView }) {
                         :
                         // checks to see if the activity has been claimed/fulfilled or not.  
                         (!activity.claimed_on && !activity.fulfilled_on) &&
-                        <CardContent id='activityCard' sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main', width: '100%', p:1 }}>
-                            <Stack 
-                            direction='row'
-                            justifyContent="space-between"
-                            alignItems="baseline"
-                            spacing={2}>
-                            <Typography gutterBottom variant="overline" color='info.main'>
-                                {activity.offered_on ? 'offer' : 'request'}
-                            </Typography>
-                            <Typography gutterBottom variant="overline " color='info.main'>
-                           {`expires ${DateFormatter(activity.expires_on)}`}
-                            </Typography>
+                        <CardContent id='activityCard' sx={{ bgcolor: activity.offered_on ? 'primary.light' : 'primary.main', width: '100%', p: 1 }}>
+                            <Stack
+                                direction='row'
+                                justifyContent="space-between"
+                                alignItems="baseline"
+                                spacing={2}>
+                                <Typography gutterBottom variant="overline" color='info.main'>
+                                    {activity.offered_on ? 'offer' : 'request'}
+                                </Typography>
+                                <Typography gutterBottom variant="overline " color='info.main'>
+                                    {`expires ${DateFormatter(activity.expires_on)}`}
+                                </Typography>
                             </Stack>
                             <Typography variant="body1" color='info.dark' >
                                 {`${activity.name} ${activity.offered_on ? 'offer' : 'request'}ed ${activity.item_name} `}
                             </Typography>
-                            
                         </CardContent>
                     }
                 </Stack>
@@ -101,7 +100,6 @@ function ActivityCardContent({ activity, activityView }) {
                     <DeleteButton activity={activity} />
                 }
             </CardActions>
-
         </Card>
     );
 }

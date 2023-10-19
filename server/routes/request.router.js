@@ -1,21 +1,17 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-
 const pool = require('../modules/pool');
-
 const router = express.Router();
 
 // POST to add a new request
 router.post('/', rejectUnauthenticated, async (req, res) => {
     const userId = req.user.id;
-    const groupId = req.user.group_id;
-    
+    const groupId = req.user.group_id;   
     const itemName = req.body.item_name;
     const itemDescription = req.body.description;
     const categoryId = req.body.category_type;
     const requestDate = req.body.requested_on;
     const expiryDate = req.body.expires_on;
-
     const connection = await pool.connect()
     try {
         await connection.query('BEGIN');
@@ -34,7 +30,6 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         connection.release()
     }
 });
-
 
 // GET for ALL of group's request posts for activity feed
 router.get('/', rejectUnauthenticated, (req, res) => {
@@ -73,24 +68,15 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   });
 
   router.put("/:id", rejectUnauthenticated, async (req, res) => {
-    console.log('req.body', req.body)
       const activityId = req.params.id;
       const categoryId = req.body.category_id;
       const itemName = req.body.item_name;
       const itemDescription = req.body.description;
       const requestDate = req.body.requested_on;
       const expiryDate = req.body.expires_on;
-    
-      const connection = await pool.connect()
-    
+      const connection = await pool.connect()   
       try {
         await connection.query('BEGIN');
-    
-        // const addCategory = `SELECT id FROM categories WHERE category_type = $1;`
-        // const result = await connection.query(addCategory, [categoryType]);
-    
-        // const categoryId = result.rows[0].id;
-    
         const sqlUpdate = `
           UPDATE requests
           SET 
@@ -158,10 +144,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       });
 
   router.delete("/:id", rejectUnauthenticated, async (req, res) => {
-    console.log('in request post req.params:', req.params)
-  
-    const requestId = [req.params.id];
-  
+    const requestId = [req.params.id];  
     const connection = await pool.connect()
     try {
       await connection.query('BEGIN');

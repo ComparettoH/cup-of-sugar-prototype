@@ -1,12 +1,13 @@
+import dayjs from "dayjs";
+import { center } from "@cloudinary/url-gen/qualifiers/textAlignment";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useReduxStore from '../../hooks/useReduxStore';
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { DateFormatter } from "../../utils/DateTimeFormatter/DateTimeFormatter";
 // material ui imports
 import { styled } from '@mui/material/styles';
-import { Grid, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { TextField } from "@mui/material";
@@ -18,8 +19,6 @@ import { OutlinedInput } from "@mui/material";
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers';
 import Stack from '@mui/material/Stack';
-import dayjs from "dayjs";
-import { center } from "@cloudinary/url-gen/qualifiers/textAlignment";
 
 function EditOfferItemPage() {
 
@@ -27,8 +26,6 @@ function EditOfferItemPage() {
     const history = useHistory();
     const updateOffer = useSelector((store) => store.updateActivity)
     const category = useSelector((store) => store.category)
-
-    console.log('update offer in edit offer', updateOffer)
     const [selectedCategory, setSelectedCategory] = useState('')
 
     useEffect(() => {
@@ -40,8 +37,6 @@ function EditOfferItemPage() {
     }
 
     const Item = styled(Paper)(({ theme }) => ({
-        // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        // ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: theme.palette.text.secondary,
@@ -54,43 +49,42 @@ function EditOfferItemPage() {
             payload: { property: 'item_name', value: e.target.value }
         });
     };
-    // const handleImageChange = (e) => {
-    //     dispatch({
-    //         type: 'EDIT_ACTIVITY_ONCHANGE',
-    //         payload: { property: 'imgpath', value: e.target.value }
-    //     });
-    // }
+    
     const handleDescriptionChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'description', value: e.target.value }
         });
     };
+
     const handlePerishableChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'perishable', value: e.target.value }
         });
     }
+
     const handleHomemadeChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'homemade', value: e.target.value }
         });
     }
+
     const handleCategoryChange = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'category_id', value: e.target.value }
         });
     }
+
     const handleUpdateBestBy = (e) => {
-        console.log('in update best by:', e)
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
             payload: { property: 'best_by', value: DateFormatter(e.target.value) }
         });
     }
+
     const handleUpdateClaimBy = (e) => {
         dispatch({
             type: 'EDIT_ACTIVITY_ONCHANGE',
@@ -99,7 +93,6 @@ function EditOfferItemPage() {
     }
 
     const handleSaveUpdate = (e) => {
-
         dispatch({
             type: 'UPDATE_OFFER',
             payload: updateOffer
@@ -109,7 +102,6 @@ function EditOfferItemPage() {
 
     const handleDeleteOffer = (props) => {
         let offerId = props.id;
-
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this offer?"
         );
@@ -135,15 +127,6 @@ function EditOfferItemPage() {
                 onChange={(event) => handleHeadlineChange(event)}
                 sx={{ mx: '1rem', width: '90%'}}
             />
-            {/* <div>
-                <h6>Upload an Image here:</h6>
-                <TextField
-                            onChange={e => handleImageChange(e.target.files[0])}
-                            type="file"
-                            accept="image/*"
-                            variant='filled'
-
-                        /> */}
             <div>
             <br></br>
                 <Typography sx={{ mx: '1rem'}}>Description</Typography>
