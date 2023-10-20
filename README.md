@@ -1,4 +1,3 @@
-g
 # Cup of Sugar
 
 ## Description
